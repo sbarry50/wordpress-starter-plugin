@@ -1,13 +1,13 @@
 <?php
-
 /**
- * Register all actions and filters for the plugin
- *
- * @link       http://example.com
- * @since      1.0.0
+ * Register all actions and filters for the plugin.
  *
  * @package    PluginName
- * @subpackage PluginName/includes
+ * @subpackage PluginName/src
+ * @since      1.0.0
+ * @author     sbarry
+ * @link       http://example.com
+ * @license    GNU General Public License 2.0+
  */
 
 namespace Vendor_Name\Plugin_Name;

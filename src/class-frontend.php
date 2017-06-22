@@ -1,13 +1,13 @@
 <?php
-
 /**
  * The public-facing functionality of the plugin.
  *
- * @link       http://example.com
+ * @package    PluginName
+ * @subpackage PluginName/src
  * @since      1.0.0
- *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/Frontend
+ * @author     sbarry
+ * @link       http://example.com
+ * @license    GNU General Public License 2.0+
  */
 
 namespace Vendor_Name\Plugin_Name;
@@ -37,7 +37,7 @@ class Frontend {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since 1.0.0
-	 * 
+	 *
 	 * @param Plugin $plugin This plugin's instance.
 	 */
 	public function __construct( Plugin $plugin ) {

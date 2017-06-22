@@ -1,13 +1,13 @@
 <?php
-
 /**
- * Class that defines plugin activation/deactivation/uninstall callbacks
- *
- * @link       http://example.com
- * @since      1.0.0
+ * Class that defines plugin activation/deactivation/uninstall callbacks.
  *
  * @package    PluginName
  * @subpackage PluginName/src
+ * @since      1.0.0
+ * @author     sbarry
+ * @link       http://example.com
+ * @license    GNU General Public License 2.0+
  *
  * Heavily based on this Stack Exchange Q&A
  * @author Franz Josef Kaiser/wecodemore
@@ -51,8 +51,8 @@ class Setup {
         if ( ! current_user_can( 'activate_plugins' ) )
             return;
 
-        // This feels like a workaround. Produces "Are you sure you want to do this?" error if deactivated due to failed requirements check.    
-        if( Requirements::requirements_met() ) {
+        // This feels like a workaround. Produces "Are you sure you want to do this?" error if deactivated due to failed requirements check.
+        if( Requirements::all_requirements_met() ) {
             $plugin = isset( $_REQUEST['plugin'] ) ? $_REQUEST['plugin'] : '';
             check_admin_referer( "deactivate-plugin_{$plugin}" );
         }

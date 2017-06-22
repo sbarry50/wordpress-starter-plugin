@@ -1,5 +1,10 @@
 # Change Log
 
+## June 22, 2017
+* Refactored class-requirements and requirements notice error view
+* Added main config file. Minimum system requirements config.
+* Clean up
+
 ## June 21, 2017
 
 * Added Setup class for activation/deactivation/uninstall processes

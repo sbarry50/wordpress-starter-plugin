@@ -1,12 +1,13 @@
 <?php
 /**
- * Constants - Defines the plugin's magic constants
+ * Defines the plugin's constants.
  *
- * @package     Vendor_Name\Plugin_Name
- * @since       1.0.0
- * @author      author-name
- * @link        https://example.com
- * @license     GNU General Public License 2.0+ and MIT Licence (MIT)
+ * @package    PluginName
+ * @subpackage PluginName/src
+ * @since      1.0.0
+ * @author     sbarry
+ * @link       http://example.com
+ * @license    GNU General Public License 2.0+
  */
 
  namespace Vendor_Name\Plugin_Name;
@@ -38,6 +39,7 @@ function define_plugin_constants( $plugin_root_file ) {
 function get_plugin_constants( $plugin_root_file ) {
 
     $plugin_data = get_plugin_data( $plugin_root_file );
+    $config = include( plugin_dir_path( $plugin_root_file ) . '/config/plugin.php' );
 
     return array(
         'PLUGIN_NAME'            => $plugin_data[ 'Name' ],
@@ -47,8 +49,8 @@ function get_plugin_constants( $plugin_root_file ) {
         'PLUGIN_URL'             => get_plugin_url( $plugin_root_file ),
         'PLUGIN_VERSION'         => $plugin_data[ 'Version' ],
         'PLUGIN_TEXT_DOMAIN'     => $plugin_data[ 'TextDomain' ],
-        'PLUGIN_MIN_WP_VERSION'  => '4.5',
-        'PLUGIN_MIN_PHP_VERSION' => '5.3',
+        'PLUGIN_MIN_WP_VERSION'  => $config['requirements']['min_wp'],
+        'PLUGIN_MIN_PHP_VERSION' => $config['requirements']['min_php'],
         'WP_VERSION'             => get_bloginfo('version'),
     );
 }

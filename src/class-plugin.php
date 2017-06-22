@@ -1,16 +1,16 @@
 <?php
-
 /**
  * The file that defines the core plugin class
  *
  * A class definition that includes attributes and functions used across both the
  * public-facing side of the site and the dashboard.
  *
- * @link       http://example.com
- * @since      1.0.0
- *
  * @package    PluginName
- * @subpackage PluginName/includes
+ * @subpackage PluginName/src
+ * @since      1.0.0
+ * @author     sbarry
+ * @link       http://example.com
+ * @license    GNU General Public License 2.0+
  */
 
 namespace Vendor_Name\Plugin_Name;

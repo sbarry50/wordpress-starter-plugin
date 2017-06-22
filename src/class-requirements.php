@@ -2,12 +2,12 @@
 /**
  * Class that checks if all system requirements are met to run this plugin.
  *
- * @link       http://example.com
- * @since      1.0.0
- *
  * @package    PluginName
  * @subpackage PluginName/src
- *
+ * @since      1.0.0
+ * @author     sbarry
+ * @link       http://example.com
+ * @license    GNU General Public License 2.0+
  */
 
 namespace Vendor_Name\Plugin_Name;
@@ -15,28 +15,24 @@ namespace Vendor_Name\Plugin_Name;
 class Requirements {
 
     public function check() {
-        if ( self::requirements_met() ) {
+        if ( self::all_requirements_met() ) {
             return;
         } else {
             \add_action( 'admin_init', array( $this, 'disable_plugin' ) );
-            \add_action( 'admin_notices', array( $this, 'show_notice' ) );
+            \add_action( 'admin_notices', array( $this, 'get_notice' ) );
         }
     }
 
-    public static function requirements_met() {
-        return self::is_wp_compatible() && self::is_php_compatible();
+    public static function all_requirements_met() {
+        return self::requirement_met( WP_VERSION, PLUGIN_MIN_WP_VERSION ) &&
+               self::requirement_met( PHP_VERSION, PLUGIN_MIN_PHP_VERSION );
     }
 
-    public static function is_wp_compatible() {
-        return version_compare( WP_VERSION, PLUGIN_MIN_WP_VERSION, '>' );
-    }
-
-    public static function is_php_compatible() {
-        return version_compare( PHP_VERSION, PLUGIN_MIN_PHP_VERSION, '>' );
+    public static function requirement_met( $current, $minimum ) {
+        return version_compare( $current, $minimum, '>=' );
     }
 
     public function disable_plugin() {
-
         // return "This plugin is being disabled";
         if ( current_user_can( 'activate_plugins' ) && is_plugin_active( PLUGIN_BASENAME ) ) {
             deactivate_plugins( PLUGIN_BASENAME );
@@ -48,9 +44,14 @@ class Requirements {
         }
     }
 
-    public function show_notice() {
-        // echo "Show notice is running!";
+    public function get_notice() {
         return include_once( PLUGIN_DIR . "/views/errors/requirements_notice.php" );
+    }
+
+    public static function show_dashicon( $method ) {
+        $method ? ($dashicon = 'yes' AND $color = '#46b450') : ($dashicon = 'no' AND $color = '#dc3232');
+
+        echo "<span class=\"dashicons dashicons-{$dashicon}\" style=\"color:{$color};\"></span>";
     }
 
 }
