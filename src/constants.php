@@ -23,7 +23,7 @@ function define_plugin_constants( $plugin_root_file ) {
 
     foreach ( $const as $constant => $value ) {
         if ( ! defined( $constant ) ) {
-            define( $constant, $value );
+            define( __NAMESPACE__ . "\\{$constant}", $value );
         }
     }
 }
@@ -40,11 +40,16 @@ function get_plugin_constants( $plugin_root_file ) {
     $plugin_data = get_plugin_data( $plugin_root_file );
 
     return array(
-        'PLUGIN_ROOT'        => $plugin_root_file,
-        'PLUGIN_DIR'         => plugin_dir_path( $plugin_root_file ),
-        'PLUGIN_URL'         => get_plugin_url( $plugin_root_file ),
-        'PLUGIN_VERSION'     => $plugin_data[ 'Version' ],
-        'PLUGIN_TEXT_DOMAIN' => $plugin_data[ 'TextDomain' ]
+        'PLUGIN_NAME'            => $plugin_data[ 'Name' ],
+        'PLUGIN_ROOT'            => $plugin_root_file,
+        'PLUGIN_BASENAME'        => plugin_basename( $plugin_root_file ),
+        'PLUGIN_DIR'             => plugin_dir_path( $plugin_root_file ),
+        'PLUGIN_URL'             => get_plugin_url( $plugin_root_file ),
+        'PLUGIN_VERSION'         => $plugin_data[ 'Version' ],
+        'PLUGIN_TEXT_DOMAIN'     => $plugin_data[ 'TextDomain' ],
+        'PLUGIN_MIN_WP_VERSION'  => '4.5',
+        'PLUGIN_MIN_PHP_VERSION' => '5.3',
+        'WP_VERSION'             => get_bloginfo('version'),
     );
 }
 

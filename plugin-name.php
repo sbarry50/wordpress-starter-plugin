@@ -23,7 +23,11 @@
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       plugin-name
  * Domain Path:       /resources/lang/
+ * Min WP Version:    4.7
+ * Min PHP Version:   5.3
  */
+
+// namespace Vendor_Name\Plugin_Name;
 
  // If this file is called directly, abort.
  if ( ! defined( 'WPINC' ) ) {
@@ -37,17 +41,13 @@ if ( file_exists( $autoloader ) ) {
 
 \Vendor_Name\Plugin_Name\define_plugin_constants( __FILE__ );
 
-/**
- * The code that runs during plugin activation.
- * This action is documented in lib/Activator.php
- */
-\register_activation_hook( __FILE__, '\Vendor_Name\Plugin_Name\Activator::activate' );
+$requirements = new \Vendor_Name\Plugin_Name\Requirements();
+$requirements->check();
+register_activation_hook( __FILE__, array( 'Vendor_Name\Plugin_Name\Setup', 'activate' ) );
+register_deactivation_hook( __FILE__, array( 'Vendor_Name\Plugin_Name\Setup', 'deactivate' ) );
+// register_uninstall_hook( __FILE__, array( 'Vendor_Name\Plugin_Name\Setup', 'uninstall' ) );
 
-/**
- * The code that runs during plugin deactivation.
- * This action is documented in lib/Deactivator.php
- */
-\register_deactivation_hook( __FILE__, '\Vendor_Name\Plugin_Name\Deactivator::deactivate' );
+
 
 /**
  * Begins execution of the plugin.
@@ -58,3 +58,19 @@ if ( file_exists( $autoloader ) ) {
     $plugin = new \Vendor_Name\Plugin_Name\Plugin();
     $plugin->run();
 } );
+
+// ddd( \do_action('admin_init') );
+// ddd( admin_init );
+// d( version_compare( WP_VERSION, PLUGIN_MIN_WP_VERSION, '>' ) );
+// d( WP_VERSION );
+// d( PLUGIN_MIN_WP_VERSION );
+// d( version_compare( PHP_VERSION, PLUGIN_MIN_PHP_VERSION, '>' ) );
+// d( PHP_VERSION );
+// d( PLUGIN_MIN_PHP_VERSION );
+// ddd( Requirements::requirements_met() );
+// d( PLUGIN_ROOT );
+// d( PLUGIN_BASENAME );
+// d( PLUGIN_DIR );
+// d( PLUGIN_URL );
+// d( PLUGIN_VERSION );
+// ddd( PLUGIN_TEXT_DOMAIN );
