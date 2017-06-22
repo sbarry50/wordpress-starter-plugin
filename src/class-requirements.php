@@ -48,8 +48,8 @@ class Requirements {
         return include_once( PLUGIN_DIR . "/views/errors/requirements_notice.php" );
     }
 
-    public static function show_dashicon( $method ) {
-        $method ? ($dashicon = 'yes' AND $color = '#46b450') : ($dashicon = 'no' AND $color = '#dc3232');
+    public static function show_dashicon( $current, $minimum ) {
+        self::requirement_met( $current, $minimum ) ? ($dashicon = 'yes' AND $color = '#46b450') : ($dashicon = 'no' AND $color = '#dc3232');
 
         echo "<span class=\"dashicons dashicons-{$dashicon}\" style=\"color:{$color};\"></span>";
     }

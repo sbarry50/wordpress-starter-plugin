@@ -18,13 +18,13 @@ namespace Vendor_Name\Plugin_Name;
                     <th style="text-align: left;">Wordpress</th>
                     <td><?php echo PLUGIN_MIN_WP_VERSION; ?></td>
                     <td><?php echo WP_VERSION; ?></td>
-                    <td><?php Requirements::show_dashicon( self::requirement_met( WP_VERSION, PLUGIN_MIN_WP_VERSION ) ); ?></td>
+                    <td><?php Requirements::show_dashicon( WP_VERSION, PLUGIN_MIN_WP_VERSION ); ?></td>
                 </tr>
                 <tr>
                     <th style="text-align: left;">PHP</th>
                     <td><?php echo PLUGIN_MIN_PHP_VERSION; ?></td>
                     <td><?php echo PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION . '.' . PHP_RELEASE_VERSION; ?></td>
-                    <td><?php Requirements::show_dashicon( self::requirement_met( PHP_VERSION, PLUGIN_MIN_PHP_VERSION ) ); ?></td>
+                    <td><?php Requirements::show_dashicon( PHP_VERSION, PLUGIN_MIN_PHP_VERSION ); ?></td>
                 </tr>
             </tbody>
         </table>
