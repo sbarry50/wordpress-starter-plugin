@@ -17,13 +17,13 @@ module.exports = function ( moduleRoot ) {
 	 ***********************************/
 
 	var moduleSettings = {
-		package: 'wp-plugin-boilerplate',
+		package: 'wp-starter-plugin',
 		domain: 'example.dev',
 		// If this is for a theme, set to `true`; else, set to `false`.
 		isTheme: false,
 		i18n: {
-			textdomain: 'wp-plugin-boilerplate',
-			languageFilename: 'wp-plugin-boilerplate.pot',
+			textdomain: 'wp-starter-plugin',
+			languageFilename: 'wp-starter-plugin.pot',
 			bugReport: 'https://example.com',
 			lastTranslator: 'Translator <translator@example.com>',
 			team: 'Team <team@example.com>'
@@ -80,7 +80,7 @@ module.exports = function ( moduleRoot ) {
 	 */
 	var paths = {
 		css: ['./*.css', '!*.min.css'],
-		icons: assetDirs.images + 'svg-icons/*.svg',
+		icons: assetDirs.icons + '/*.svg',
 		images: [ assetDirs.images + '*', '!' + assetDirs.images + '*.svg' ],
 		php: [ moduleRoot + '*.php', moduleRoot + '**/*.php'],
 		sass: assetDirs.sass + '**/*.scss',
@@ -103,7 +103,7 @@ module.exports = function ( moduleRoot ) {
 	};
 
 	var distFilenames = {
-		concatScripts: 'jquery.project.js'
+		concatScripts: 'main.js'
 	};
 
 	/************************************
@@ -172,11 +172,11 @@ module.exports = function ( moduleRoot ) {
 
 	var iconsSettings = {
 		clean: {
-			src : [ assetDirs.images + "icons.svg" ]
+			src : [ assetDirs.icons + "icons.svg" ]
 		},
 		svg: {
 			src: paths.icons,
-			desc: assetDirs.images
+			desc: assetDirs.icons
 		}
 	}
 
