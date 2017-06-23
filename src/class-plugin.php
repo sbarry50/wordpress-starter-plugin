@@ -32,14 +32,14 @@ namespace Vendor_Name\Plugin_Name;
 class Plugin {
 
 	/**
-	 * The loader that's responsible for maintaining and registering all hooks that power
+	 * The hook loader that's responsible for maintaining and registering all hooks that power
 	 * the plugin.
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      PluginName_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      PluginName_Loader    $register    Maintains and registers all hooks for the plugin.
 	 */
-	protected $loader;
+	protected $register;
 
 	/**
 	 * The unique identifier of this plugin.
@@ -62,13 +62,13 @@ class Plugin {
 	/**
 	 * Define the core functionality of the plugin.
 	 *
-	 * Create an instance of the loader which will be used to register the hooks
+	 * Create an instance of the hook registrar which will be used to register the hooks
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		$this->loader = new Loader();
+		$this->register = new Register();
 	}
 
 	/**
@@ -95,12 +95,12 @@ class Plugin {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_admin_hooks() {
+	private function register_admin_hooks() {
 
 		$plugin_admin = new Admin( $this );
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->register->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
+		$this->register->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
 	}
 
@@ -111,12 +111,12 @@ class Plugin {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_frontend_hooks() {
+	private function register_frontend_hooks() {
 
 		$plugin_frontend = new Frontend( $this );
 
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_frontend, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_frontend, 'enqueue_scripts' );
+		$this->register->add_action( 'wp_enqueue_scripts', $plugin_frontend, 'enqueue_styles' );
+		$this->register->add_action( 'wp_enqueue_scripts', $plugin_frontend, 'enqueue_scripts' );
 
 	}
 
@@ -130,9 +130,9 @@ class Plugin {
 	 */
 	public function run() {
 		$this->set_locale();
-		$this->define_admin_hooks();
-		$this->define_frontend_hooks();
-		$this->loader->run();
+		$this->register_admin_hooks();
+		$this->register_frontend_hooks();
+		$this->register->run();
 	}
 
 	/**
@@ -152,8 +152,8 @@ class Plugin {
 	 * @since     1.0.0
 	 * @return    PluginName_Loader    Orchestrates the hooks of the plugin.
 	 */
-	public function get_loader() {
-		return $this->loader;
+	public function get_register() {
+		return $this->register;
 	}
 
 	/**

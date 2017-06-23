@@ -23,7 +23,7 @@ namespace Vendor_Name\Plugin_Name;
  * @subpackage PluginName/includes
  * @author     Your Name <email@example.com>
  */
-class Hooks {
+class Register {
 
 	/**
 	 * The array of actions registered with WordPress.
