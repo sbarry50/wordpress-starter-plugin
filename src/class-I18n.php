@@ -5,8 +5,8 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @package    PluginName
- * @subpackage PluginName/src
+ * @package    Plugin_Name
+ * @subpackage Plugin_Name/src
  * @since      1.0.0
  * @author     sbarry
  * @link       http://example.com
@@ -15,17 +15,6 @@
 
 namespace Vendor_Name\Plugin_Name;
 
-/**
- * Define the internationalization functionality.
- *
- * Loads and defines the internationalization files for this plugin
- * so that it is ready for translation.
- *
- * @since      1.0.0
- * @package    PluginName
- * @subpackage PluginName/includes
- * @author     Your Name <email@example.com>
- */
 class I18n {
 
 	/**

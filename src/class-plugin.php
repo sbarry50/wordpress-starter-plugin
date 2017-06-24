@@ -1,12 +1,15 @@
 <?php
 /**
- * The file that defines the core plugin class
+ * The core plugin class.
  *
  * A class definition that includes attributes and functions used across both the
  * public-facing side of the site and the dashboard.
  *
- * @package    PluginName
- * @subpackage PluginName/src
+ * This is used to define internationalization, dashboard-specific hooks, and
+ * public-facing site hooks.
+ *
+ * @package    Plugin_Name
+ * @subpackage Plugin_Name/src
  * @since      1.0.0
  * @author     sbarry
  * @link       http://example.com
@@ -15,49 +18,17 @@
 
 namespace Vendor_Name\Plugin_Name;
 
-/**
- * The core plugin class.
- *
- * This is used to define internationalization, dashboard-specific hooks, and
- * public-facing site hooks.
- *
- * Also maintains the unique identifier of this plugin as well as the current
- * version of the plugin.
- *
- * @since      1.0.0
- * @package    PluginName
- * @subpackage PluginName/includes
- * @author     Your Name <email@example.com>
- */
 class Plugin {
 
 	/**
-	 * The hook loader that's responsible for maintaining and registering all hooks that power
+	 * The hook registrar that's responsible for maintaining and registering all hooks that power
 	 * the plugin.
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      PluginName_Loader    $register    Maintains and registers all hooks for the plugin.
+	 * @var      Register    $register    Maintains and registers all hooks for the plugin.
 	 */
 	protected $register;
-
-	/**
-	 * The unique identifier of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   protected
-	 * @var      string    $pluginname    The string used to uniquely identify this plugin.
-	 */
-	protected $pluginname = 'plugin-name';
-
-	/**
-	 * The current version of the plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   protected
-	 * @var      string    $version    The current version of the plugin.
-	 */
-	protected $version = '1.0.0';
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -83,7 +54,7 @@ class Plugin {
 	private function set_locale() {
 
 		$plugin_i18n = new I18n();
-		$plugin_i18n->set_domain( $this->get_plugin_name() );
+		$plugin_i18n->set_domain( PLUGIN_TEXT_DOMAIN );
 		$plugin_i18n->load_plugin_textdomain();
 
 	}
@@ -121,7 +92,24 @@ class Plugin {
 	}
 
 	/**
-	 * Run the loader to execute all of the hooks with WordPress.
+	 * Loads a file such as an SVG
+	 *
+	 * @since    1.0.0
+	 * @param	   string 				$path			  Path to the file
+	 * @param	   string 				$file 			  Name of the file to be loaded
+	 * @param      string               $hook             The name of the WordPress filter that is being registered.
+	 * @param      string               $callback         The name of the function definition on the $component.
+	 * @param      int      Optional    $priority         The priority at which the function should be fired.
+	 * @param      int      Optional    $accepted_args    The number of arguments that should be passed to the $callback.
+	 */
+	private function load_file( $path, $file, $hook, $callback, $priority = 10, $accepted_args = 1 ) {
+		$file = new Loader( $this, $path, $file );
+
+		$this->register->add_action( $hook, $file, $callback, $priority, $accepted_args );
+	}
+
+	/**
+	 * Run the hooks loader to execute all of the hooks with WordPress.
 	 *
 	 * Load the dependencies, define the locale, and set the hooks for the Dashboard and
 	 * the public-facing side of the site.
@@ -130,40 +118,19 @@ class Plugin {
 	 */
 	public function run() {
 		$this->set_locale();
-		$this->register_admin_hooks();
-		$this->register_frontend_hooks();
+		// $this->register_admin_hooks();
+		// $this->register_frontend_hooks();
 		$this->register->run();
-	}
-
-	/**
-	 * The name of the plugin used to uniquely identify it within the context of
-	 * WordPress and to define internationalization functionality.
-	 *
-	 * @since     1.0.0
-	 * @return    string    The name of the plugin.
-	 */
-	public function get_plugin_name() {
-		return $this->pluginname;
 	}
 
 	/**
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    PluginName_Loader    Orchestrates the hooks of the plugin.
+	 * @return    Register    Orchestrates the hooks of the plugin.
 	 */
 	public function get_register() {
 		return $this->register;
-	}
-
-	/**
-	 * Retrieve the version number of the plugin.
-	 *
-	 * @since     1.0.0
-	 * @return    string    The version number of the plugin.
-	 */
-	public function get_version() {
-		return $this->version;
 	}
 
 }

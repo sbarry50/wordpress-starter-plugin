@@ -37,7 +37,9 @@ $autoloader = dirname( __FILE__ ) . '/vendor/autoload.php';
 if ( file_exists( $autoloader ) ) {
 	require_once $autoloader;
 }
-
+if( file_exists( 'src/constants.php') ) {
+    ddd("Constants is loading");
+}
 \Vendor_Name\Plugin_Name\define_plugin_constants( __FILE__ );
 
 $requirements = new Requirements();

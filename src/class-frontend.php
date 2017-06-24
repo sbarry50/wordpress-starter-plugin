@@ -2,8 +2,11 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * @package    PluginName
- * @subpackage PluginName/src
+ * Defines the plugin name, version, and two examples hooks for how to
+ * enqueue the dashboard-specific stylesheet and JavaScript.
+ *
+ * @package    Plugin_Name
+ * @subpackage Plugin_Name/src
  * @since      1.0.0
  * @author     sbarry
  * @link       http://example.com
@@ -12,16 +15,6 @@
 
 namespace Vendor_Name\Plugin_Name;
 
-/**
- * The public-facing functionality of the plugin.
- *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the dashboard-specific stylesheet and JavaScript.
- *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/Frontend
- * @author     Your Name <email@example.com>
- */
 class Frontend {
 
 	/**
@@ -55,18 +48,18 @@ class Frontend {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Loader as all of the hooks are defined in that particular
+		 * defined in Register as all of the hooks are defined in that particular
 		 * class.
 		 *
-		 * The Loader will then create the relationship between the defined
+		 * The Register will then create the relationship between the defined
 		 * hooks and the functions defined in this class.
 		 */
 
 		\wp_enqueue_style(
-			$this->plugin->get_plugin_name(),
-			\plugin_dir_url( dirname( __FILE__ ) ) . 'dist/styles/plugin-name.css',
+			PLUGIN_TEXT_DOMAIN,
+			PLUGIN_DIR_URL . 'dist/styles/plugin-name.css',
 			array(),
-			$this->plugin->get_version(),
+			PLUGIN_VERSION,
 			'all' );
 
 	}
@@ -82,18 +75,18 @@ class Frontend {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Loader as all of the hooks are defined in that particular
+		 * defined in Register as all of the hooks are defined in that particular
 		 * class.
 		 *
-		 * The Loader will then create the relationship between the defined
+		 * The Register will then create the relationship between the defined
 		 * hooks and the functions defined in this class.
 		 */
 
 		\wp_enqueue_script(
-			$this->plugin->get_plugin_name(),
-			\plugin_dir_url( dirname( __FILE__ ) ) . 'dist/scripts/plugin-name.js',
+			PLUGIN_TEXT_DOMAIN,
+			PLUGIN_URL . 'dist/scripts/plugin-name.js',
 			array( 'jquery' ),
-			$this->plugin->get_version(),
+			PLUGIN_VERSION,
 			false );
 
 	}

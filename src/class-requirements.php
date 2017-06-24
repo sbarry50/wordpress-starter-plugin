@@ -2,8 +2,8 @@
 /**
  * Class that checks if all system requirements are met to run this plugin.
  *
- * @package    PluginName
- * @subpackage PluginName/src
+ * @package    Plugin_Name
+ * @subpackage Plugin_Name/src
  * @since      1.0.0
  * @author     sbarry
  * @link       http://example.com
@@ -33,7 +33,6 @@ class Requirements {
     }
 
     public function disable_plugin() {
-        // return "This plugin is being disabled";
         if ( current_user_can( 'activate_plugins' ) && is_plugin_active( PLUGIN_BASENAME ) ) {
             deactivate_plugins( PLUGIN_BASENAME );
 

@@ -2,8 +2,12 @@
 /**
  * Register all actions and filters for the plugin.
  *
- * @package    PluginName
- * @subpackage PluginName/src
+ * Maintain a list of all hooks that are registered throughout
+ * the plugin, and register them with the WordPress API. Call the
+ * run function to execute the list of actions and filters.
+ *
+ * @package    Plugin_Name
+ * @subpackage Plugin_Name/src
  * @since      1.0.0
  * @author     sbarry
  * @link       http://example.com
@@ -12,17 +16,6 @@
 
 namespace Vendor_Name\Plugin_Name;
 
-/**
- * Register all actions and filters for the plugin.
- *
- * Maintain a list of all hooks that are registered throughout
- * the plugin, and register them with the WordPress API. Call the
- * run function to execute the list of actions and filters.
- *
- * @package    PluginName
- * @subpackage PluginName/includes
- * @author     Your Name <email@example.com>
- */
 class Register {
 
 	/**

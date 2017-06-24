@@ -2,8 +2,8 @@
 /**
  * Class that defines plugin activation/deactivation/uninstall callbacks.
  *
- * @package    PluginName
- * @subpackage PluginName/src
+ * @package    Plugin_Name
+ * @subpackage Plugin_Name/src
  * @since      1.0.0
  * @author     sbarry
  * @link       http://example.com
@@ -27,14 +27,8 @@ class Setup {
 
     public static function activate() {
 
-        // ddd( "Activate() is running" );
-
         if ( ! current_user_can( 'activate_plugins' ) )
             return;
-
-        // $requirements = new Requirements();
-        // $requirements->check();
-
 
         $plugin = isset( $_REQUEST['plugin'] ) ? $_REQUEST['plugin'] : '';
         check_admin_referer( "activate-plugin_{$plugin}" );
