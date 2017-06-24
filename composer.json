@@ -21,12 +21,11 @@
             "src/class-plugin.php",
             "src/class-setup.php",
             "src/class-requirements.php",
-            "src/class-loader.php",
             "src/class-register.php",
             "src/class-I18n.php",
             "src/class-admin.php",
-            "src/class-frontend.php"
-        ],
+            "src/class-frontend.php",
+            "src/class-loader.php"        ],
         "files": [
             "src/constants.php"
         ],
