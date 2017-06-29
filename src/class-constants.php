@@ -32,10 +32,16 @@ class Constants {
     protected $plugin_url;
 
     /**
-     * The plugin's runtime configuration
-     * @var array    $config    The plugin's config
+     * The plugin's distribution path configuration
+     * @var array    $dist_path_config    Distribution path config
      */
-    protected $config = array();
+    protected $dist_path_config = array();
+
+    /**
+     * The plugin's miniumum requirements configuration
+     * @var array    $requirements_config    Miniumum requirements config
+     */
+    protected $requirements_config = array();
 
     /**
      * The constants defined for this plugin
@@ -54,7 +60,11 @@ class Constants {
 
         $this->plugin_header_data = $this->get_plugin_header_data();
         $this->plugin_url = $this->get_plugin_url();
-        $this->config = include( plugin_dir_path( $this->plugin_root_file ) . '/config/plugin.php' );
+
+        $config = new Config( 'plugin.php' );
+        $this->dist_path_config = $config->get_config_index( 'dist_paths' );
+        $this->requirements_config = $config->get_config_index( 'requirements' );
+
         $this->constants = $this->get_constants();
     }
 
@@ -80,16 +90,16 @@ class Constants {
      */
     public function get_constants() {
         return array(
-            'DIST_ICONS_PATH'        => $this->config['dist_paths']['icons'],
-            'DIST_IMAGES_PATH'       => $this->config['dist_paths']['images'],
-            'DIST_FONTS_PATH'        => $this->config['dist_paths']['fonts'],
-            'DIST_SCRIPTS_PATH'      => $this->config['dist_paths']['scripts'],
-            'DIST_STYLES_PATH'       => $this->config['dist_paths']['styles'],
+            'DIST_ICONS_PATH'        => $this->dist_path_config['icons'],
+            'DIST_IMAGES_PATH'       => $this->dist_path_config['images'],
+            'DIST_FONTS_PATH'        => $this->dist_path_config['fonts'],
+            'DIST_SCRIPTS_PATH'      => $this->dist_path_config['scripts'],
+            'DIST_STYLES_PATH'       => $this->dist_path_config['styles'],
             'PLUGIN_BASENAME'        => plugin_basename( $this->plugin_root_file ),
             'PLUGIN_DIR'             => plugin_dir_path( $this->plugin_root_file ),
             'PLUGIN_DIR_URL'         => plugin_dir_url( plugin_dir_path( $this->plugin_root_file ) ),
-            'PLUGIN_MIN_PHP_VERSION' => $this->config['requirements']['min_php'],
-            'PLUGIN_MIN_WP_VERSION'  => $this->config['requirements']['min_wp'],
+            'PLUGIN_MIN_PHP_VERSION' => $this->requirements_config['min_php'],
+            'PLUGIN_MIN_WP_VERSION'  => $this->requirements_config['min_wp'],
             'PLUGIN_NAME'            => $this->plugin_header_data[ 'Name' ],
             'PLUGIN_ROOT'            => $this->plugin_root_file,
             'PLUGIN_TEXT_DOMAIN'     => $this->plugin_header_data[ 'TextDomain' ],
