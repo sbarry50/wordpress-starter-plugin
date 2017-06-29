@@ -47,7 +47,7 @@ if ( file_exists( $autoloader ) ) {
 \add_action( 'plugins_loaded', function () {
 
     $constants = new Constants( __FILE__ );
-    $constants->define();
+    $constants->init()->define();
 
     $requirements = new Requirements();
     $requirements->check();

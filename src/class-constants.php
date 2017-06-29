@@ -50,14 +50,20 @@ class Constants {
     protected $constants = array();
 
     /**
-     * Initializes the class by taking the plugin's root file and setting the values of the instance data.
+     * Initializes the class by taking in and setting the value of the plugin's root file
      * @since 1.0.0
      * @param string    $plugin_root_file  The plugin's root file
      */
     public function __construct( $plugin_root_file ) {
-
         $this->plugin_root_file = $plugin_root_file;
+    }
 
+    /**
+     * Initiliazes the values of the instance data.
+     * @since  1.0.0
+     * @return object    $this    Instance of this object
+     */
+    public function init() {
         $this->plugin_header_data = $this->get_plugin_header_data();
         $this->plugin_url = $this->get_plugin_url();
 
@@ -66,6 +72,8 @@ class Constants {
         $this->requirements_config = $config->get_config_index( 'requirements' );
 
         $this->constants = $this->get_constants();
+
+        return $this;
     }
 
     /**
