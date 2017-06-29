@@ -5,15 +5,15 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the dashboard-specific stylesheet and JavaScript.
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/src
+ * @package    Plugin
+ * @subpackage Plugin/src
  * @since      1.0.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
  */
 
-namespace Vendor_Name\Plugin_Name;
+namespace Vendor\Plugin;
 
 class Frontend {
 

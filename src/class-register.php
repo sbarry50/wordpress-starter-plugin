@@ -6,15 +6,15 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/src
+ * @package    Plugin
+ * @subpackage Plugin/src
  * @since      1.0.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
  */
 
-namespace Vendor_Name\Plugin_Name;
+namespace Vendor\Plugin;
 
 class Register {
 

@@ -2,8 +2,8 @@
 /**
  * Class that defines plugin activation/deactivation/uninstall callbacks.
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/src
+ * @package    Plugin
+ * @subpackage Plugin/src
  * @since      1.0.0
  * @author     sbarry
  * @link       http://example.com
@@ -14,7 +14,7 @@
  * @link   https://wordpress.stackexchange.com/questions/25910/uninstall-activate-deactivate-a-plugin-typical-features-how-to/25979#25979
  */
 
-namespace Vendor_Name\Plugin_Name;
+namespace Vendor\Plugin;
 
 class Setup {
 

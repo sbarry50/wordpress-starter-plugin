@@ -17,25 +17,17 @@
         "source": "http://example.com/"
     },
     "autoload": {
-        "classmap": [
-            "src/class-plugin.php",
-            "src/class-setup.php",
-            "src/class-requirements.php",
-            "src/class-register.php",
-            "src/class-I18n.php",
-            "src/class-admin.php",
-            "src/class-frontend.php",
-            "src/class-loader.php"        ],
-        "files": [
-            "src/constants.php"
-        ],
         "psr-4": {
-            "Vendor_Name\\Plugin_Name\\": "src/"
-        }
+            "Vendor\\Plugin\\": "src/"
+        },
+        "classmap": [
+        ],
+        "files": [
+        ]
     },
     "autoload-dev": {
         "psr-4": {
-            "Vendor_Name\\Tests\\Plugin_Name\\": "tests/"
+            "Vendor\\Tests\\Plugin\\": "tests/"
         }
     },
     "require": {

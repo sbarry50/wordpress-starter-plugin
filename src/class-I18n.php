@@ -5,15 +5,15 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/src
+ * @package    Plugin
+ * @subpackage Plugin/src
  * @since      1.0.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
  */
 
-namespace Vendor_Name\Plugin_Name;
+namespace Vendor\Plugin;
 
 class I18n {
 

@@ -10,7 +10,7 @@
  *
  * @link              http://example.com
  * @since             1.0.0
- * @package           Plugin_Name
+ * @package           Plugin
  *
  * @wordpress-plugin
  * Plugin Name:       WordPress Starter Plugin
@@ -25,8 +25,9 @@
  * Domain Path:       /resources/lang/
  */
 
-use Vendor_Name\Plugin_Name\Plugin;
-use Vendor_Name\Plugin_Name\Requirements;
+use Vendor\Plugin\Plugin;
+use Vendor\Plugin\Requirements;
+use Vendor\Plugin\Constants;
 
  // If this file is called directly, abort.
  if ( ! defined( 'WPINC' ) ) {
@@ -35,16 +36,8 @@ use Vendor_Name\Plugin_Name\Requirements;
 
 $autoloader = dirname( __FILE__ ) . '/vendor/autoload.php';
 if ( file_exists( $autoloader ) ) {
-	require_once $autoloader;
+	include_once $autoloader;
 }
-
-\Vendor_Name\Plugin_Name\define_plugin_constants( __FILE__ );
-
-$requirements = new Requirements();
-$requirements->check();
-register_activation_hook( __FILE__, array( 'Vendor_Name\Plugin_Name\Setup', 'activate' ) );
-register_deactivation_hook( __FILE__, array( 'Vendor_Name\Plugin_Name\Setup', 'deactivate' ) );
-register_uninstall_hook( __FILE__, array( 'Vendor_Name\Plugin_Name\Setup', 'uninstall' ) );
 
 /**
  * Begins execution of the plugin.
@@ -52,6 +45,18 @@ register_uninstall_hook( __FILE__, array( 'Vendor_Name\Plugin_Name\Setup', 'unin
  * @since    1.0.0
  */
 \add_action( 'plugins_loaded', function () {
+
+    $constants = new Constants( __FILE__ );
+    $constants->define();
+
+    $requirements = new Requirements();
+    $requirements->check();
+
+    register_activation_hook( __FILE__, array( 'Vendor\Plugin\Setup', 'activate' ) );
+    register_deactivation_hook( __FILE__, array( 'Vendor\Plugin\Setup', 'deactivate' ) );
+    register_uninstall_hook( __FILE__, array( 'Vendor\Plugin\Setup', 'uninstall' ) );
+
     $plugin = new Plugin();
     $plugin->run();
+
 } );

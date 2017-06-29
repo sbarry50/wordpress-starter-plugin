@@ -2,15 +2,15 @@
 /**
  * Plugin runtime configuration parameters.
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/config
+ * @package    Plugin
+ * @subpackage Plugin/config
  * @since      1.0.0
  * @author     sbarry
  * @link       http://example.com
  * @license     GNU General Public License 2.0+
  */
 
-namespace Vendor_Name\Plugin_Name;
+namespace Vendor\Plugin;
 
 $plugin_dist_dir = plugin_dir_path( dirname(dirname(__FILE__) ) . '/plugin.php' ) . 'dist/';
 

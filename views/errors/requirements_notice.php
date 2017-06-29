@@ -1,5 +1,5 @@
 <?php
-namespace Vendor_Name\Plugin_Name;
+namespace Vendor\Plugin;
 ?>
 
 <div class="error">
