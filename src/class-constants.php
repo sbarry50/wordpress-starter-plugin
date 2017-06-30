@@ -23,7 +23,7 @@ class Constants {
      * The metadata from the plugin's header comment doc block.
      * @var array    $plugin_header_data    The plugin's header metadata
      */
-    protected $plugin_header_data = array();
+    protected $plugin_header_data = [];
 
     /**
      * The plugin's URL
@@ -35,19 +35,19 @@ class Constants {
      * The plugin's distribution path configuration
      * @var array    $dist_path_config    Distribution path config
      */
-    protected $dist_path_config = array();
+    protected $path_config = [];
 
     /**
      * The plugin's miniumum requirements configuration
      * @var array    $requirements_config    Miniumum requirements config
      */
-    protected $requirements_config = array();
+    protected $requirements_config = [];
 
     /**
      * The constants defined for this plugin
      * @var array    $constants    The array of constants
      */
-    protected $constants = array();
+    protected $constants = [];
 
     /**
      * Initializes the class by taking in and setting the value of the plugin's root file
@@ -68,8 +68,8 @@ class Constants {
         $this->plugin_url = $this->get_plugin_url();
 
         $config = new Config( 'plugin.php' );
-        $this->dist_path_config = $config->get_config_index( 'dist_paths' );
-        $this->requirements_config = $config->get_config_index( 'requirements' );
+        $this->path_config = $config->parse( 'paths' );
+        $this->requirements_config = $config->parse( 'requirements' );
 
         $this->constants = $this->get_constants();
 
@@ -98,21 +98,23 @@ class Constants {
      */
     public function get_constants() {
         return array(
-            'DIST_ICONS_PATH'        => $this->dist_path_config['icons'],
-            'DIST_IMAGES_PATH'       => $this->dist_path_config['images'],
-            'DIST_FONTS_PATH'        => $this->dist_path_config['fonts'],
-            'DIST_SCRIPTS_PATH'      => $this->dist_path_config['scripts'],
-            'DIST_STYLES_PATH'       => $this->dist_path_config['styles'],
+            'PLUGIN_ROOT'            => $this->plugin_root_file,
+            'PLUGIN_NAME'            => $this->plugin_header_data[ 'Name' ],
             'PLUGIN_BASENAME'        => plugin_basename( $this->plugin_root_file ),
             'PLUGIN_DIR'             => plugin_dir_path( $this->plugin_root_file ),
             'PLUGIN_DIR_URL'         => plugin_dir_url( plugin_dir_path( $this->plugin_root_file ) ),
-            'PLUGIN_MIN_PHP_VERSION' => $this->requirements_config['min_php'],
-            'PLUGIN_MIN_WP_VERSION'  => $this->requirements_config['min_wp'],
-            'PLUGIN_NAME'            => $this->plugin_header_data[ 'Name' ],
-            'PLUGIN_ROOT'            => $this->plugin_root_file,
-            'PLUGIN_TEXT_DOMAIN'     => $this->plugin_header_data[ 'TextDomain' ],
             'PLUGIN_URL'             => $this->get_plugin_url(),
+            'PLUGIN_TEXT_DOMAIN'     => $this->plugin_header_data[ 'TextDomain' ],
             'PLUGIN_VERSION'         => $this->plugin_header_data[ 'Version' ],
+            'PLUGIN_MIN_PHP_VERSION' => $this->requirements_config[ 'min_php' ],
+            'PLUGIN_MIN_WP_VERSION'  => $this->requirements_config[ 'min_wp' ],
+            'PLUGIN_ASSETS_PATH'     => $this->path_config[ 'assets' ],
+            'PLUGIN_CONFIG_PATH'     => $this->path_config[ 'config' ],
+            'PLUGIN_DIST_PATH'       => $this->path_config[ 'dist' ],
+            'PLUGIN_LANG_PATH'       => $this->path_config[ 'lang' ],
+            'PLUGIN_SRC_PATH'        => $this->path_config[ 'src' ],
+            'PLUGIN_TEST_PATH'       => $this->path_config[ 'test' ],
+            'PLUGIN_VIEWS_PATH'      => $this->path_config[ 'views' ],
             'WP_VERSION'             => get_bloginfo('version'),
         );
 

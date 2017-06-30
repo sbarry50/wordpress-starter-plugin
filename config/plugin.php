@@ -12,9 +12,9 @@
 
 namespace Vendor\Plugin;
 
-$plugin_dist_dir = plugin_dir_path( dirname(dirname(__FILE__) ) . '/plugin.php' ) . 'dist/';
+$plugin_root_dir = plugin_dir_path( dirname(__FILE__) );
 
-return array(
+return [
 
     /*********************************************************
     * Minimum version requirements to run this software
@@ -22,23 +22,25 @@ return array(
     * Format:
     *    $unique_id => $value
     ********************************************************/
-    'requirements' => array(
+    'requirements' => [
         'min_wp'  => '4.7',
         'min_php' => '5.3',
-    ),
+    ],
 
     /*********************************************************
-    * Distribution paths to asset files
+    * Main plugin folder paths
     *
     * Format:
     *    $unique_id => $value
     ********************************************************/
-    'dist_paths' => array(
-        'icons'   => $plugin_dist_dir . 'icons/',
-        'images'  => $plugin_dist_dir . 'images/',
-        'fonts'   => $plugin_dist_dir . 'fonts/',
-        'styles'  => $plugin_dist_dir . 'css/',
-        'scripts' => $plugin_dist_dir . 'js/',
-    ),
+    'paths' => [
+        'assets' => $plugin_root_dir . 'assets/',
+        'config' => $plugin_root_dir . 'config/',
+        'dist'   => $plugin_root_dir . 'dist/',
+        'lang'   => $plugin_root_dir . 'lang/',
+        'src'    => $plugin_root_dir . 'src/',
+        'test'   => $plugin_root_dir . 'test/',
+        'views'  => $plugin_root_dir . 'views/',
+    ],
 
-);
+];

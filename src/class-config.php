@@ -17,33 +17,55 @@ class Config {
      * The plugin's configuration data
      * @var array    $config    Configuration data
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
-     * The file that contains the configuration array.
-     * @var string     $file     Configuration file
+     * The name of the file that contains the configuration array.
+     * @var string     $file     Configuration file name
      */
-    public $config_file;
+    public $filename;
 
-    public function __construct( $config_file ) {
-        $this->config_file = $config_file;
-        $this->set_config();
+    /**
+     * Accept the configuration file and create a new instance of the the configuration object
+     *
+     * @since 1.0.0
+     * @param string   $filename    Name of the configuration file
+     */
+    public function __construct( $filename ) {
+        $this->filename = $filename;
+        $this->init();
     }
 
-    private function set_config() {
-        $this->config = include( plugin_dir_path( dirname( __FILE__ ) ) . '/config/' . $this->config_file );
-    }
-
-    public function get_config() {
-        return $this->config;
-    }
-
-    public function get_config_index( $index ) {
-        if( isset( $this->config[ $index ] ) ) {
-            return $this->config[ $index ];
-        } else {
-            return $this->config;
+    /**
+     * Initialize the configuration values of the instance
+     *
+     * @since  1.0.0
+     */
+    private function init() {
+        $config_file = plugin_dir_path( dirname( __FILE__ ) ) . 'config/' . $this->filename;
+        if( file_exists( $config_file ) ) {
+            $this->config = include( $config_file );
         }
     }
 
+    /**
+     * Get all of the configuration data
+     * 
+     * @since  1.0.0
+     * @return array    $this->config    This instance of the configuration
+     */
+    public function all() {
+        return $this->config;
+    }
+
+    /**
+     * Parse the main configuration array by key
+     *
+     * @since  1.0.0
+     * @param  string    $key                     The key to be parsed
+     * @return array     $this->config[ $key ]    Array after parsed
+     */
+    public function parse( $key ) {
+        return isset( $this->config[ $key ] ) ? $this->config[ $key ] : NULL;
+    }
 }
