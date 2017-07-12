@@ -26,8 +26,9 @@
  */
 
 use Vendor\Plugin\Plugin;
-use Vendor\Plugin\Requirements;
-use Vendor\Plugin\Constants;
+use Vendor\Plugin\Setup\Requirements;
+use Vendor\Plugin\Constants\Constants;
+use Vendor\Plugin\Config\Config;
 
  // If this file is called directly, abort.
  if ( ! defined( 'WPINC' ) ) {
@@ -46,15 +47,17 @@ if ( file_exists( $autoloader ) ) {
  */
 \add_action( 'plugins_loaded', function () {
 
-    $constants = new Constants( __FILE__ );
-    $constants->init()->define();
+    $config_file = __DIR__ . '/config/plugin.php';
+    $config = new Config( $config_file );
+    $constants = new Constants();
+    $constants->init( __FILE__, $config )->define();
 
     $requirements = new Requirements();
     $requirements->check();
 
-    register_activation_hook( __FILE__, array( 'Vendor\Plugin\Setup', 'activate' ) );
-    register_deactivation_hook( __FILE__, array( 'Vendor\Plugin\Setup', 'deactivate' ) );
-    register_uninstall_hook( __FILE__, array( 'Vendor\Plugin\Setup', 'uninstall' ) );
+    register_activation_hook( __FILE__, array( 'Vendor\Plugin\Setup\Setup', 'activate' ) );
+    register_deactivation_hook( __FILE__, array( 'Vendor\Plugin\Setup\Setup', 'deactivate' ) );
+    register_uninstall_hook( __FILE__, array( 'Vendor\Plugin\Setup\Setup', 'uninstall' ) );
 
     $plugin = new Plugin();
     $plugin->run();

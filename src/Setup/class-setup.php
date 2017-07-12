@@ -14,7 +14,7 @@
  * @link   https://wordpress.stackexchange.com/questions/25910/uninstall-activate-deactivate-a-plugin-typical-features-how-to/25979#25979
  */
 
-namespace Vendor\Plugin;
+namespace Vendor\Plugin\Setup;
 
 class Setup {
 

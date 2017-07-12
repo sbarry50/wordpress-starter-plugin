@@ -18,6 +18,8 @@
 
 namespace Vendor\Plugin;
 
+use Vendor\Plugin\Constants as Constants;
+
 class Plugin {
 
 	/**
@@ -54,7 +56,7 @@ class Plugin {
 	private function set_locale() {
 
 		$plugin_i18n = new I18n();
-		$plugin_i18n->set_domain( PLUGIN_TEXT_DOMAIN );
+		$plugin_i18n->set_domain( Constants\PLUGIN_TEXT_DOMAIN );
 		$plugin_i18n->load_plugin_textdomain();
 
 	}

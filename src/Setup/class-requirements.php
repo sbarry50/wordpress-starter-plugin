@@ -10,7 +10,9 @@
  * @license    GNU General Public License 2.0+
  */
 
-namespace Vendor\Plugin;
+namespace Vendor\Plugin\Setup;
+
+use Vendor\Plugin\Constants as Constants;
 
 class Requirements {
 
@@ -24,8 +26,8 @@ class Requirements {
     }
 
     public static function all_requirements_met() {
-        return self::requirement_met( WP_VERSION, PLUGIN_MIN_WP_VERSION ) &&
-               self::requirement_met( PHP_VERSION, PLUGIN_MIN_PHP_VERSION );
+        return self::requirement_met( Constants\WP_VERSION, Constants\PLUGIN_MIN_WP_VERSION ) &&
+               self::requirement_met( PHP_VERSION, Constants\PLUGIN_MIN_PHP_VERSION );
     }
 
     public static function requirement_met( $current, $minimum ) {
@@ -33,8 +35,8 @@ class Requirements {
     }
 
     public function disable_plugin() {
-        if ( current_user_can( 'activate_plugins' ) && is_plugin_active( PLUGIN_BASENAME ) ) {
-            deactivate_plugins( PLUGIN_BASENAME );
+        if ( current_user_can( 'activate_plugins' ) && is_plugin_active( Constants\PLUGIN_BASENAME ) ) {
+            deactivate_plugins( Constants\PLUGIN_BASENAME );
 
             // Hide the default "Plugin activated" notice
             if ( isset( $_GET[ 'activate' ] ) ) {
@@ -44,7 +46,11 @@ class Requirements {
     }
 
     public function get_notice() {
-        return include_once( PLUGIN_DIR . "/views/errors/requirements_notice.php" );
+        ob_start();
+
+        include_once Constants\PLUGIN_DIR . '/views/errors/requirements_notice.php';
+
+        echo ob_get_clean();
     }
 
     public static function show_dashicon( $current, $minimum ) {
