@@ -26,9 +26,10 @@
  */
 
 use Vendor\Plugin\Plugin;
-use Vendor\Plugin\Setup\Requirements;
-use Vendor\Plugin\Constants\Constants;
 use Vendor\Plugin\Config\Config;
+use Vendor\Plugin\Constants\Constants;
+use Vendor\Plugin\Setup\Requirements;
+use Vendor\Plugin\Setup\Installation;
 
  // If this file is called directly, abort.
  if ( ! defined( 'WPINC' ) ) {
@@ -55,9 +56,9 @@ if ( file_exists( $autoloader ) ) {
     $requirements = new Requirements();
     $requirements->check();
 
-    register_activation_hook( __FILE__, array( 'Vendor\Plugin\Setup\Setup', 'activate' ) );
-    register_deactivation_hook( __FILE__, array( 'Vendor\Plugin\Setup\Setup', 'deactivate' ) );
-    register_uninstall_hook( __FILE__, array( 'Vendor\Plugin\Setup\Setup', 'uninstall' ) );
+    register_activation_hook( __FILE__, array( 'Vendor\Plugin\Setup\Installation', 'activate' ) );
+    register_deactivation_hook( __FILE__, array( 'Vendor\Plugin\Setup\Installation', 'deactivate' ) );
+    register_uninstall_hook( __FILE__, array( 'Vendor\Plugin\Setup\Installation', 'uninstall' ) );
 
     $plugin = new Plugin();
     $plugin->run();

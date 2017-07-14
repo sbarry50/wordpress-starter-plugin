@@ -21,13 +21,13 @@ use Vendor\Plugin\Constants as Constants;
                     <th style="text-align: left;">Wordpress</th>
                     <td><?php echo Constants\PLUGIN_MIN_WP_VERSION; ?></td>
                     <td><?php echo Constants\WP_VERSION; ?></td>
-                    <td><?php Requirements::show_dashicon( Constants\WP_VERSION, Constants\PLUGIN_MIN_WP_VERSION ); ?></td>
+                    <td><?php Requirements::render_dashicon( Constants\WP_VERSION, Constants\PLUGIN_MIN_WP_VERSION ); ?></td>
                 </tr>
                 <tr>
                     <th style="text-align: left;">PHP</th>
                     <td><?php echo Constants\PLUGIN_MIN_PHP_VERSION; ?></td>
                     <td><?php echo PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION . '.' . PHP_RELEASE_VERSION; ?></td>
-                    <td><?php Requirements::show_dashicon( PHP_VERSION, Constants\PLUGIN_MIN_PHP_VERSION ); ?></td>
+                    <td><?php Requirements::render_dashicon( PHP_VERSION, Constants\PLUGIN_MIN_PHP_VERSION ); ?></td>
                 </tr>
             </tbody>
         </table>

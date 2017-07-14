@@ -16,7 +16,7 @@
 
 namespace Vendor\Plugin\Setup;
 
-class Setup {
+class Installation {
 
     protected static $instance;
 
