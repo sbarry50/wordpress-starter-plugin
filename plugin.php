@@ -26,10 +26,6 @@
  */
 
 use Vendor\Plugin\Plugin;
-use Vendor\Plugin\Config\Config;
-use Vendor\Plugin\Constants\Constants;
-use Vendor\Plugin\Setup\Requirements;
-use Vendor\Plugin\Setup\Installation;
 
  // If this file is called directly, abort.
  if ( ! defined( 'WPINC' ) ) {
@@ -41,26 +37,7 @@ if ( file_exists( $autoloader ) ) {
 	include_once $autoloader;
 }
 
-/**
- * Begins execution of the plugin.
- *
- * @since    1.0.0
- */
-\add_action( 'plugins_loaded', function () {
-
-    $config_file = __DIR__ . '/config/plugin.php';
-    $config = new Config( $config_file );
-    $constants = new Constants();
-    $constants->init( __FILE__, $config )->define();
-
-    $requirements = new Requirements();
-    $requirements->check();
-
-    register_activation_hook( __FILE__, array( 'Vendor\Plugin\Setup\Installation', 'activate' ) );
-    register_deactivation_hook( __FILE__, array( 'Vendor\Plugin\Setup\Installation', 'deactivate' ) );
-    register_uninstall_hook( __FILE__, array( 'Vendor\Plugin\Setup\Installation', 'uninstall' ) );
-
-    $plugin = new Plugin();
-    $plugin->run();
-
-} );
+add_action( 'plugins_loaded', function () {
+    $plugin = new Plugin( __FILE__ );
+    $plugin->load()->run();
+});

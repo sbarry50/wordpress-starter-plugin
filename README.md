@@ -1,16 +1,22 @@
 # WordPress Starter Plugin
 
-A standardized, organized, object-oriented foundation for building high-quality WordPress Plugins
-
-This is a fork of [Luís Rodrigues' namespaced WordPress Plugin Boilerplate](https://github.com/goblindegook/WordPress-Plugin-Boilerplate-NS) which is based on a fork of the original WordPress Plugin Boilerplate project. The directory structure has been modified and gulp support has been added.
+An object-oriented foundation with a modern file architecture, standards and build tools for crafting high-quality WordPress Plugins.
 
 ## Features
 
-* The original WordPress Plugin Boilerplate is based on the [Plugin API](http://codex.wordpress.org/Plugin_API), [Coding Standards](http://codex.wordpress.org/WordPress_Coding_Standards), and [Documentation Standards](http://make.wordpress.org/core/handbook/inline-documentation-standards/php-documentation-standards/).
-* All classes, functions, and variables are documented so that you know what you need to be changed.
-* The Boilerplate uses a strict file organization scheme that correspond both to the WordPress Plugin Repository structure, and that make it easy to organize the files that compose the plugin.
-* The project includes a `.pot` file as a starting point for internationalization.
-* KnowTheCode's excellent UpGulp starter module is included for quick gulp setup.
+* Built-in initialization tasks
+   - System environment compatibility check
+   - Plugin constants with ability to add more
+   - Enqueue manager for enqueuing styles and scripts into WordPress
+   - Localization - includes a `.pot` file as a starting point for internationalization
+   - Class to handle all activation/deactivation/installation tasks
+* API's
+   - Config - abstracts the runtime configuration out of the modules and into the `config` folder
+   - Event Management -
+   - File and template loader -
+* Composer autoloader
+* Follows PSR-4 coding standards
+* Includes Laravel Mix for simple webpack implementation
 
 ## Requirements
 

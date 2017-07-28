@@ -12,7 +12,9 @@
 
 namespace Vendor\Plugin;
 
-$plugin_root_dir = plugin_dir_path( dirname(__FILE__) );
+$plugin_root_dir = plugin_dir_url( dirname(__FILE__) );
+
+// d( $plugin_root_dir );
 
 return [
 

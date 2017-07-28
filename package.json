@@ -1,53 +1,33 @@
 {
-  "name": "UpGulp",
+  "name": "wp-starter-plugin",
   "version": "1.0.0",
-  "description": "A Gulp Starter for WordPress Project",
+  "description": "A standardized, organized, object-oriented foundation for building high-quality WordPress Plugins",
+  "main": "gulpfile.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "NODE_ENV=development webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "NODE_ENV=development webpack --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "hot": "NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "production": "NODE_ENV=production webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/KnowTheCode/UpGulp"
+    "url": "git+https://github.com/sbarry50/wordpress-starter-plugin.git"
   },
-  "author": "hellofromTonya",
-  "license": "GPL-2.0",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/KnowTheCode/UpGulp/issues"
+    "url": "https://github.com/sbarry50/wordpress-starter-plugin/issues"
   },
-  "homepage": "hhttps://github.com/KnowTheCode/UpGulp",
+  "homepage": "https://github.com/sbarry50/wordpress-starter-plugin#readme",
   "devDependencies": {
-    "autoprefixer": "^6.3.1",
-    "babel-eslint": "^7.2.3",
-    "bourbon": "^4.2.6",
-    "bourbon-neat": "^1.7.2",
-    "browser-sync": "^2.11.1",
-    "css-mqpacker": "^5.0.1",
-    "del": "^2.2.0",
-    "eslint": "^4.0.0",
-    "glob": "^6.0.4",
-    "gulp": "^3.9.1",
-    "gulp-cheerio": "^0.6.2",
-    "gulp-concat": "^2.6.0",
-    "gulp-cssnano": "^2.1.2",
-    "gulp-imagemin": "^2.4.0",
-    "gulp-load-plugins": "^1.2.2",
-    "gulp-notify": "^2.2.0",
-    "gulp-plumber": "^1.1.0",
-    "gulp-postcss": "^6.1.1",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^2.3.2",
-    "gulp-sass-lint": "^1.2.0",
-    "gulp-sort": "^1.1.1",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-svgmin": "^1.2.1",
-    "gulp-svgstore": "^5.0.5",
-    "gulp-uglify": "^1.5.2",
-    "gulp-util": "^3.0.7",
-    "gulp-wp-pot": "^1.1.1",
-    "gulp.spritesmith": "^6.2.0",
-    "require-dir": "^0.3.0",
-    "run-sequence": "^1.2.0",
-    "sass-rem": "^1.2.2"
-  },
-  "dependencies": {
-    "app-root-path": "^1.0.0"
-  },
-  "gulpConfig": "./config/gulp/config.js"
+    "browser-sync": "^2.18.13",
+    "browser-sync-webpack-plugin": "^1.2.0",
+    "laravel-mix": "^1.4.2",
+    "rucksack-css": "^0.9.1"
+  }
 }
