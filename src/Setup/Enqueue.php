@@ -62,7 +62,7 @@ class EnqueueManager implements SubscriberInterface
     public static function get_subscribed_events()
     {
         return array(
-            'wp_enqueue_scripts' => 'enqueue'
+            'wp_enqueue_scripts' => 'enqueue_assets'
         );
     }
 
@@ -72,7 +72,7 @@ class EnqueueManager implements SubscriberInterface
      * @since  1.0.0
      * @return null
      */
-    public function enqueue()
+    public function enqueue_assets()
     {
         if ( ! empty($this->stylesheets) ) {
             foreach( $this->stylesheets as $stylesheet ) {

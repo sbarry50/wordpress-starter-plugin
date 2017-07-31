@@ -30,17 +30,17 @@ Make sure all dependencies have been installed before moving on:
 ## Installation
 
 1. Clone the directory into your `plugins` directory.
-2. Change into the cloned directory and execute `composer install` and `npm install` for UpGulp.
-3. In the WordPress dashboard, navigate to the *Plugins* page and locate the menu item that reads “The WordPress Plugin Boilerplate.”
+2. Change into the cloned directory and execute `composer install` and `npm install`.
+3. In the WordPress dashboard, navigate to the *Plugins* page and locate the menu item that reads “WordPress Starter Plugin.”
 4. Click on *Activate.*
 
-Note that this will activate the source code of the Boilerplate, but because the Boilerplate has no real functionality so no menu items, meta boxes, or custom post types will be added.
+Note that this will activate the source code of the starter plugin, but because it has no real functionality no menu items, meta boxes, or custom post types will be added.
 
 ## Recommended Tools
 
 ### i18n Tools
 
-The WordPress Plugin Boilerplate uses a variable to store the text domain used when internationalizing strings throughout the Boilerplate. To take advantage of this method, there are tools that are recommended for providing correct, translatable files:
+The WordPress Starter Plugin uses a variable to store the text domain used when internationalizing strings throughout. To take advantage of this method, there are tools that are recommended for providing correct, translatable files:
 
 * [Poedit](http://www.poedit.net/)
 * [makepot](http://i18n.svn.wordpress.org/tools/trunk/)
@@ -50,7 +50,7 @@ Any of the above tools should provide you with the proper tooling to internation
 
 ## License
 
-The WordPress Plugin Boilerplate is licensed under the GPL v2 or later.
+The WordPress Starter Plugin is licensed under the GPL v2 or later.
 
 > This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License, version 2, as published by the Free Software Foundation.
 
@@ -60,25 +60,7 @@ The WordPress Plugin Boilerplate is licensed under the GPL v2 or later.
 
 A copy of the license is included in the root of the plugin’s directory. The file is named `LICENSE`.
 
-## Important Notes
-
-### Licensing
-
-The WordPress Plugin Boilerplate is licensed under the GPL v2 or later; however, if you opt to use third-party code that is not compatible with v2, then you may need to switch to using code that is GPL v3 compatible.
-
-For reference, [here's a discussion](http://make.wordpress.org/themes/2013/03/04/licensing-note-apache-and-gpl/) that covers the Apache 2.0 License used by [Bootstrap](http://twitter.github.io/bootstrap/).
-
-### Includes
-
-Note that if you include your own classes, or third-party libraries, there are three locations in which said files may go:
-
-* `src/Common` is where functionality shared between the dashboard and the public-facing parts of the side reside.
-* `src/Admin` is for all dashboard-specific functionality.
-* `src/Frontend` is for all public-facing functionality.
-
-The example code provided shows how to register your hooks with the `Loader` class. More information will be provided in the upcoming documentation on the website.
-
-### Assets
+## Assets
 
 The `assets/images` directory contains three files.
 
@@ -88,10 +70,6 @@ The `assets/images` directory contains three files.
 
 # Credits
 
-The WordPress Plugin Boilerplate was started in 2011 by [Tom McFarlin](http://twitter.com/tommcfarlin/) and has since included a number of great contributions.
+This starter plugin was originally based on The WordPress Plugin Boilerplate which was started in 2011 by [Tom McFarlin](http://twitter.com/tommcfarlin/). The current version of the Boilerplate was developed in conjunction with [Josh Eaton](https://twitter.com/jjeaton), [Ulrich Pogson](https://twitter.com/grapplerulrich), and [Brad Vincent](https://twitter.com/themergency). The fork which this is directly forked from was developed by [Luís Rodrigues](https://github.com/goblindegook).
 
-The current version of the Boilerplate was developed in conjunction with [Josh Eaton](https://twitter.com/jjeaton), [Ulrich Pogson](https://twitter.com/grapplerulrich), and [Brad Vincent](https://twitter.com/themergency).
-
-The fork which this is directly forked from was developed by [Luís Rodrigues](https://github.com/goblindegook).
-
-The homepage is based on a design as provided by [HTML5Up](http://html5up.net), the Boilerplate logo was designed by  Rob McCaskill of [BungaWeb](http://bungaweb.com), and the site `favicon` was created by [Mickey Kay](https://twitter.com/McGuive7).
+This plugin also uses code and concepts adapted from [Carl Alexander](https://carlalexander.ca/) and Tonya Mork's [Fulcrum plugin](https://github.com/hellofromtonya/Fulcrum).

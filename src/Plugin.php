@@ -2,12 +2,6 @@
 /**
  * The core plugin class.
  *
- * A class definition that includes attributes and functions used across both the
- * public-facing side of the site and the dashboard.
- *
- * This is used to define internationalization, dashboard-specific hooks, and
- * public-facing site hooks.
- *
  * @package    Plugin
  * @subpackage Plugin/src
  * @since      1.0.0
@@ -128,9 +122,7 @@ class Plugin
         $this->load_constants();
         $this->check_compatibility();
         $this->set_locale();
-        $this->enqueue_manager->enqueue_styles( 'plugin-name' );
-        $this->enqueue_manager->enqueue_scripts( 'plugin-name' );
-        $this->event_manager->add_subscriber( $this->enqueue_manager );
+        $this->enqueue_assets();
         $this->install();
 
         $this->loaded = true;
@@ -187,7 +179,27 @@ class Plugin
     }
 
     /**
-     * Installation processes
+     * Enqueue stylesheets and scripts into Wordpress via the enqueue manager.
+     *
+     * For stylesheets pass the file name, any dependecies (optional) and media type (optional) to enqueue_styles()
+     * $this->enqueue_manager->enqueue_styles( $file, array $dependencies = array(), $media = 'all' );
+     *
+     * For scripts pass the file name, any dependecies (optional) and whether it should be placed in the head or footer (optional) to enqueue_scripts()
+     * $this->enqueue_manager->enqueue_scripts( $file, array $dependencies = array(), $in_footer = false );
+     *
+     * @since  [version]
+     * @return [type]    [description]
+     */
+    private function enqueue_assets()
+    {
+        // $this->enqueue_manager->enqueue_styles( 'plugin-name' );
+        // $this->enqueue_manager->enqueue_scripts( 'plugin-name' );
+
+        $this->event_manager->add_subscriber( $this->enqueue_manager );
+    }
+
+    /**
+     * Register installation processes
      *
      * @since  1.0.0
      * @return null

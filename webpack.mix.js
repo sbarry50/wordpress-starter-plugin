@@ -43,7 +43,7 @@ mix.sass(`${assets}/sass/plugin-name.scss`, `${dist}/css/`);
 //    jquery: ['$', 'window.jQuery', 'jQuery']
 // });
 
-mix.js(`${assets}/js/plugin-name.js`, `${dist}/js`);
+mix.js(`${assets}/js/plugin-name.js`, `${dist}/js/`);
 
 // Assets
 mix.copy(`${assets}/fonts`, `${dist}/fonts`, false)
