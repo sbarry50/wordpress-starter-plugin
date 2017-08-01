@@ -30,9 +30,12 @@ Make sure all dependencies have been installed before moving on:
 ## Installation
 
 1. Clone the directory into your `plugins` directory.
-2. Change into the cloned directory and execute `composer install` and `npm install`.
-3. In the WordPress dashboard, navigate to the *Plugins* page and locate the menu item that reads “WordPress Starter Plugin.”
-4. Click on *Activate.*
+2. Search and replace to update all `Vendor\Plugin` namespaces with the name of your organization and the name of the plugin.
+3. Update plugin header in `plugin.php` and relevant info in `composer.json` and `package.json`.
+4. Change into the cloned directory and execute `composer update` and `npm install`.
+5. Execute `composer dump-autoload -o`.
+6. In the WordPress dashboard, navigate to the *Plugins* page and locate the menu item that reads “WordPress Starter Plugin.”
+7. Click on *Activate.*
 
 Note that this will activate the source code of the starter plugin, but because it has no real functionality no menu items, meta boxes, or custom post types will be added.
 
