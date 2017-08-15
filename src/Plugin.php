@@ -2,8 +2,7 @@
 /**
  * The core plugin class.
  *
- * @package    Plugin
- * @subpackage Plugin/src
+ * @package    Vendor\Plugin
  * @since      1.0.0
  * @author     sbarry
  * @link       http://example.com
@@ -20,6 +19,7 @@ use Vendor\Plugin\Setup\EnqueueManager;
 use Vendor\Plugin\Setup\Installation;
 use Vendor\Plugin\EventManagement\PluginAPIManager;
 use Vendor\Plugin\EventManagement\EventManager;
+use Vendor\Plugin\File\Loader;
 use Vendor\Plugin\Support\Arr as ArrayHelpers;
 
 class Plugin
@@ -88,6 +88,13 @@ class Plugin
     private $plugin_I18n;
 
     /**
+     * Instance of the Icon class
+     *
+     * @var object
+     */
+    private $icon;
+
+    /**
      * Constructor.
      *
      * @since 1.0.0
@@ -119,10 +126,10 @@ class Plugin
             return;
         }
 
-        $this->load_constants();
-        $this->check_compatibility();
-        $this->set_locale();
-        $this->enqueue_assets();
+        $this->loadConstants();
+        $this->checkCompatibility();
+        $this->setLocale();
+        $this->enqueueAssets();
         $this->install();
 
         $this->loaded = true;
@@ -147,7 +154,7 @@ class Plugin
      * @since  1.0.0
      * @return null
      */
-    private function load_constants()
+    private function loadConstants()
     {
         $this->constants->init( $this->plugin_root_file, $this->config )->define();
     }
@@ -158,7 +165,7 @@ class Plugin
      * @since  1.0.0
      * @return null
      */
-    private function check_compatibility()
+    private function checkCompatibility()
     {
         $this->compatibility->check();
     }
@@ -172,10 +179,10 @@ class Plugin
      * @since    1.0.0
      * @access   private
      */
-    private function set_locale()
+    private function setLocale()
     {
-        $this->plugin_I18n->set_domain( \Vendor\Plugin\Constants\PLUGIN_TEXT_DOMAIN );
-        $this->plugin_I18n->load_plugin_textdomain();
+        $this->plugin_I18n->setDomain( \Vendor\Plugin\Constants\PLUGIN_TEXT_DOMAIN );
+        $this->plugin_I18n->loadPluginTextDomain();
     }
 
     /**
@@ -190,12 +197,12 @@ class Plugin
      * @since  [version]
      * @return [type]    [description]
      */
-    private function enqueue_assets()
+    private function enqueueAssets()
     {
-        // $this->enqueue_manager->enqueue_styles( 'plugin-name' );
-        // $this->enqueue_manager->enqueue_scripts( 'plugin-name' );
+        // $this->enqueue_manager->enqueueStyles( 'plugin-name' );
+        // $this->enqueue_manager->enqueueScripts( 'plugin-name' );
 
-        $this->event_manager->add_subscriber( $this->enqueue_manager );
+        $this->event_manager->addSubscriber( $this->enqueue_manager );
     }
 
     /**

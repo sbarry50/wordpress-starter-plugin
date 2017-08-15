@@ -2,8 +2,7 @@
 /**
  * Class that defines plugin activation/deactivation/uninstall callbacks.
  *
- * @package    Plugin
- * @subpackage Plugin/src
+ * @package    Vendor\Plugin\Setup
  * @since      1.0.0
  * @author     sbarry
  * @link       http://example.com
@@ -72,7 +71,7 @@ class Installation
             return;
 
         // This feels like a workaround. Produces "Are you sure you want to do this?" error if deactivated due to failed requirements check.
-        if( Compatibility::all_compatible() ) {
+        if( Compatibility::allCompatible() ) {
             $plugin = isset( $_REQUEST['plugin'] ) ? $_REQUEST['plugin'] : '';
             check_admin_referer( "deactivate-plugin_{$plugin}" );
         }

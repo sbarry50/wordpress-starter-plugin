@@ -1,5 +1,14 @@
 # Change Log
 
+## August 15, 2017 - 1.0.2
+* Update method names to camelCase to follow PSR-4 naming convention standards.
+
+## August 6, 2017
+* Add `ConfigFactory` class for creating Config objects
+
+## August 3, 2017
+* Update `$plugin_root_dir` in `config/plugin.php`.
+
 ## August 1, 2017
 * Major rewrite and refactoring complete
 * Replaced UpGulp with Laravel Mix for module bundling and asset compilation

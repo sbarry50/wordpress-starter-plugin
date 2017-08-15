@@ -10,10 +10,10 @@ An object-oriented foundation with a modern file architecture, standards and bui
    - Enqueue manager for enqueuing styles and scripts into WordPress
    - Localization - includes a `.pot` file as a starting point for internationalization
    - Class to handle all activation/deactivation/installation tasks
-* API's
+* Modules
    - Config - abstracts the runtime configuration out of the modules and into the `config` folder
-   - Event Management -
-   - File and template loader -
+   - Event Management - interact with the WordPress Plugin API
+   - File and template loader
 * Composer autoloader
 * Follows PSR-4 coding standards
 * Includes Laravel Mix for simple webpack implementation
@@ -29,13 +29,14 @@ Make sure all dependencies have been installed before moving on:
 
 ## Installation
 
-1. Clone the directory into your `plugins` directory.
-2. Search and replace to update all `Vendor\Plugin` namespaces with the name of your organization and the name of the plugin.
-3. Update plugin header in `plugin.php` and relevant info in `composer.json` and `package.json`.
-4. Change into the cloned directory and execute `composer update` and `npm install`.
-5. Execute `composer dump-autoload -o`.
-6. In the WordPress dashboard, navigate to the *Plugins* page and locate the menu item that reads “WordPress Starter Plugin.”
-7. Click on *Activate.*
+1. In terminal (or console) navigate to your WordPress `plugins` directory.
+2. Run this command: `composer create-project sb2-media/wordpress-starter-plugin`.
+3. Change into the SVG Icon System directory: `cd wordpress-starter-plugin`.
+4. Run `npm install`.
+5. Run `npm run dev`.
+6. Run `composer dump-autoload -o`.
+7. In the WordPress dashboard, navigate to the *Plugins* page and locate the menu item that reads “WordPress Starter Plugin.”
+8. Click on *Activate.*
 
 Note that this will activate the source code of the starter plugin, but because it has no real functionality no menu items, meta boxes, or custom post types will be added.
 

@@ -2,8 +2,7 @@
 /**
  * Class that defines the plugin's constants.
  *
- * @package    Plugin
- * @subpackage Plugin/src
+ * @package    Vendor\Plugin\Constants
  * @since      1.0.0
  * @author     sbarry
  * @link       http://example.com
@@ -48,7 +47,7 @@ class Constants implements ConstantsInterface
     {
         $this->plugin_root_file = $plugin_root_file;
         $this->config = $config;
-        $this->constants = $this->get_init_constants();
+        $this->constants = $this->getInitConstants();
 
         return $this;
     }
@@ -85,10 +84,10 @@ class Constants implements ConstantsInterface
      *
      * @since  1.0.0
      */
-    public function get_init_constants()
+    public function getInitConstants()
     {
-        $plugin_header_data = $this->get_plugin_header_data();
-        $plugin_url = $this->get_plugin_url();
+        $plugin_header_data = $this->getPluginHeaderData();
+        $plugin_url = $this->getPluginURL();
         $path_config = $this->config->get( 'paths' );
         $requirements_config = $this->config->get( 'requirements' );
 
@@ -119,18 +118,18 @@ class Constants implements ConstantsInterface
      * @since  1.0.0
      * @return array    $this->constants    Plugin constants
      */
-    public function get_constants()
+    public function getConstants()
     {
         return $this->constants;
     }
 
     /**
-     * Gets the plugin URL
+     * Get the plugin URL
      *
      * @since  1.0.0
      * @return string    $plugin_url       The plugin URL
      */
-    protected function get_plugin_url()
+    protected function getPluginURL()
     {
         $plugin_url = plugin_dir_url( $this->plugin_root_file );
         if ( is_ssl() ) {
@@ -141,12 +140,12 @@ class Constants implements ConstantsInterface
     }
 
     /**
-     * Gets plugin data from the plugin's bootstrap file header comment using WP core's get_plugin_data function
+     * Get plugin data from the plugin's bootstrap file header comment using WP core's get_plugin_data function
      *
      * @since  1.0.0
      * @return array                       Array of plugin data from the bootstrap file header comment
      */
-    protected function get_plugin_header_data()
+    protected function getPluginHeaderData()
     {
         if ( ! function_exists( 'get_plugin_data' ) ) {
             require_once ABSPATH . '/wp-admin/includes/plugin.php';

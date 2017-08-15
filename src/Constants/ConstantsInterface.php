@@ -2,7 +2,7 @@
 /**
  * Constants Contract
  *
- * @package    Vendor\Plugin\Setup
+ * @package    Vendor\Plugin\Constants
  * @since      1.0.0
  * @author     sbarry
  * @link       http://example.com

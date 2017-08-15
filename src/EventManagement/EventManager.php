@@ -2,7 +2,11 @@
 /**
  * The WordPress event manager manages events using the WordPress plugin API.
  *
- * @author Carl Alexander <contact@carlalexander.ca>
+ * @package    Vendor\Plugin\EventManagement
+ * @since      1.0.0
+ * @author     Carl Alexander <contact@carlalexander.ca>
+ * @link       http://carlalexander.ca
+ * @license    GNU General Public License 2.0+
  */
 
 namespace Vendor\Plugin\EventManagement;
@@ -36,9 +40,9 @@ class EventManager
      * @param int      $priority
      * @param int      $accepted_args
      */
-    public function add_listener($event_name, $listener, $priority = 10, $accepted_args = 1)
+    public function addListener($event_name, $listener, $priority = 10, $accepted_args = 1)
     {
-        $this->plugin_api_manager->add_callback($event_name, $listener, $priority, $accepted_args);
+        $this->plugin_api_manager->addCallback($event_name, $listener, $priority, $accepted_args);
     }
 
     /**
@@ -49,14 +53,14 @@ class EventManager
      *
      * @param SubscriberInterface $subscriber
      */
-    public function add_subscriber(SubscriberInterface $subscriber)
+    public function addSubscriber(SubscriberInterface $subscriber)
     {
         if ($subscriber instanceof PluginAPIManagerAwareSubscriberInterface) {
-            $subscriber->set_plugin_api_manager($this->plugin_api_manager);
+            $subscriber->setPluginAPIManager($this->plugin_api_manager);
         }
 
-        foreach ($subscriber->get_subscribed_events() as $event_name => $parameters) {
-            $this->add_subscriber_listener($subscriber, $event_name, $parameters);
+        foreach ($subscriber->getSubscribedEvents() as $event_name => $parameters) {
+            $this->addSubscriberListener($subscriber, $event_name, $parameters);
         }
 
     }
@@ -69,9 +73,9 @@ class EventManager
      * @param callable $listener
      * @param int      $priority
      */
-    public function remove_listener($event_name, $listener, $priority = 10)
+    public function removeListener($event_name, $listener, $priority = 10)
     {
-        $this->plugin_api_manager->remove_callback($event_name, $listener, $priority);
+        $this->plugin_api_manager->removeCallback($event_name, $listener, $priority);
     }
 
     /**
@@ -84,8 +88,8 @@ class EventManager
      */
     public function remove_subscriber(SubscriberInterface $subscriber)
     {
-        foreach ($subscriber->get_subscribed_events() as $event_name => $parameters) {
-            $this->remove_subscriber_listener($subscriber, $event_name, $parameters);
+        foreach ($subscriber->getSubscribedEvents() as $event_name => $parameters) {
+            $this->removeSubscriberListener($subscriber, $event_name, $parameters);
         }
     }
 
@@ -97,12 +101,12 @@ class EventManager
      * @param string              $event_name
      * @param mixed               $parameters
      */
-    private function add_subscriber_listener(SubscriberInterface $subscriber, $event_name, $parameters)
+    private function addSubscriberListener(SubscriberInterface $subscriber, $event_name, $parameters)
     {
         if (is_string($parameters)) {
-            $this->add_listener($event_name, array($subscriber, $parameters));
+            $this->addListener($event_name, array($subscriber, $parameters));
         } elseif (is_array($parameters) && isset($parameters[0])) {
-            $this->add_listener($event_name, array($subscriber, $parameters[0]), isset($parameters[1]) ? $parameters[1] : 10, isset($parameters[2]) ? $parameters[2] : 1);
+            $this->addListener($event_name, array($subscriber, $parameters[0]), isset($parameters[1]) ? $parameters[1] : 10, isset($parameters[2]) ? $parameters[2] : 1);
         }
     }
 
@@ -114,12 +118,12 @@ class EventManager
      * @param string              $event_name
      * @param mixed               $parameters
      */
-    private function remove_subscriber_listener(SubscriberInterface $subscriber, $event_name, $parameters)
+    private function removeSubscriberListener(SubscriberInterface $subscriber, $event_name, $parameters)
     {
         if (is_string($parameters)) {
-            $this->remove_listener($event_name, array($subscriber, $parameters));
+            $this->removeListener($event_name, array($subscriber, $parameters));
         } elseif (is_array($parameters) && isset($parameters[0])) {
-            $this->remove_listener($event_name, array($subscriber, $parameters[0]), isset($parameters[1]) ? $parameters[1] : 10);
+            $this->removeListener($event_name, array($subscriber, $parameters[0]), isset($parameters[1]) ? $parameters[1] : 10);
         }
     }
 }

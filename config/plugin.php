@@ -2,47 +2,42 @@
 /**
  * Plugin runtime configuration parameters.
  *
- * @package    Plugin
- * @subpackage Plugin/config
+ * @package    Vendor\Plugin
  * @since      1.0.0
  * @author     sbarry
  * @link       http://example.com
- * @license     GNU General Public License 2.0+
+ * @license    GNU General Public License 2.0+
  */
 
-namespace Vendor\Plugin;
+ $plugin_dir_path = plugin_dir_path( dirname(__FILE__) );
 
-$plugin_root_dir = plugin_dir_url( dirname(__FILE__) );
+ return [
 
-// d( $plugin_root_dir );
+     /*********************************************************
+     * Minimum version requirements to run this software
+     *
+     * Format:
+     *    $unique_id => $value
+     ********************************************************/
+     'requirements' => [
+         'min_wp'  => '4.7',
+         'min_php' => '5.3',
+     ],
 
-return [
+     /*********************************************************
+     * Main plugin folder paths
+     *
+     * Format:
+     *    $unique_id => $value
+     ********************************************************/
+     'paths' => [
+         'assets' => $plugin_dir_path . 'assets/',
+         'config' => $plugin_dir_path . 'config/',
+         'dist'   => $plugin_dir_path . 'dist/',
+         'lang'   => $plugin_dir_path . 'lang/',
+         'src'    => $plugin_dir_path . 'src/',
+         'test'   => $plugin_dir_path . 'test/',
+         'views'  => $plugin_dir_path . 'views/',
+     ],
 
-    /*********************************************************
-    * Minimum version requirements to run this software
-    *
-    * Format:
-    *    $unique_id => $value
-    ********************************************************/
-    'requirements' => [
-        'min_wp'  => '4.7',
-        'min_php' => '5.3',
-    ],
-
-    /*********************************************************
-    * Main plugin folder paths
-    *
-    * Format:
-    *    $unique_id => $value
-    ********************************************************/
-    'paths' => [
-        'assets' => $plugin_root_dir . 'assets/',
-        'config' => $plugin_root_dir . 'config/',
-        'dist'   => $plugin_root_dir . 'dist/',
-        'lang'   => $plugin_root_dir . 'lang/',
-        'src'    => $plugin_root_dir . 'src/',
-        'test'   => $plugin_root_dir . 'test/',
-        'views'  => $plugin_root_dir . 'views/',
-    ],
-
-];
+ ];

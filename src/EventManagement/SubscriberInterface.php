@@ -5,7 +5,11 @@
  * When an EventManager adds a Subscriber, it gets all the WordPress events that
  * it wants to listen to. It then adds the subscriber as a listener for each of them.
  *
- * @author Carl Alexander <contact@carlalexander.ca>
+ * @package    Vendor\Plugin\EventManagement
+ * @since      1.0.0
+ * @author     Carl Alexander <contact@carlalexander.ca>
+ * @link       http://carlalexander.ca
+ * @license    GNU General Public License 2.0+
  */
 
 namespace Vendor\Plugin\EventManagement;
@@ -29,5 +33,5 @@ interface SubscriberInterface
      *
      * @return array
      */
-    public static function get_subscribed_events();
+    public static function getSubscribedEvents();
 }

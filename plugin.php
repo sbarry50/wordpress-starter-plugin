@@ -16,7 +16,7 @@
  * Plugin Name:       WordPress Starter Plugin
  * Plugin URI:        http://example.com/plugin-name-uri/
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress dashboard.
- * Version:           1.0.0
+ * Version:           1.0.2
  * Author:            Your Name or Your Company
  * Author URI:        http://example.com/
  * License:           GPL-2.0+

@@ -3,7 +3,11 @@
  * An event subscriber who stores an instance of the WordPress plugin API
  * manager so that it can trigger additional events.
  *
- * @author Carl Alexander <contact@carlalexander.ca>
+ * @package    Vendor\Plugin\EventManagement
+ * @since      1.0.0
+ * @author     Carl Alexander <contact@carlalexander.ca>
+ * @link       http://carlalexander.ca
+ * @license    GNU General Public License 2.0+
  */
 
 namespace Vendor\Plugin\EventManagement;
@@ -23,7 +27,7 @@ abstract class AbstractPluginAPIManagerAwareSubscriber implements PluginAPIManag
      *
      * @param PluginAPIManager $plugin_api_manager
      */
-    public function set_plugin_api_manager(PluginAPIManager $plugin_api_manager)
+    public function setPluginAPIManager(PluginAPIManager $plugin_api_manager)
     {
         $this->plugin_api_manager = $plugin_api_manager;
     }

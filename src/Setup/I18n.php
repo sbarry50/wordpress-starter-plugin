@@ -5,8 +5,7 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @package    Plugin
- * @subpackage Plugin/src
+ * @package    Vendor\Plugin\Setup
  * @since      1.0.0
  * @author     sbarry
  * @link       http://example.com
@@ -33,7 +32,7 @@ class I18n
 	 *
 	 * @since    1.0.0
 	 */
-	public function load_plugin_textdomain()
+	public function loadPluginTextDomain()
 	{
 		\load_plugin_textdomain(
 			$this->domain,
@@ -48,7 +47,7 @@ class I18n
 	 * @since    1.0.0
 	 * @param    string    $domain    The domain that represents the locale of this plugin.
 	 */
-	public function set_domain( $domain )
+	public function setDomain( $domain )
 	{
 		$this->domain = $domain;
 	}

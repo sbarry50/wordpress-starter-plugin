@@ -2,8 +2,7 @@
 /**
  * Class that loads files and assets.
  *
- * @package    Plugin
- * @subpackage Plugin/src
+ * @package    Vendor\Plugin\File
  * @since      1.0.0
  * @author     sbarry
  * @link       http://example.com
@@ -38,7 +37,7 @@ class Loader
      * @since  1.0.0
      * @return string
      */
-    public function load_file()
+    public function loadFile()
     {
         if ( ! file_exists( $this->file ) ) {
             return;

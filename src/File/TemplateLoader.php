@@ -2,8 +2,7 @@
 /**
  * Class that loads templates and views.
  *
- * @package    Plugin
- * @subpackage Plugin/src
+ * @package    Vendor\Plugin\File
  * @since      1.0.0
  * @author     sbarry
  * @link       http://example.com
@@ -16,6 +15,8 @@
   */
 
 namespace Vendor\Plugin\File;
+
+use Vendor\Plugin;
 
 class TemplateLoader extends Loader
 {
@@ -55,13 +56,27 @@ class TemplateLoader extends Loader
     }
 
     /**
-     * Generates the highlighted comment HTML for the given comment.
+     * Set class dependecies
+     *
+     * @since  1.0.0
+     * @param
+     * @return object    $this   Instance of this object
+     */
+    public function setDependency()
+    {
+
+
+        return $this;
+    }
+
+    /**
+     * Load the template.
      *
      * @return string
      */
-    public function load_template()
+    public function loadTemplate()
     {
-        $template_path = $this->get_template_path();
+        $template_path = $this->getTemplatePath();
 
         if ( ! is_readable( $template_path ) ) {
             return sprintf( '<!-- Could not read "%s" file -->', $template_path );
@@ -79,7 +94,7 @@ class TemplateLoader extends Loader
      *
      * @return string
      */
-    private function get_template_path()
+    private function getTemplatePath()
     {
         $template_path = get_query_template($this->query_template_name);
 

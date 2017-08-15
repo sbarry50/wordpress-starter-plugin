@@ -22,7 +22,7 @@ mix.setResourceRoot('../');
 // Browser Sync
 mix.browserSync({
   host: 'localhost',
-  proxy: 'http://barrygravely.dev',
+  proxy: 'http://example.dev',
   port: 3000,
   browser: ['chrome.exe'],
 

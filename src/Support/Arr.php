@@ -94,7 +94,7 @@ class Arr
 	 */
 	public static function fetch( $array, $key )
 	{
-		$results = self::dot_notation_walk( $array, $key, 'callback_fetch' );
+		$results = self::dotNotationWalk( $array, $key, 'callbackFetch' );
 
 		return array_values( $results );
 	}
@@ -130,7 +130,7 @@ class Arr
 	{
 		$original =& $array;
 		foreach ( (array) $keys as $key ) {
-			self::forget_segments( $array, $key );
+			self::forgetSegments( $array, $key );
 
 			$array =& $original;
 		}
@@ -170,7 +170,7 @@ class Arr
 			return $array[ $key ];
 		}
 
-		return self::dot_notation_walk( $array, $key, 'callback_get', compact( 'default' ) );
+		return self::dotNotationWalk( $array, $key, 'callbackGet', compact( 'default' ) );
 	}
 
 	/**
@@ -193,7 +193,7 @@ class Arr
 			return true;
 		}
 
-		return false === self::dot_notation_walk( $array, $key, 'callback_has' ) ? false : true;
+		return false === self::dotNotationWalk( $array, $key, 'callbackHas' ) ? false : true;
 	}
 
 	/**
@@ -207,17 +207,17 @@ class Arr
 	 *
 	 * @return bool
 	 */
-	public static function is_array( $array, $key = '', $valid_if_not_empty = true )
+	public static function isArray( $array, $key = '', $valid_if_not_empty = true )
 	{
 		if ( empty( $array ) || empty( $key ) ) {
 			return false;
 		}
 
 		if ( array_key_exists( $key, $array ) ) {
-			return self::is_array_element_valid_array( $array, $key, $valid_if_not_empty );
+			return self::isArrayElementValidArray( $array, $key, $valid_if_not_empty );
 		}
 
-		return self::dot_notation_walk( $array, $key, 'callback_is_array', compact( 'valid_if_not_empty' ) );
+		return self::dotNotationWalk( $array, $key, 'callbackIsArray', compact( 'valid_if_not_empty' ) );
 	}
 
 	/**
@@ -327,7 +327,7 @@ class Arr
 		while ( count( $keys ) > 1 ) {
 			$key = array_shift( $keys );
 
-			self::init_empty_array_when_key_does_not_exists( $array, $key );
+			self::initEmptyArrayWhenKeyDoesNotExist( $array, $key );
 			$array =& $array[ $key ];
 		}
 
@@ -354,7 +354,7 @@ class Arr
 	 * @param array $array
 	 * @param string $key
 	 */
-	protected static function init_empty_array_when_key_does_not_exists( array &$array, $key )
+	protected static function initEmptyArrayWhenKeyDoesNotExist( array &$array, $key )
 	{
 		if ( ! array_key_exists( $key, $array ) || ! is_array( $array[ $key ] ) ) {
 			$array[ $key ] = array();
@@ -374,7 +374,7 @@ class Arr
 	 *
 	 * @return mixed
 	 */
-	protected static function dot_notation_walk( array &$array, $dot_notation_keys, $callback, $args = array() )
+	protected static function dotNotationWalk( array &$array, $dot_notation_keys, $callback, $args = array() )
 	{
 		$value = null;
 		$break = false;
@@ -400,7 +400,7 @@ class Arr
 	 *
 	 * @return bool
 	 */
-	protected static function callback_fetch( array &$array, $key )
+	protected static function callbackFetch( array &$array, $key )
 	{
 		$results = array();
 
@@ -422,7 +422,7 @@ class Arr
 	 * @param array $array
 	 * @param string $key
 	 */
-	protected static function forget_segments( array &$array, $key )
+	protected static function forgetSegments( array &$array, $key )
 	{
 		$parts = explode( '.', $key );
 		while ( count( $parts ) > 1 ) {
@@ -446,7 +446,7 @@ class Arr
 	 *
 	 * @return bool
 	 */
-	protected static function callback_get( array &$array, $key, &$break = false, $args = array() )
+	protected static function callbackGet( array &$array, $key, &$break = false, $args = array() )
 	{
 		if ( ! is_array( $array ) || ! array_key_exists( $key, $array ) ) {
 			$break = true;
@@ -470,7 +470,7 @@ class Arr
 	 *
 	 * @return bool
 	 */
-	protected static function callback_has( array &$array, $key_segment, &$break = false )
+	protected static function callbackHas( array &$array, $key_segment, &$break = false )
 	{
 		if ( ! array_key_exists( $key_segment, $array ) ) {
 			$break = true;
@@ -495,10 +495,10 @@ class Arr
 	 *
 	 * @return bool
 	 */
-	protected static function callback_is_array( array &$array, $key, &$break = false, $args )
+	protected static function callbackIsArray( array &$array, $key, &$break = false, $args )
 	{
 		$is_valid = array_key_exists( $key, $array )
-			? self::is_array_element_valid_array( $array, $key, $args['valid_if_not_empty'] )
+			? self::isArrayElementValidArray( $array, $key, $args['valid_if_not_empty'] )
 			: false;
 
 		if ( true === $is_valid ) {
@@ -523,7 +523,7 @@ class Arr
 	 *
 	 * @return bool
 	 */
-	protected static function is_array_element_valid_array( array $array, $key, $valid_if_not_empty = true )
+	protected static function isArrayElementValidArray( array $array, $key, $valid_if_not_empty = true )
 	{
 		return is_array( $array[ $key ] ) && ( ! $valid_if_not_empty || ! empty( $array[ $key ] ) );
 	}

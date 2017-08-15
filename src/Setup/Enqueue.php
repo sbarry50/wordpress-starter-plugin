@@ -2,8 +2,7 @@
 /**
  * Class enqueues stylesheets and scripts.
  *
- * @package    Plugin
- * @subpackage Plugin/src
+ * @package    Vendor\Plugin\Setup
  * @since      1.0.0
  * @author     sbarry
  * @link       http://example.com
@@ -59,10 +58,10 @@ class EnqueueManager implements SubscriberInterface
      *
      * @return array
      */
-    public static function get_subscribed_events()
+    public static function getSubscribedEvents()
     {
         return array(
-            'wp_enqueue_scripts' => 'enqueue_assets'
+            'wp_enqueue_scripts' => 'enqueueAssets'
         );
     }
 
@@ -72,7 +71,7 @@ class EnqueueManager implements SubscriberInterface
      * @since  1.0.0
      * @return null
      */
-    public function enqueue_assets()
+    public function enqueueAssets()
     {
         if ( ! empty($this->stylesheets) ) {
             foreach( $this->stylesheets as $stylesheet ) {
@@ -108,8 +107,8 @@ class EnqueueManager implements SubscriberInterface
      * @param  string    $media        The media for which this stylesheet has been defined. Accepts media types like 'all', 'print' and 'screen'
      * @return null
      */
-    public function enqueue_styles( $file, array $dependencies = array(), $media = 'all' ) {
-        $this->stylesheets = $this->add_stylesheet( $this->stylesheets, $file, $dependencies, $media );
+    public function enqueueStyles( $file, array $dependencies = array(), $media = 'all' ) {
+        $this->stylesheets = $this->addStylesheet( $this->stylesheets, $file, $dependencies, $media );
     }
 
 
@@ -122,8 +121,8 @@ class EnqueueManager implements SubscriberInterface
      * @param  bool      $in_footer    Whether to enqueue the script in the head or the footer
      * @return null
      */
-    public function enqueue_scripts( $file, array $dependencies = array(), $in_footer = false ) {
-        $this->scripts = $this->add_script( $this->scripts, $file, $dependencies, $in_footer );
+    public function enqueueScripts( $file, array $dependencies = array(), $in_footer = false ) {
+        $this->scripts = $this->addScript( $this->scripts, $file, $dependencies, $in_footer );
     }
 
     /**
@@ -135,7 +134,7 @@ class EnqueueManager implements SubscriberInterface
      * @param  array     $dependencies Array of registered stylesheet handles this stylesheet depends on
      * @param  string    $media        The media for which this stylesheet has been defined. Accepts media types like 'all', 'print' and 'screen'
      */
-    protected function add_stylesheet( $stylesheets, $file, array $dependencies = array(), $media = 'all' )
+    protected function addStylesheet( $stylesheets, $file, array $dependencies = array(), $media = 'all' )
     {
         $stylesheets[] = array(
             'file_name'    => $file,
@@ -155,7 +154,7 @@ class EnqueueManager implements SubscriberInterface
      * @param  array     $dependencies Array of registered script handles this script depends on
      * @param  bool      $in_footer    Whether to enqueue the script in the head or the footer
      */
-    protected function add_script( $scripts, $file, $dependencies, $in_footer )
+    protected function addScript( $scripts, $file, $dependencies, $in_footer )
     {
         $scripts[] = array(
             'file_name'    => $file,

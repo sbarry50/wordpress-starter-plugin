@@ -39,8 +39,8 @@ class Config extends ArrayObject implements ConfigInterface
      */
     public function __construct( $config, $defaults = '' )
     {
-        $this->config = $this->get_parameters( $config );
-        $this->init_defaults( $defaults );
+        $this->config = $this->getParameters( $config );
+        $this->initDefaults( $defaults );
 
         parent::__construct( $this->config, ArrayObject::ARRAY_AS_PROPS );
     }
@@ -101,13 +101,13 @@ class Config extends ArrayObject implements ConfigInterface
      * @param  string|array   $file_or_array    Either the path and filename to the configuration array or an actual config array
      * @return array                            The configuration array
      */
-    protected function get_parameters( $file_or_array )
+    protected function getParameters( $file_or_array )
     {
         if( is_array( $file_or_array ) ) {
             return $file_or_array;
         }
 
-        return $this->load_file( $file_or_array );
+        return $this->loadFile( $file_or_array );
     }
 
     /**
@@ -117,14 +117,14 @@ class Config extends ArrayObject implements ConfigInterface
      * @param  string|array   $default    Defaults filename or config array to be merged into the initial config array
      * @return null
      */
-    protected function init_defaults( $defaults )
+    protected function initDefaults( $defaults )
     {
         if( ! $defaults ) {
             return;
         }
 
-        $defaults = $this->get_parameters( $defaults );
-        $this->merge_defaults( $defaults );
+        $defaults = $this->getParameters( $defaults );
+        $this->mergeDefaults( $defaults );
     }
 
     /**
@@ -134,7 +134,7 @@ class Config extends ArrayObject implements ConfigInterface
      * @param  array   $defaults    The defaults configuration array
      * @return null
      */
-    protected function merge_defaults( array $defaults )
+    protected function mergeDefaults( array $defaults )
     {
         $this->config = array_replace_recursive( $defaults, $this->config );
     }
@@ -146,9 +146,9 @@ class Config extends ArrayObject implements ConfigInterface
      * @param  string    $config_file    The path and filename which contains the configuration array
      * @return string
      */
-    protected function load_file( $config_file )
+    protected function loadFile( $config_file )
     {
-        if ( $this->is_file_valid( $config_file ) ) {
+        if ( $this->isFileValid( $config_file ) ) {
             return include $config_file;
         }
     }
@@ -162,14 +162,14 @@ class Config extends ArrayObject implements ConfigInterface
      * @throws InvalidArgumentException
      * @throws RuntimeException
      */
-    public function is_file_valid( $config_file )
+    public function isFileValid( $config_file )
     {
         if ( ! $config_file ) {
-            throw new InvalidArgumentException( __( 'A config filename must not be empty.', 'plugin-name' ) );
+            throw new InvalidArgumentException( __( 'A config filename must not be empty.', 'svg-icon-system' ) );
         }
 
         if ( ! is_readable( $config_file ) ) {
-            throw new RuntimeException( sprintf( '%s %s', __( 'The specified config file is not readable', 'plugin-name' ), $config_file ) );
+            throw new RuntimeException( sprintf( '%s %s', __( 'The specified config file is not readable', 'svg-icon-system' ), $config_file ) );
         }
 
         return true;
@@ -187,8 +187,8 @@ class Config extends ArrayObject implements ConfigInterface
      * @param bool $valid_if_not_empty
      * @return bool
      */
-    public function is_array( $parameter_key, $valid_if_not_empty = true )
+    public function isArray( $parameter_key, $valid_if_not_empty = true )
     {
-        return Arr_Helpers::is_array( $this->config, $parameter_key, $valid_if_not_empty );
+        return Arr_Helpers::isArray( $this->config, $parameter_key, $valid_if_not_empty );
     }
 }

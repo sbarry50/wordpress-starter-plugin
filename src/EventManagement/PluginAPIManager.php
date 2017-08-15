@@ -2,7 +2,11 @@
 /**
  * Manager that interacts with the WordPress plugin API.
  *
- * @author Carl Alexander <contact@carlalexander.ca>
+ * @package    Vendor\Plugin\EventManagement
+ * @since      1.0.0
+ * @author     Carl Alexander <contact@carlalexander.ca>
+ * @link       http://carlalexander.ca
+ * @license    GNU General Public License 2.0+
  */
 
 namespace Vendor\Plugin\EventManagement;
@@ -19,9 +23,9 @@ class PluginAPIManager
      * @param int      $priority
      * @param int      $accepted_args
      */
-    public function add_callback($hook_name, $callback, $priority = 10, $accepted_args = 1)
+    public function addCallback($hook_name, $callback, $priority = 10, $accepted_args = 1)
     {
-        add_filter($hook_name, $callback, $priority, $accepted_args);
+        \add_filter($hook_name, $callback, $priority, $accepted_args);
     }
 
     /**
@@ -62,7 +66,7 @@ class PluginAPIManager
      *
      * @return string|bool
      */
-    public function get_current_hook()
+    public function getCurrentHook()
     {
         return current_filter();
     }
@@ -80,9 +84,9 @@ class PluginAPIManager
      *
      * @return bool|int
      */
-    public function has_callback($hook_name, $callback = false)
+    public function hasCallback($hook_name, $callback = false)
     {
-        return has_filter($hook_name, $callback);
+        return \has_filter($hook_name, $callback);
     }
 
     /**
@@ -97,8 +101,8 @@ class PluginAPIManager
      *
      * @return bool
      */
-    public function remove_callback($hook_name, $callback, $priority = 10)
+    public function removeCallback($hook_name, $callback, $priority = 10)
     {
-        return remove_filter($hook_name, $callback, $priority);
+        return \remove_filter($hook_name, $callback, $priority);
     }
 }

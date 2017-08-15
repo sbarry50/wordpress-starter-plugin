@@ -2,8 +2,7 @@
 /**
  * Class that checks if all system requirements are met to run this plugin.
  *
- * @package    Plugin
- * @subpackage Plugin/src
+ * @package    Vendor\Plugin\Setup
  * @since      1.0.0
  * @author     sbarry
  * @link       http://example.com
@@ -27,7 +26,7 @@ class Compatibility
      */
     public function check()
     {
-        if ( self::all_compatible() ) {
+        if ( self::allCompatible() ) {
             return;
         } else {
             $this->add_admin_listeners();
@@ -40,10 +39,10 @@ class Compatibility
      * @since  1.0.0
      * @return bool
      */
-    public static function all_compatible()
+    public static function allCompatible()
     {
-        return self::is_compatible( Constants\WP_VERSION, Constants\PLUGIN_MIN_WP_VERSION ) &&
-               self::is_compatible( PHP_VERSION, Constants\PLUGIN_MIN_PHP_VERSION );
+        return self::isCompatible( Constants\WP_VERSION, Constants\PLUGIN_MIN_WP_VERSION ) &&
+               self::isCompatible( PHP_VERSION, Constants\PLUGIN_MIN_PHP_VERSION );
     }
 
     /**
@@ -54,7 +53,7 @@ class Compatibility
      * @param  string    $minimum Minimum required version
      * @return bool
      */
-    public static function is_compatible( $current, $minimum )
+    public static function isCompatible( $current, $minimum )
     {
         return version_compare( $current, $minimum, '>=' );
     }
@@ -65,7 +64,7 @@ class Compatibility
      * @since  1.0.0
      * @return null
      */
-    public function disable_plugin()
+    public function disablePlugin()
     {
         if ( current_user_can( 'activate_plugins' ) && is_plugin_active( Constants\PLUGIN_BASENAME ) ) {
             deactivate_plugins( Constants\PLUGIN_BASENAME );
@@ -83,14 +82,14 @@ class Compatibility
      * @since  1.0.0
      * @return null
      */
-    public function render_notice()
+    public function renderNotice()
     {
         $template = new TemplateLoader(
             Constants\PLUGIN_VIEWS_PATH . '/errors/compatibility-notice.php',
             'compatibility_notice_template_path',
             'compatibility-notice'
         );
-        printf( $template->load_template() );
+        printf( $template->loadTemplate() );
     }
 
     /**
@@ -102,8 +101,8 @@ class Compatibility
     {
         $plugin_api_manager = new PluginAPIManager();
         $event_manager = new EventManager( $plugin_api_manager );
-        $event_manager->add_listener( 'admin_init', array( $this, 'disable_plugin' ) );
-        $event_manager->add_listener( 'admin_notices', array( $this, 'render_notice' ) );
+        $event_manager->addListener( 'admin_init', array( $this, 'disablePlugin' ) );
+        $event_manager->addListener( 'admin_notices', array( $this, 'renderNotice' ) );
     }
 
     /**
@@ -114,9 +113,9 @@ class Compatibility
      * @param  string    $minimum Minimum required version
      * @return null
      */
-    public static function render_dashicon( $current, $minimum )
+    public static function renderDashicon( $current, $minimum )
     {
-        self::is_compatible( $current, $minimum ) ? ($dashicon = 'yes' AND $color = '#46b450') : ($dashicon = 'no' AND $color = '#dc3232');
+        self::isCompatible( $current, $minimum ) ? ($dashicon = 'yes' AND $color = '#46b450') : ($dashicon = 'no' AND $color = '#dc3232');
 
         printf('<span class="dashicons dashicons-%s" style="color:%s"></span>', $dashicon, $color);
     }
