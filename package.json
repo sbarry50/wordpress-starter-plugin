@@ -1,6 +1,6 @@
 {
-  "name": "wp-starter-plugin",
-  "version": "1.0.0",
+  "name": "wordpress-starter-plugin",
+  "version": "1.0.2",
   "description": "A standardized, organized, object-oriented foundation for building high-quality WordPress Plugins",
   "main": "gulpfile.js",
   "directories": {

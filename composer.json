@@ -1,6 +1,6 @@
 {
-    "name": "vendor-name/plugin-name",
-    "description": "This is a short description of what the plugin does.",
+    "name": "sb2-media/wordpress-starter-plugin",
+    "description": "Object orientated foundation for building high-quality WordPress plugins.",
     "type": "wordpress-plugin",
     "keywords": ["wordpress", "plugin"],
     "homepage": "http://example.com/",
