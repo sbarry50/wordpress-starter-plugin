@@ -31,7 +31,7 @@ Make sure all dependencies have been installed before moving on:
 
 1. In terminal (or console) navigate to your WordPress `plugins` directory.
 2. Run this command: `composer create-project sb2-media/wordpress-starter-plugin`.
-3. Change into the SVG Icon System directory: `cd wordpress-starter-plugin`.
+3. Change into the starter plugin directory: `cd wordpress-starter-plugin`.
 4. Run `npm install`.
 5. Run `npm run dev`.
 6. Run `composer dump-autoload -o`.
