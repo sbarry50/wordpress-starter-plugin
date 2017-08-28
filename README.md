@@ -29,7 +29,7 @@ Make sure all dependencies have been installed before moving on:
 
 ## Installation
 
-1. In terminal (or console) navigate to your WordPress `plugins` directory.
+1. From the command line navigate to your WordPress `plugins` directory.
 2. Run this command: `composer create-project sb2-media/wordpress-starter-plugin`.
 3. Change into the starter plugin directory: `cd wordpress-starter-plugin`.
 4. Run `npm install`.
