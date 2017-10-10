@@ -37,10 +37,11 @@ Make sure all dependencies have been installed before moving on:
 5. Update the main plugin header in `plugin.php` with your plugin info.
 6. Run `npm install`.
 7. Run `npm run dev`.
-8. Global search and replace `Vendor\Plugin` with `YourCompanyName\YourPluginName`.
-8. Run `composer dump-autoload -o`.
-9. In the WordPress dashboard, navigate to the *Plugins* page and locate the menu item that reads “Your Plugin Name.”
-10. Click on *Activate.*
+8. Global search and replace `Vendor\Plugin` namespaces with `YourCompanyName\YourPluginName`.
+9. Update `composer.json` with relevant information including the namespaces defined in the `autoload` section. They must match the namespaces used in the previous step.
+10. Run `composer dump-autoload -o`.
+11. In the WordPress dashboard, navigate to the *Plugins* page and locate the menu item that reads “Your Plugin Name.”
+12. Click on *Activate.*
 
 Note that this will activate the source code of the starter plugin, but because it has no real functionality no menu items, meta boxes, or custom post types will be added.
 
