@@ -31,12 +31,15 @@ Make sure all dependencies have been installed before moving on:
 
 1. From the command line navigate to your WordPress `plugins` directory.
 2. Run this command: `composer create-project sb2-media/wordpress-starter-plugin`.
-3. Change into the starter plugin directory: `cd wordpress-starter-plugin`.
-4. Run `npm install`.
-5. Run `npm run dev`.
-6. Run `composer dump-autoload -o`.
-7. In the WordPress dashboard, navigate to the *Plugins* page and locate the menu item that reads “WordPress Starter Plugin.”
-8. Click on *Activate.*
+3. Rename the `wordpress-starter-plugin` directory to `your-plugin-name`.
+3. Change into the plugin directory: `cd your-plugin-name`.
+4. Update the `package.json` file with your info.
+5. Update the main plugin header in `plugin.php` with your plugin info.
+6. Run `npm install`.
+7. Run `npm run dev`.
+8. Run `composer dump-autoload -o`.
+9. In the WordPress dashboard, navigate to the *Plugins* page and locate the menu item that reads “Your Plugin Name.”
+10. Click on *Activate.*
 
 Note that this will activate the source code of the starter plugin, but because it has no real functionality no menu items, meta boxes, or custom post types will be added.
 
