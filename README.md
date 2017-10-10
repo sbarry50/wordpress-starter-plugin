@@ -37,6 +37,7 @@ Make sure all dependencies have been installed before moving on:
 5. Update the main plugin header in `plugin.php` with your plugin info.
 6. Run `npm install`.
 7. Run `npm run dev`.
+8. Global search and replace `Vendor\Plugin` with `YourCompanyName\YourPluginName`.
 8. Run `composer dump-autoload -o`.
 9. In the WordPress dashboard, navigate to the *Plugins* page and locate the menu item that reads “Your Plugin Name.”
 10. Click on *Activate.*
