@@ -19,6 +19,7 @@ namespace Vendor\Plugin\Config;
 use ArrayObject;
 use InvalidArgumentException;
 use RuntimeException;
+use Vendor\Plugin\Support\Paths;
 use Vendor\Plugin\Support\Arr as Arr_Helpers;
 
 class Config extends ArrayObject implements ConfigInterface
@@ -140,7 +141,7 @@ class Config extends ArrayObject implements ConfigInterface
     }
 
     /**
-     * Load the configuration file if it is validated
+     * Load the configuration file
      *
      * @since  1.0.0
      * @param  string    $config_file    The path and filename which contains the configuration array
@@ -148,31 +149,7 @@ class Config extends ArrayObject implements ConfigInterface
      */
     protected function loadFile( $config_file )
     {
-        if ( $this->isFileValid( $config_file ) ) {
-            return include $config_file;
-        }
-    }
-
-    /**
-     * Check if the configuration file is valid. Throws error exceptions if not.
-     *
-     * @since  1.0.0
-     * @param  string    $config_file    The configuration file
-     * @return bool
-     * @throws InvalidArgumentException
-     * @throws RuntimeException
-     */
-    public function isFileValid( $config_file )
-    {
-        if ( ! $config_file ) {
-            throw new InvalidArgumentException( __( 'A config filename must not be empty.', 'svg-icon-system' ) );
-        }
-
-        if ( ! is_readable( $config_file ) ) {
-            throw new RuntimeException( sprintf( '%s %s', __( 'The specified config file is not readable', 'svg-icon-system' ), $config_file ) );
-        }
-
-        return true;
+        return container()->get( 'loader' )->loadFile( $config_file );
     }
 
     /**

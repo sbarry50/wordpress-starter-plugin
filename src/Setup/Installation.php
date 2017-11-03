@@ -71,7 +71,7 @@ class Installation
             return;
 
         // This feels like a workaround. Produces "Are you sure you want to do this?" error if deactivated due to failed requirements check.
-        if( Compatibility::allCompatible() ) {
+        if( container()->get( 'compatibility' )->allCompatible() ) {
             $plugin = isset( $_REQUEST['plugin'] ) ? $_REQUEST['plugin'] : '';
             check_admin_referer( "deactivate-plugin_{$plugin}" );
         }

@@ -1,7 +1,6 @@
 <?php
 namespace Vendor\Plugin;
 
-use Vendor\Plugin\Setup\Compatibility;
 use Vendor\Plugin\Constants as Constants;
 ?>
 
@@ -19,15 +18,15 @@ use Vendor\Plugin\Constants as Constants;
             <tbody>
                 <tr>
                     <th style="text-align: left;">Wordpress</th>
-                    <td><?php echo Constants\PLUGIN_MIN_WP_VERSION; ?></td>
-                    <td><?php echo Constants\WP_VERSION; ?></td>
-                    <td><?php Compatibility::render_dashicon( Constants\WP_VERSION, Constants\PLUGIN_MIN_WP_VERSION ); ?></td>
+                    <td><?php echo $this->compatibility->minWPVersion(); ?></td>
+                    <td><?php echo $this->compatibility->currentWPVersion(); ?></td>
+                    <td><?php $this->compatibility->renderDashicon( $this->compatibility->currentWPVersion(), $this->compatibility->minWPVersion() ); ?></td>
                 </tr>
                 <tr>
                     <th style="text-align: left;">PHP</th>
-                    <td><?php echo Constants\PLUGIN_MIN_PHP_VERSION; ?></td>
+                    <td><?php echo $this->compatibility->minPHPVersion(); ?></td>
                     <td><?php echo PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION . '.' . PHP_RELEASE_VERSION; ?></td>
-                    <td><?php Compatibility::render_dashicon( PHP_VERSION, Constants\PLUGIN_MIN_PHP_VERSION ); ?></td>
+                    <td><?php $this->compatibility->renderDashicon( $this->compatibility->currentPHPVersion(), $this->compatibility->minPHPVersion() ); ?></td>
                 </tr>
             </tbody>
         </table>

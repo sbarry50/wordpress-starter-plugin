@@ -1,6 +1,6 @@
 <?php
 /**
- * Class that loads files and assets.
+ * Class that loads views, files and assets.
  *
  * @package    Vendor\Plugin\File
  * @since      1.0.0
@@ -11,42 +11,77 @@
 
 namespace Vendor\Plugin\File;
 
-class Loader
+use Vendor\Plugin\Setup\Compatibility;
+use Exception;
+
+class Loader implements LoaderInterface
 {
-    /**
-     * File or asset to load
-     *
-     * @var string
-     */
-    public $file;
 
     /**
-     * Constructor
+     * Set Compatibility dependency
      *
-     * @since 1.0.0
-     * @param string    $file    File or asset to load
+     * @since 1.1.0
+     * @param Compatibility $compatibility
      */
-    public function __construct( $file )
+    public function setCompatibility( Compatibility $compatibility )
     {
-        $this->file = $file;
+        $this->compatibility = $compatibility;
+    }
+    
+    /**
+     * Loads a file
+     *
+     * @since  1.1.0
+     * @param  string    $file     The direct path and filename of the file to be loaded
+     * @return                     The contents of the file
+     */
+    public function loadFile( $file )
+    {
+        if( self::isFileValid( $file ) )
+        {
+            return include $file;
+        }
     }
 
     /**
-     * Load the file or asset
+     * Load a view file or asset that requires output buffering
+     *
+     * @since  1.1.0
+     * @param  string    $file     The direct path and filename of the file to be loaded
+     * @return string              The contents of the file
+     */
+    public function loadOutputFile( $file )
+    {
+        if( self::isFileValid( $file ) )
+        {
+            ob_start();
+
+            include $file;
+
+            return ob_get_clean();
+        }
+    }
+
+    /**
+     * Check if the file is valid. Throws error exceptions if not.
      *
      * @since  1.0.0
-     * @return string
+     * @param  string    $file    The file
+     * @return bool
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
-    public function loadFile()
+    public static function isFileValid( $file )
     {
-        if ( ! file_exists( $this->file ) ) {
-            return;
-    	}
+        if ( ! file_exists( $file ) ) {
+            throw new Exception( sprintf( '%s %s', __( 'The file does not exist.', 'plugin-name' ), $file ) );
+        }
 
-        ob_start();
+        if ( ! is_readable( $file ) ) {
+            throw new Exception( sprintf( '%s %s', __( 'The file is not readable', 'plugin-name' ), $file ) );
+        }
 
-        include $this->file;
-
-        return ob_get_clean();
+        return true;
     }
+
 }

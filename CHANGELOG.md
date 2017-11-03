@@ -1,5 +1,15 @@
 # Change Log
 
+## November 3, 2017 - 1.1.0
+* Implemented Pimple dependency injection container to better manage dependencies
+* Added Container class as a wrapper class for Pimple
+* Event Manager class overhauled. Now just a wrapper for NetRivet's WordPress Event Emitter.
+* Major rewrites to many other classes
+* Added Config file support for enqueuing stylesheets and scripts in the WordPress front and back-ends. This is default behavior.
+* Defined plugin constants moved to config file.
+* Constants now defined in the main `Vendor\Plugin` namespace.
+* Added utility classes -- `PluginData`, `Paths` and `URLs` -- to simplify retrieving data, file and folder paths and URLs within the plugin.
+
 ## August 15, 2017 - 1.0.2
 * Update method names to camelCase to follow PSR-4 naming convention standards.
 

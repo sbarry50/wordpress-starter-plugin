@@ -14,7 +14,8 @@
 
 namespace Vendor\Plugin\Setup;
 
-use Vendor\Plugin\Constants as Constants;
+use Vendor\Plugin\Support\Paths;
+use const Vendor\Plugin\PLUGIN_TEXT_DOMAIN;
 
 class I18n
 {
@@ -35,21 +36,10 @@ class I18n
 	public function loadPluginTextDomain()
 	{
 		\load_plugin_textdomain(
-			$this->domain,
+			PLUGIN_TEXT_DOMAIN,
 			false,
-			Constants\PLUGIN_LANG_PATH
+			Paths::getLangPath()
 		);
-	}
-
-	/**
-	 * Set the domain equal to that of the specified domain.
-	 *
-	 * @since    1.0.0
-	 * @param    string    $domain    The domain that represents the locale of this plugin.
-	 */
-	public function setDomain( $domain )
-	{
-		$this->domain = $domain;
 	}
 
 }

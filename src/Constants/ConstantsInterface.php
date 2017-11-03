@@ -2,7 +2,7 @@
 /**
  * Constants Contract
  *
- * @package    Vendor\Plugin\Constants
+ * @package    Vendor\Plugin
  * @since      1.0.0
  * @author     sbarry
  * @link       http://example.com
@@ -24,6 +24,7 @@ interface ConstantsInterface
 
     /**
      * Add additional constants to the default constants array
+     *
      * @since 1.0.0
      * @return array    $this->constants    The plugin constants
      */

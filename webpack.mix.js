@@ -36,14 +36,24 @@ mix.browserSync({
 });
 
 // Sass
-mix.sass(`${assets}/sass/plugin-name.scss`, `${dist}/css/`);
+mix.sass(`${assets}/sass/plugin-name.scss`, `${dist}/css/`)
+   .sass(`${assets}/sass/plugin-name-admin.scss`, `${dist}/css/`);
+   // .sass(`${assets}/sass/other-name.scss`, `${dist}/css/`)
+   // .sass(`${assets}/sass/other-name-admin.scss`, `${dist}/css/`)
+   // .sass(`${assets}/sass/another-name.scss`, `${dist}/css/`)
+   // .sass(`${assets}/sass/another-name-admin.scss`, `${dist}/css/`);
 
 // Javascript
 // mix.autoload({
 //    jquery: ['$', 'window.jQuery', 'jQuery']
 // });
 
-mix.js(`${assets}/js/plugin-name.js`, `${dist}/js/`);
+mix.js(`${assets}/js/plugin-name.js`, `${dist}/js/`)
+   .js(`${assets}/js/plugin-name-admin.js`, `${dist}/js/`);
+   // .js(`${assets}/js/other-name.js`, `${dist}/js/`)
+   // .js(`${assets}/js/other-name-admin.js`, `${dist}/js/`)
+   // .js(`${assets}/js/another-name.js`, `${dist}/js/`)
+   // .js(`${assets}/js/another-name-admin.js`, `${dist}/js/`);
 
 // Assets
 mix.copy(`${assets}/fonts`, `${dist}/fonts`, false)

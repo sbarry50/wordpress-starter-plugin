@@ -1,21 +1,30 @@
 <?php
 /**
- * Class enqueues stylesheets and scripts.
+ * Abstract class that enqueues stylesheets and scripts.
  *
- * @package    Vendor\Plugin\Setup
+ * @package    Vendor\Plugin\Enqueue
  * @since      1.0.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
  */
 
-namespace Vendor\Plugin\Setup;
+namespace Vendor\Plugin\Enqueue;
 
-use Vendor\Plugin\EventManagement\SubscriberInterface;
-use Vendor\Plugin\Constants as Constants;
+use Vendor\Plugin\Config\ConfigInterface;
+use Vendor\Plugin\Events\EventManager;
+use Vendor\Plugin\Support\URLs;
+use const Vendor\Plugin\PLUGIN_VERSION;
 
-class EnqueueManager implements SubscriberInterface
+class EnqueueManager implements EnqueueManagerInterface
 {
+    /**
+     * Enqueue configuration
+     *
+     * @var ConfigInterface
+     */
+    public $config;
+
     /**
      * Collection of stylesheets
      *
@@ -42,44 +51,31 @@ class EnqueueManager implements SubscriberInterface
     }
 
     /**
-     * Returns an array of events that this subscriber wants to listen to.
+     * Config dependency injection
      *
-     * The array key is the event name. The value can be:
-     *
-     *  * The method name
-     *  * An array with the method name and priority
-     *  * An array with the method name, priority and number of accepted arguments
-     *
-     * For instance:
-     *
-     *  * array('event_name' => 'method_name')
-     *  * array('event_name' => array('method_name', $priority))
-     *  * array('event_name' => array('method_name', $priority, $accepted_args))
-     *
-     * @return array
+     * @since 1.1.0
+     * @param ConfigInterface $config
      */
-    public static function getSubscribedEvents()
+    public function setConfig( ConfigInterface $config )
     {
-        return array(
-            'wp_enqueue_scripts' => 'enqueueAssets'
-        );
+        $this->config = $config;
     }
 
     /**
-     * Enqueue the collection of stylesheets and scripts into WordPress
+     * Enqueue the collection of stylesheets and scripts into WordPress. Callback function to hook into 'wp_enqueue_scripts' and 'admin_enqueue_scripts'.
      *
      * @since  1.0.0
      * @return null
      */
-    public function enqueueAssets()
+    public function enqueue()
     {
         if ( ! empty($this->stylesheets) ) {
             foreach( $this->stylesheets as $stylesheet ) {
                 \wp_enqueue_style(
-                    Constants\PLUGIN_TEXT_DOMAIN . "/{$stylesheet['file_name']}.css",
-                    Constants\PLUGIN_DIST_PATH . "css/{$stylesheet['file_name']}.css",
+                    "{$stylesheet['file_name']}",
+                    URLs::getDistURL() . "css/{$stylesheet['file_name']}.css",
                     $stylesheet['dependencies'],
-                    Constants\PLUGIN_VERSION,
+                    PLUGIN_VERSION,
                     $stylesheet['media']
                 );
             }
@@ -88,10 +84,10 @@ class EnqueueManager implements SubscriberInterface
         if ( ! empty($this->scripts) ) {
             foreach( $this->scripts as $script ) {
                 \wp_enqueue_script(
-                    Constants\PLUGIN_TEXT_DOMAIN . "/{$script['file_name']}.js",
-                    Constants\PLUGIN_DIST_PATH . "js/{$script['file_name']}.js",
+                    "{$script['file_name']}",
+                    URLs::getDistURL() . "js/{$script['file_name']}.js",
                     $script['dependencies'],
-                    Constants\PLUGIN_VERSION,
+                    PLUGIN_VERSION,
                     $script['in_footer']
                 );
             }
@@ -99,30 +95,62 @@ class EnqueueManager implements SubscriberInterface
     }
 
     /**
+     * Parse the configuration file and add it to stylesheets and scripts arrays
+     *
+     * @since  1.1.0
+     * @param  ConfigInterface    $this->config
+     */
+    public function enqueueConfig()
+    {
+        if( $this->config->has( 'stylesheets' ) ) {
+            $stylesheets = $this->config->get( 'stylesheets' );
+
+            foreach( $stylesheets as $stylesheet )
+            {
+                $this->enqueueStyles( $stylesheet[ 'file_name' ], $stylesheet[ 'dependencies' ], $stylesheet[ 'media' ] );
+            }
+        }
+
+        if( $this->config->has( 'scripts' ) ) {
+            $scripts = $this->config->get( 'scripts' );
+
+            foreach( $scripts as $script )
+            {
+                $this->enqueueScripts( $script[ 'file_name' ], $script[ 'dependencies' ], $script[ 'in_footer' ] );
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * Add a new stylesheet into the collection of stylesheets to enqueue
      *
      * @since  1.0.0
      * @param  string    $file         Name of the stylesheet to be enqueued
-     * @param  array     $dependencies Array of registered stylesheet handles this stylesheet depends on
-     * @param  string    $media        The media for which this stylesheet has been defined. Accepts media types like 'all', 'print' and 'screen'
+     * @param  array     $dependencies (Optional) Array of registered stylesheet handles this stylesheet depends on
+     * @param  string    $media        (Optional) The media for which this stylesheet has been defined. Accepts media types like 'all', 'print' and 'screen'
      * @return null
      */
     public function enqueueStyles( $file, array $dependencies = array(), $media = 'all' ) {
         $this->stylesheets = $this->addStylesheet( $this->stylesheets, $file, $dependencies, $media );
-    }
 
+        return $this;
+    }
 
     /**
      * Add a new script into the collection of scripts to enqueue
      *
      * @since  1.0.0
      * @param  string    $file         Name of the script to be enqueued
-     * @param  array     $dependencies Array of registered script handles this scripts depends on
-     * @param  bool      $in_footer    Whether to enqueue the script in the head or the footer
+     * @param  array     $dependencies (Optional) Array of registered script handles this scripts depends on
+     * @param  bool      $in_footer    (Optional) Whether to enqueue the script in the head or the footer
      * @return null
      */
     public function enqueueScripts( $file, array $dependencies = array(), $in_footer = false ) {
         $this->scripts = $this->addScript( $this->scripts, $file, $dependencies, $in_footer );
+
+        return $this;
     }
 
     /**
@@ -164,4 +192,5 @@ class EnqueueManager implements SubscriberInterface
 
         return $scripts;
     }
+
 }

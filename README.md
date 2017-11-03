@@ -4,6 +4,7 @@ An object-oriented foundation with a modern file architecture, standards and bui
 
 ## Features
 
+* Pimple container dependency injection
 * Built-in initialization tasks
    - System environment compatibility check
    - Plugin constants with ability to add more
@@ -23,7 +24,7 @@ An object-oriented foundation with a modern file architecture, standards and bui
 Make sure all dependencies have been installed before moving on:
 
 * [WordPress](https://wordpress.org/) >= 4.7
-* [PHP](http://php.net/manual/en/install.php) >= 5.3
+* [PHP](http://php.net/manual/en/install.php) >= 7.0
 * [Composer](https://getcomposer.org/download/)
 * [Node.js](http://nodejs.org/) >= 6.9.x
 
@@ -44,6 +45,16 @@ Make sure all dependencies have been installed before moving on:
 12. Click on *Activate.*
 
 Note that this will activate the source code of the starter plugin, but because it has no real functionality no menu items, meta boxes, or custom post types will be added.
+
+## Usage
+
+### Enqueuing Assets
+
+Default behavior for enqueueing assets is via two configuration files found in the `config` folder. Front-end and back-end assets can be defined in `enqueue.php` and `admin-enqueue.php`, respectively. Adding multiple files is as simple as adding another entry in the configuration array. This is well-documented in each file.
+
+Alternatively (or in conjunction with), assets can be enqueued via the `EnqueueManager` class' `enqueueStyles` and `enqueueScripts` methods. These are best called in the `Plugin` class' `enqueueAssets` and `enqueueAdminAssets` methods.
+
+Each asset to be enqueued should be placed in the appropriate `assets/sass` (default for css), `assets/css` and/or `assets/js` subfolders. These filed must also be defined in `webpack.mix.js` in the plugin's root directory and compiled into the appropriate `dist/` subfolder by executing `npm run dev` or `npm run production` on the command line.
 
 ## Recommended Tools
 
