@@ -59,8 +59,9 @@ class Container extends Pimple implements ContainerInterface
 	 * @param string    $class       Fully qualified class name to instantiate
 	 * @param string    $config_file The name of the config file
 	 * @param boolean   $setter      (Optional) Constructor or setter injection
+	 * @param array 	$params		 (Optional) Array of parameters to pass to the class
 	 */
-	public function setWithConfig( string $id, $class, $config_file, $setter = false ) {
+	public function setWithConfig( string $id, $class, $config_file, $setter = false, $params = [] ) {
 
 		$file = Paths::getConfigPath() . "{$config_file}.php";
 
@@ -71,12 +72,19 @@ class Container extends Pimple implements ContainerInterface
 		$config_id = str_replace( '-', '_', $config_file ) . '_config';
 		$this->set( $config_id, new Config( $file ) );
 
-		if($setter) {
+		if( ! empty( $params ) && $setter ) {
+			$this->set( $id, new $class( ...$params ) );
+			return $this[ $id ]->setConfig( $this[ $config_id ] );
+		} elseif ( $setter ) {
 			$this->set( $id, new $class() );
 			return $this[ $id ]->setConfig( $this[ $config_id ] );
+		} elseif( ! empty( $params ) ) {
+			array_unshift( $params, $this[ $config_id ] );
+			return $this->set( $id, new $class( ...$params ) );
+		} else {
+			return $this->set( $id, new $class( $this[ $config_id ] ) );
 		}
 
-		return $this->set( $id, new $class( $this[ $config_id ] ) );
 	}
 
 }

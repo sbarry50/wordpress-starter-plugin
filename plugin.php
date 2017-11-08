@@ -26,14 +26,15 @@
  */
 
 use Vendor\Plugin\Container\Container;
+use Vendor\Plugin\Config\Config;
 use Vendor\Plugin\Plugin;
 
  // If this file is called directly, abort.
- if ( ! defined( 'WPINC' ) ) {
+ if ( ! defined( 'ABSPATH' ) ) {
  	die;
  }
 
-$autoloader = dirname( __FILE__ ) . '/vendor/autoload.php';
+$autoloader = __DIR__ . '/vendor/autoload.php';
 if ( file_exists( $autoloader ) ) {
 	include_once $autoloader;
 }
