@@ -94,7 +94,6 @@ class Plugin
         container()->get( 'plugin_I18n' )->loadPluginTextDomain();
         // $this->enqueueAssets();
         // $this->enqueueAdminAssets();
-        $this->install();
 
         $this->loaded = true;
 
@@ -162,19 +161,4 @@ class Plugin
                             //   ->enqueueScripts( 'another-name-admin', array(), true );
         EventManager::addAction( 'admin_enqueue_scripts', array( $admin_enqueue_manager, 'enqueue' ) );
     }
-
-    /**
-     * Register installation processes
-     *
-     * @since  1.0.0
-     * @return null
-     */
-    protected function install()
-    {
-        $install_class = __NAMESPACE__ . '\Setup\Installation';
-        register_activation_hook( PLUGIN_ROOT, array( $install_class, 'activate' ) );
-        register_deactivation_hook( PLUGIN_ROOT, array( $install_class, 'deactivate' ) );
-        register_uninstall_hook( PLUGIN_ROOT, array( $install_class, 'uninstall' ) );
-    }
-
 }

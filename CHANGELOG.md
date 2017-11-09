@@ -1,5 +1,9 @@
 # Change Log
 
+## November 8, 2017 - 1.1.1
+* Container `setWithConfig()` now handles optional parameters
+* `register_activation_hook`, `register_deactivation_hook` and `register_uninstall_hook` moved to plugin root file since they cannot be called from within `plugins_loaded` or `init` wordpress hooks.
+
 ## November 3, 2017 - 1.1.0
 * Implemented Pimple dependency injection container to better manage dependencies
 * Added Container class as a wrapper class for Pimple

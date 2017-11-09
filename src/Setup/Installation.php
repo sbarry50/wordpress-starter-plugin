@@ -53,6 +53,7 @@ class Installation
         check_admin_referer( "activate-plugin_{$plugin}" );
 
 
+
         // register_custom_post_types();
         // flush_rewrite_rules();
 
