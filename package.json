@@ -1,6 +1,6 @@
 {
   "name": "wordpress-starter-plugin",
-  "version": "1.1.0",
+  "version": "0.2.1",
   "description": "A standardized, organized, object-oriented foundation for building high-quality WordPress Plugins",
   "main": "webpack.mix.js",
   "directories": {

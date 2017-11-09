@@ -3,7 +3,7 @@
  * Abstract class that enqueues stylesheets and scripts.
  *
  * @package    Vendor\Plugin\Enqueue
- * @since      1.0.0
+ * @since      0.1.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
@@ -35,14 +35,14 @@ class EnqueueManager implements EnqueueManagerInterface
     /**
      * Collection of scripts
      *
-     * @var 1.0.0
+     * @var 0.1.0
      */
     public $scripts;
 
     /**
      * Constructor
      *
-     * @since 1.0.0
+     * @since 0.1.0
      */
     public function __construct()
     {
@@ -53,7 +53,7 @@ class EnqueueManager implements EnqueueManagerInterface
     /**
      * Config dependency injection
      *
-     * @since 1.1.0
+     * @since 0.2.0
      * @param ConfigInterface $config
      */
     public function setConfig( ConfigInterface $config )
@@ -64,7 +64,7 @@ class EnqueueManager implements EnqueueManagerInterface
     /**
      * Enqueue the collection of stylesheets and scripts into WordPress. Callback function to hook into 'wp_enqueue_scripts' and 'admin_enqueue_scripts'.
      *
-     * @since  1.0.0
+     * @since  0.1.0
      * @return null
      */
     public function enqueue()
@@ -97,7 +97,7 @@ class EnqueueManager implements EnqueueManagerInterface
     /**
      * Parse the configuration file and add it to stylesheets and scripts arrays
      *
-     * @since  1.1.0
+     * @since  0.2.0
      * @param  ConfigInterface    $this->config
      */
     public function enqueueConfig()
@@ -126,7 +126,7 @@ class EnqueueManager implements EnqueueManagerInterface
     /**
      * Add a new stylesheet into the collection of stylesheets to enqueue
      *
-     * @since  1.0.0
+     * @since  0.1.0
      * @param  string    $file         Name of the stylesheet to be enqueued
      * @param  array     $dependencies (Optional) Array of registered stylesheet handles this stylesheet depends on
      * @param  string    $media        (Optional) The media for which this stylesheet has been defined. Accepts media types like 'all', 'print' and 'screen'
@@ -141,7 +141,7 @@ class EnqueueManager implements EnqueueManagerInterface
     /**
      * Add a new script into the collection of scripts to enqueue
      *
-     * @since  1.0.0
+     * @since  0.1.0
      * @param  string    $file         Name of the script to be enqueued
      * @param  array     $dependencies (Optional) Array of registered script handles this scripts depends on
      * @param  bool      $in_footer    (Optional) Whether to enqueue the script in the head or the footer
@@ -156,7 +156,7 @@ class EnqueueManager implements EnqueueManagerInterface
     /**
      * Utility function to add stylesheets into a single collection.
      *
-     * @since  1.0.0
+     * @since  0.1.0
      * @param  array     $stylesheets  The collection of stylesheets to enqueue
      * @param  string    $file         Name of the stylesheet to be enqueued
      * @param  array     $dependencies Array of registered stylesheet handles this stylesheet depends on
@@ -176,7 +176,7 @@ class EnqueueManager implements EnqueueManagerInterface
     /**
      * Utility function to add scripts into a single collection.
      *
-     * @since  1.0.0
+     * @since  0.1.0
      * @param  array     $scripts      The collection of scripts to enqueue
      * @param  string    $file         Name of the script to be enqueued
      * @param  array     $dependencies Array of registered script handles this script depends on

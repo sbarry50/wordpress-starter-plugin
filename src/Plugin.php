@@ -3,7 +3,7 @@
  * The core plugin class.
  *
  * @package    Vendor\Plugin
- * @since      1.0.0
+ * @since      0.1.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
@@ -20,6 +20,7 @@ use Vendor\Plugin\Setup\Installation;
 use Vendor\Plugin\Support\Paths;
 use Vendor\Plugin\Support\Arr as ArrayHelpers;
 use const Vendor\Plugin\PLUGIN_ROOT;
+use const Vendor\Plugin\PLUGIN_BASENAME;
 
 use NetRivet\WordPress\EventEmitter;
 
@@ -49,7 +50,7 @@ class Plugin
     /**
      * Constructor.
      *
-     * @since 1.0.0
+     * @since 0.1.0
      * @param string    plugin_root_folder    Root folder of the plugin
      */
     public function __construct( $plugin_root_file )
@@ -61,7 +62,7 @@ class Plugin
     /**
      * Add default services to our Container
      *
-     * @since 1.1.0
+     * @since 0.2.0
      * @param Container $container
      */
     public function registerServices( Container $container )
@@ -80,7 +81,7 @@ class Plugin
     /**
      * Load the plugin. Executes all initial tasks necessary to prepare the plugin to perform its objective(s).
      *
-     * @since  1.0.0
+     * @since  0.1.0
      * @return object   $this   Instance of this object.
      */
     public function load()
@@ -103,7 +104,7 @@ class Plugin
     /**
      * Run the tasks necessary for the plugin to perform its objective(s).
      *
-     * @since  1.0.0
+     * @since  0.1.0
      * @return null
      */
     public function run()
@@ -125,7 +126,7 @@ class Plugin
      * For scripts pass the file name, any dependecies (optional) and whether it should be placed in the head or footer (optional) to enqueueScripts()
      * $enqueue_manager->enqueueScripts( $file, array $dependencies = array(), $in_footer = false );
      *
-     * @since  1.0.0
+     * @since  0.1.0
      * @return
      */
     protected function enqueueAssets()
@@ -150,7 +151,7 @@ class Plugin
      * For scripts pass the file name, any dependecies (optional) and whether it should be placed in the head or footer (optional) to enqueueScripts()
      * $admin_enqueue_manager->enqueueScripts( $file, array $dependencies = array(), $in_footer = false );
      *
-     * @since  1.1.0
+     * @since  0.2.0
      * @return
      */
     protected function enqueueAdminAssets()
@@ -160,5 +161,11 @@ class Plugin
                             //   ->enqueueStyles( 'another-name-admin', array(), 'all' )
                             //   ->enqueueScripts( 'another-name-admin', array(), true );
         EventManager::addAction( 'admin_enqueue_scripts', array( $admin_enqueue_manager, 'enqueue' ) );
+    }
+
+    protected function registerSettings()
+    {
+        $settings = container()->get( 'settings' );
+        EventManager::addFilter( 'plugin_action_link_' . PLUGIN_BASENAME, array( $settings, 'settingsLink' ) );
     }
 }

@@ -4,7 +4,7 @@
  * Array Helpers - Static Collection of Helpers for Data Type Array
  *
  * @package     Vendor\Plugin\Support
- * @since       1.0.0
+ * @since       0.1.0
  * @author      sbarry
  * @link        http://example.com
  * @license     GNU General Public License 2.0+ and MIT License (MIT)
@@ -25,7 +25,7 @@ class Arr
 	/**
 	 * Add an element to an array using "dot" notation if it does not exist.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param  array $array
 	 * @param  string $key
@@ -45,7 +45,7 @@ class Arr
 	/**
 	 * Flatten a multi-dimensional associative array with dots.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param  array $array
 	 * @param  string $prepend
@@ -70,7 +70,7 @@ class Arr
 	/**
 	 * Get all of the given array except for a specified array of items.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param  array $array
 	 * @param  array|string $keys
@@ -85,7 +85,7 @@ class Arr
 	/**
 	 * Fetch a flattened array of a nested array element.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param  array $array
 	 * @param  string $key
@@ -102,7 +102,7 @@ class Arr
 	/**
 	 * Flatten a multi-dimensional array into a single level
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param  array $array
 	 *
@@ -139,7 +139,7 @@ class Arr
 	/**
 	 * Drop keys from the array
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param $array
 	 * @param $keys
@@ -176,7 +176,7 @@ class Arr
 	/**
 	 * Check if an item exists in an array using "dot" notation.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param  array $array
 	 * @param  string $key
@@ -199,7 +199,7 @@ class Arr
 	/**
 	 * Checks if the element within the array is a valid array - uses key dot notation.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param array|mixed $array
 	 * @param string $key
@@ -223,7 +223,7 @@ class Arr
 	/**
 	 * Get a subset of the items from the given array.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param  array $array
 	 * @param  array|string $keys
@@ -286,7 +286,7 @@ class Arr
 	/**
 	 * Get a value from the array, and remove it.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param  array $array
 	 * @param  string $key
@@ -308,7 +308,7 @@ class Arr
 	 *
 	 * If no key is given to the method, the entire array will be replaced.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param  array $array
 	 * @param  string $key
@@ -349,7 +349,7 @@ class Arr
 	/**
 	 * Init an empty array at the key index when the key does not currently exists in the array
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param array $array
 	 * @param string $key
@@ -365,7 +365,7 @@ class Arr
 	 * Dot notation array walker - this function dissembles the dot notation keys and then
 	 * iterates through each of them and applies the callback to each.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param array $array
 	 * @param string $dot_notation_keys
@@ -393,7 +393,7 @@ class Arr
 	/**
 	 * Fetch() function callback for key dot notation walker
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param array $array
 	 * @param string $key Key to evaluate within the "array"
@@ -417,7 +417,7 @@ class Arr
 	/**
 	 * Forget segments within the array
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param array $array
 	 * @param string $key
@@ -437,7 +437,7 @@ class Arr
 	/**
 	 * Get() function callback for key dot notation walker
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param array $array
 	 * @param string $key
@@ -462,7 +462,7 @@ class Arr
 	/**
 	 * Has() function callback for key dot notation walker
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param array $array
 	 * @param string $key_segment
@@ -486,7 +486,7 @@ class Arr
 	/**
 	 * Is Valid Array() function callback for key dot notation walker
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param array $array
 	 * @param string $key
@@ -515,7 +515,7 @@ class Arr
 	/**
 	 * Checks if the array element, indicated by the key, is a valid array.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param array $array
 	 * @param string $key

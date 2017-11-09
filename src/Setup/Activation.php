@@ -3,7 +3,7 @@
  * Class that defines plugin activation/deactivation/uninstall callbacks.
  *
  * @package    Vendor\Plugin\Setup
- * @since      1.0.0
+ * @since      0.1.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
@@ -16,8 +16,9 @@
 namespace Vendor\Plugin\Setup;
 
 use Vendor\Plugin\Setup\Compatibility;
+use const Vendor\Plugin\PLUGIN_ROOT;
 
-class Installation
+class Activation
 {
 
     /**
@@ -30,7 +31,7 @@ class Installation
     /**
      * Initialize the class
      *
-     * @since  1.0.0
+     * @since  0.1.0
      * @return object
      */
     public static function init() {
@@ -39,9 +40,22 @@ class Installation
     }
 
     /**
+     * Register the activation, deactivation and uninstall WordPress hooks
+     *
+     * @since  0.2.1
+     * @param  $file    Plugin root file
+     */
+    public static function register( $file ) {
+        $class = __NAMESPACE__ . '\Activation';
+        register_activation_hook( $file, array( $class, 'activate' ) );
+        register_deactivation_hook( $file, array( $class, 'deactivate' ) );
+        register_uninstall_hook( $file, array( $class, 'uninstall' ) );
+    }
+
+    /**
      * Activation actions
      *
-     * @since  1.0.0
+     * @since  0.1.0
      * @return null
      */
     public static function activate() {
@@ -64,7 +78,7 @@ class Installation
     /**
      * Deactivation actions
      *
-     * @since  1.0.0
+     * @since  0.1.0
      * @return null
      */
     public static function deactivate() {
@@ -88,7 +102,7 @@ class Installation
     /**
      * Uninstallation actions
      *
-     * @since  1.0.0
+     * @since  0.1.0
      * @return null
      */
     public static function uninstall() {

@@ -3,7 +3,7 @@
  * Class that defines the plugin's constants.
  *
  * @package    Vendor\Plugin
- * @since      1.0.0
+ * @since      0.1.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
@@ -26,7 +26,7 @@ class Constants implements ConstantsInterface
     /**
      * Constructor
      *
-     * @since  1.0.0
+     * @since  0.1.0
      */
     public function __construct( ConfigInterface $constants_config )
     {
@@ -36,7 +36,7 @@ class Constants implements ConstantsInterface
     /**
      * Defines the plugin's constants
      *
-     * @since  1.0.0
+     * @since  0.1.0
      */
     public function define()
     {
@@ -50,7 +50,7 @@ class Constants implements ConstantsInterface
     /**
      * Add additional constants to the default constants array
      *
-     * @since 1.0.0
+     * @since 0.1.0
      * @return array    $this->constants_config    The plugin constants
      */
     public function add( array $constants )
@@ -62,7 +62,7 @@ class Constants implements ConstantsInterface
 
     /**
      * Get the array of constants
-     * @since  1.0.0
+     * @since  0.1.0
      * @return array    $this->constants    Plugin constants
      */
     public function getConstants()

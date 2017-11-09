@@ -3,7 +3,7 @@
  * Class that checks if all system requirements are met to run this plugin.
  *
  * @package    Vendor\Plugin\Setup
- * @since      1.0.0
+ * @since      0.1.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
@@ -56,7 +56,7 @@ class Compatibility
     /**
      * Get the current version of WordPress
      *
-     * @since  1.1.0
+     * @since  0.2.0
      * @return string
      */
     public function currentWPVersion()
@@ -67,7 +67,7 @@ class Compatibility
     /**
      * Get the minimum version of WordPress required to run this plugin
      *
-     * @since  1.1.0
+     * @since  0.2.0
      * @return string
      */
     public function minWPVersion()
@@ -78,7 +78,7 @@ class Compatibility
     /**
      * Get the current version of PHP
      *
-     * @since  1.1.0
+     * @since  0.2.0
      * @return string
      */
     public function currentPHPVersion()
@@ -89,7 +89,7 @@ class Compatibility
     /**
      * Get the minimum version of PHP required to run this plugin
      *
-     * @since  1.1.0
+     * @since  0.2.0
      * @return string
      */
     public function minPHPVersion()
@@ -100,7 +100,7 @@ class Compatibility
     /**
      * Check if requirements are met to activate and run plugin
      *
-     * @since  1.0.0
+     * @since  0.1.0
      * @return null
      */
     public function check()
@@ -115,7 +115,7 @@ class Compatibility
     /**
      * Check if all requirements are met
      *
-     * @since  1.0.0
+     * @since  0.1.0
      * @return bool
      */
     public function allCompatible()
@@ -127,7 +127,7 @@ class Compatibility
     /**
      * Check if specific requirement is met
      *
-     * @since  1.0.0
+     * @since  0.1.0
      * @param  string    $current Current version
      * @param  string    $minimum Minimum required version
      * @return bool
@@ -140,7 +140,7 @@ class Compatibility
     /**
      * Disable the plugin and hide the default "Plugin activated" notice
      *
-     * @since  1.0.0
+     * @since  0.1.0
      * @return null
      */
     public function disablePlugin()
@@ -158,7 +158,7 @@ class Compatibility
     /**
      * Render the "Requirements not met" error notice
      *
-     * @since  1.0.0
+     * @since  0.1.0
      * @return null
      */
     public function renderNotice()
@@ -172,7 +172,7 @@ class Compatibility
     /**
      * Render the dashicon in the "Requirements not met" error notice
      *
-     * @since  1.0.0
+     * @since  0.1.0
      * @param  string    $current Current version
      * @param  string    $minimum Minimum required version
      * @return null
@@ -187,7 +187,7 @@ class Compatibility
     /**
      * Add admin event listeners
      *
-     * @since 1.0.0
+     * @since 0.1.0
      */
     private function addAdminEvents()
     {

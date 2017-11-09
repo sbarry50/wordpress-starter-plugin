@@ -3,7 +3,7 @@
  * Class that loads views, files and assets.
  *
  * @package    Vendor\Plugin\File
- * @since      1.0.0
+ * @since      0.1.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
@@ -20,7 +20,7 @@ class Loader implements LoaderInterface
     /**
      * Set Compatibility dependency
      *
-     * @since 1.1.0
+     * @since 0.2.0
      * @param Compatibility $compatibility
      */
     public function setCompatibility( Compatibility $compatibility )
@@ -31,7 +31,7 @@ class Loader implements LoaderInterface
     /**
      * Loads a file
      *
-     * @since  1.1.0
+     * @since  0.2.0
      * @param  string    $file     The direct path and filename of the file to be loaded
      * @return                     The contents of the file
      */
@@ -46,7 +46,7 @@ class Loader implements LoaderInterface
     /**
      * Load a view file or asset that requires output buffering
      *
-     * @since  1.1.0
+     * @since  0.2.0
      * @param  string    $file     The direct path and filename of the file to be loaded
      * @return string              The contents of the file
      */
@@ -65,7 +65,7 @@ class Loader implements LoaderInterface
     /**
      * Check if the file is valid. Throws error exceptions if not.
      *
-     * @since  1.0.0
+     * @since  0.1.0
      * @param  string    $file    The file
      * @return bool
      * @throws InvalidArgumentException

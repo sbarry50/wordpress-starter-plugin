@@ -3,7 +3,7 @@
  * Configuration Contract
  *
  * @package    Vendor\Plugin\Config
- * @since      1.0.0
+ * @since      0.1.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
@@ -20,7 +20,7 @@ interface ConfigInterface
 	/**
 	 * Retrieves all of the runtime configuration parameters
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @return array
 	 */
@@ -46,7 +46,7 @@ interface ConfigInterface
 	/**
 	 * Push a configuration in via the key
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param string $parameter_key Key to be assigned, which also becomes the property
 	 * @param mixed  $value         Value to be assigned to the parameter key

@@ -3,7 +3,7 @@
  * Helper class for fetching folder paths
  *
  * @package    Vendor\Plugin\Support
- * @since      1.1.0
+ * @since      0.2.0
  * @author     sbarry
  * @link       http://sb2media.com
  * @license    GNU General Public License 2.0+
@@ -19,7 +19,7 @@ class Paths
     /**
      * Get the plugin's root directory Paths
      *
-     * @since 1.1.0
+     * @since 0.2.0
      * @return string
      */
     public static function getPluginDirPath()
@@ -34,7 +34,7 @@ class Paths
     /**
      * Get assets folder path
      *
-     * @since 1.1.0
+     * @since 0.2.0
      * @return string
      */
     public static function getAssetsPath()
@@ -45,7 +45,7 @@ class Paths
     /**
      * Get config folder path
      *
-     * @since 1.1.0
+     * @since 0.2.0
      * @return string
      */
     public static function getConfigPath()
@@ -56,7 +56,7 @@ class Paths
     /**
      * Get dist folder path
      *
-     * @since 1.1.0
+     * @since 0.2.0
      * @return string
      */
     public static function getDistPath()
@@ -66,7 +66,7 @@ class Paths
     /**
      * Get lang folder path
      *
-     * @since 1.1.0
+     * @since 0.2.0
      * @return string
      */
     public static function getLangPath()
@@ -77,7 +77,7 @@ class Paths
     /**
      * Get src folder path
      *
-     * @since 1.1.0
+     * @since 0.2.0
      * @return string
      */
     public static function getSrcPath()
@@ -88,7 +88,7 @@ class Paths
     /**
      * Get test folder path
      *
-     * @since 1.1.0
+     * @since 0.2.0
      * @return string
      */
     public static function getTestPath()
@@ -99,7 +99,7 @@ class Paths
     /**
      * Get views folder path
      *
-     * @since 1.1.0
+     * @since 0.2.0
      * @return string
      */
     public static function getViewsPath()

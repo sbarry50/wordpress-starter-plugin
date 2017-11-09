@@ -3,7 +3,7 @@
  * Dependency injection container class which extends Pimple
  *
  * @package    Vendor\Plugin\Container
- * @since      1.1.0
+ * @since      0.2.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
@@ -42,7 +42,7 @@ class Container extends Pimple implements ContainerInterface
     /**
 	 * Checks if a parameter or an object is set.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param  string $id    The unique identifier for the parameter or object
 	 * @return bool
@@ -54,7 +54,7 @@ class Container extends Pimple implements ContainerInterface
 	/**
 	 * Set item in container with Config dependency
 	 *
-	 * @since 1.1.0
+	 * @since 0.2.0
 	 * @param string    $id          The unique identifier for the parameter or object
 	 * @param string    $class       Fully qualified class name to instantiate
 	 * @param string    $config_file The name of the config file

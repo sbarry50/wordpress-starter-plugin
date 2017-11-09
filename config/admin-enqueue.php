@@ -3,7 +3,7 @@
  * CSS and Javascript files to enqueue for the WordPress admin.
  *
  * @package    Vendor\Plugin
- * @since      1.1.0
+ * @since      0.2.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+

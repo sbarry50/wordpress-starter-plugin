@@ -1,10 +1,10 @@
 # Change Log
 
-## November 8, 2017 - 1.1.1
+## November 8, 2017 - 0.2.1
 * Container `setWithConfig()` now handles optional parameters
 * `register_activation_hook`, `register_deactivation_hook` and `register_uninstall_hook` moved to plugin root file since they cannot be called from within `plugins_loaded` or `init` wordpress hooks.
 
-## November 3, 2017 - 1.1.0
+## November 3, 2017 - 0.2.0
 * Implemented Pimple dependency injection container to better manage dependencies
 * Added Container class as a wrapper class for Pimple
 * Event Manager class overhauled. Now just a wrapper for NetRivet's WordPress Event Emitter.
@@ -14,7 +14,7 @@
 * Constants now defined in the main `Vendor\Plugin` namespace.
 * Added utility classes -- `PluginData`, `Paths` and `URLs` -- to simplify retrieving data, file and folder paths and URLs within the plugin.
 
-## August 15, 2017 - 1.0.2
+## August 15, 2017 - 0.1.2
 * Update method names to camelCase to follow PSR-4 naming convention standards.
 
 ## August 6, 2017

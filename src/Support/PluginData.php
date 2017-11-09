@@ -3,7 +3,7 @@
  * Helper class for retrieving plugin data
  *
  * @package    Vendor\Plugin\Support
- * @since      1.1.0
+ * @since      0.2.0
  * @author     sbarry
  * @link       http://sb2media.com
  * @license    GNU General Public License 2.0+
@@ -16,7 +16,7 @@ class PluginData
     /**
      * Get the plugin's root directory Paths
      *
-     * @since 1.1.0
+     * @since 0.2.0
      * @return string
      */
     public static function getPluginRootFile()
@@ -27,7 +27,7 @@ class PluginData
     /**
      * Get the plugin's top level namespace
      *
-     * @since 1.1.0
+     * @since 0.2.0
      * @return string
      */
     public static function getPluginTopLevelNamespace()
@@ -38,7 +38,7 @@ class PluginData
     /**
      * Get plugin basename
      *
-     * @since  1.1.0
+     * @since  0.2.0
      * @return string
      */
     public static function getPluginBasename()
@@ -50,7 +50,7 @@ class PluginData
     /**
      * Get plugin data from the plugin's bootstrap file header comment using WP core's get_plugin_data function
      *
-     * @since  1.1.0
+     * @since  0.2.0
      * @param  string    $id    Plugin header data unique id
      * @return array            Array of plugin data from the bootstrap file header comment
      */

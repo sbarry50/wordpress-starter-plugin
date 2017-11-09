@@ -3,7 +3,7 @@
  * Plugin requirements parameters.
  *
  * @package    Vendor\Plugin
- * @since      1.0.0
+ * @since      0.1.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+

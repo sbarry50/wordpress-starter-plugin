@@ -3,7 +3,7 @@
  * Constants Contract
  *
  * @package    Vendor\Plugin
- * @since      1.0.0
+ * @since      0.1.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
@@ -17,7 +17,7 @@ interface ConstantsInterface
     /**
      * Define the plugin's constants
      *
-     * @since  1.0.0
+     * @since  0.1.0
      * @return null
      */
     public function define();
@@ -25,7 +25,7 @@ interface ConstantsInterface
     /**
      * Add additional constants to the default constants array
      *
-     * @since 1.0.0
+     * @since 0.1.0
      * @return array    $this->constants    The plugin constants
      */
     public function add( array $constants );

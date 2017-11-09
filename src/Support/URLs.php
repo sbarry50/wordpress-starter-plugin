@@ -3,7 +3,7 @@
  * Helper class for retrieving plugin directory URL's
  *
  * @package    Vendor\Plugin\Support
- * @since      1.1.0
+ * @since      0.2.0
  * @author     sbarry
  * @link       http://sb2media.com
  * @license    GNU General Public License 2.0+
@@ -18,7 +18,7 @@ class URLs
     /**
      * Get the plugin's root directory Paths
      *
-     * @since 1.1.0
+     * @since 0.2.0
      * @return string
      */
     public static function getPluginDirURL()
@@ -34,7 +34,7 @@ class URLs
     /**
      * Get assets folder url
      *
-     * @since 1.1.0
+     * @since 0.2.0
      * @return string
      */
     public static function getAssetsURL()
@@ -45,7 +45,7 @@ class URLs
     /**
      * Get config folder url
      *
-     * @since 1.1.0
+     * @since 0.2.0
      * @return string
      */
     public static function getConfigURL()
@@ -56,7 +56,7 @@ class URLs
     /**
      * Get dist folder url
      *
-     * @since 1.1.0
+     * @since 0.2.0
      * @return string
      */
     public static function getDistURL()
@@ -66,7 +66,7 @@ class URLs
     /**
      * Get lang folder url
      *
-     * @since 1.1.0
+     * @since 0.2.0
      * @return string
      */
     public static function getLangURL()
@@ -77,7 +77,7 @@ class URLs
     /**
      * Get src folder url
      *
-     * @since 1.1.0
+     * @since 0.2.0
      * @return string
      */
     public static function getSrcURL()
@@ -88,7 +88,7 @@ class URLs
     /**
      * Get test folder url
      *
-     * @since 1.1.0
+     * @since 0.2.0
      * @return string
      */
     public static function getTestURL()
@@ -99,7 +99,7 @@ class URLs
     /**
      * Get views folder url
      *
-     * @since 1.1.0
+     * @since 0.2.0
      * @return string
      */
     public static function getViewsURL()
