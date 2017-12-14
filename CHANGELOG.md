@@ -1,5 +1,10 @@
 # Change Log
 
+## November 10, 2017 - 0.3.0
+* Controller classes added
+* Settings classes added to interact with WordPress' Settings API
+* Container instance() static method added to easily return the main instance of Container
+
 ## November 8, 2017 - 0.2.1
 * Container `setWithConfig()` now handles optional parameters
 * `register_activation_hook`, `register_deactivation_hook` and `register_uninstall_hook` moved to plugin root file since they cannot be called from within `plugins_loaded` or `init` wordpress hooks.

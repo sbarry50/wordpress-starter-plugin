@@ -11,21 +11,38 @@
 
 namespace Vendor\Plugin;
 
-use Vendor\Plugin\Config\Config;
-use Vendor\Plugin\Container\Container;
 use Vendor\Plugin\Setup\I18n;
-use Vendor\Plugin\Events\EventManager;
+use Vendor\Plugin\Forms\Forms;
 use Vendor\Plugin\File\Loader;
-use Vendor\Plugin\Setup\Installation;
+use Vendor\Plugin\Config\Config;
+use Vendor\Plugin\Forms\Options;
 use Vendor\Plugin\Support\Paths;
-use Vendor\Plugin\Support\Arr as ArrayHelpers;
-use const Vendor\Plugin\PLUGIN_ROOT;
-use const Vendor\Plugin\PLUGIN_BASENAME;
-
+use Vendor\Plugin\Forms\Attributes;
 use NetRivet\WordPress\EventEmitter;
+use const Vendor\Plugin\PLUGIN_ROOT;
+use Vendor\Plugin\Setup\Installation;
+use Vendor\Plugin\Events\EventManager;
+use Vendor\Plugin\Container\Container;
+use Vendor\Plugin\Settings\SettingsAPI;
+use const Vendor\Plugin\PLUGIN_BASENAME;
+use Vendor\Plugin\Controller\Controller;
+use Vendor\Plugin\Settings\SettingsLink;
+use Vendor\Plugin\Settings\SettingsPages;
+use Vendor\Plugin\Settings\SettingsConfig;
+use Vendor\Plugin\Settings\SettingsDefaults;
+use Vendor\Plugin\Controller\AdminController;
+use Vendor\Plugin\Settings\SettingsCallbacks;
+use Vendor\Plugin\Controller\EnqueueController;
 
-class Plugin
+final class Plugin
 {
+
+    /**
+     * Container instance
+     * @var Container
+     */
+    public $container;
+
     /**
      * The plugin root file
      *
@@ -53,8 +70,9 @@ class Plugin
      * @since 0.1.0
      * @param string    plugin_root_folder    Root folder of the plugin
      */
-    public function __construct( $plugin_root_file )
+    public function __construct(Container $container, $plugin_root_file)
     {
+        $this->container = $container;
         $this->plugin_root_file = $plugin_root_file;
         $this->namespace = __NAMESPACE__;
     }
@@ -63,109 +81,57 @@ class Plugin
      * Add default services to our Container
      *
      * @since 0.2.0
-     * @param Container $container
      */
-    public function registerServices( Container $container )
+    public function registerServices()
     {
-        $container->set( 'events', new EventEmitter() );
-        $container->set( 'loader', new Loader() );
-        $container->set( 'plugin_I18n', new I18n() );
-        $container->setWithConfig( 'enqueue_manager', __NAMESPACE__ . '\Enqueue\EnqueueManager', 'enqueue', true );
-        $container->setWithConfig( 'admin_enqueue_manager', __NAMESPACE__ . '\Enqueue\EnqueueManager', 'admin-enqueue', true );
-        $container->setWithConfig( 'constants', __NAMESPACE__ . '\Constants\Constants', 'constants' );
-        $container->setWithConfig( 'compatibility', __NAMESPACE__ . '\Setup\Compatibility', 'requirements' );
+        $this->container->set('controller', new Controller($this->container));
+        $this->container->set('enqueue_controller', new EnqueueController($this->container));
+        $this->container->set('events', new EventEmitter());
+        $this->container->set('loader', new Loader());
+        $this->container->set('plugin_I18n', new I18n());
+        $this->container->set('attributes', new Attributes());
+        $this->container->set('options', new Options());
+        $this->container->set('forms', new Forms($this->container->get('loader'), $this->container->get('attributes'), $this->container->get('options')));
+
+        $settings_config = Paths::config() . "admin-settings-redux.php";
+        $settings_defaults = Paths::config() . "admin-settings-defaults.php";
+        $this->container->set('settings_config', new SettingsConfig($settings_config, $settings_defaults));
+        $this->container->set('settings', new Settings($this->container->get('settings_config')));
+        $this->container->set('settings_callbacks', new SettingsCallbacks($this->container->get('loader'), $this->container->get('forms')));
+        $this->container->set('settings_api', new SettingsAPI($this->container->get('settings_callbacks'), $this->container->get('settings_defaults')));
+        $this->container->set('settings_pages', new SettingsPages($this->container->get('settings_callbacks'), $this->container->get('settings_defaults')));
+        $this->container->set('settings_link', new SettingsLink());
+        $this->container->setWithConfig('admin_controller', __NAMESPACE__ . '\Controller\AdminController', 'admin-settings-redux', true, array($this->container));
+        $this->container->setWithConfig('enqueue_manager', __NAMESPACE__ . '\Enqueue\EnqueueManager', 'enqueue', true);
+        $this->container->setWithConfig('admin_enqueue_manager', __NAMESPACE__ . '\Enqueue\EnqueueManager', 'admin-enqueue', true);
+        $this->container->setWithConfig('constants', __NAMESPACE__ . '\Constants\Constants', 'constants');
+        $this->container->setWithConfig('compatibility', __NAMESPACE__ . '\Setup\Compatibility', 'requirements', false, array($this->container->get('loader')));
+
 
         return $this;
     }
 
     /**
-     * Load the plugin. Executes all initial tasks necessary to prepare the plugin to perform its objective(s).
+     * Initialize the plugin. Executes all initial tasks necessary to prepare the plugin to perform its objective(s).
      *
      * @since  0.1.0
      * @return object   $this   Instance of this object.
      */
-    public function load()
+    public function init()
     {
-        if( $this->loaded ) {
+        if ($this->loaded) {
             return;
         }
 
-        container()->get( 'constants' )->define();
-        container()->get( 'compatibility' )->check();
-        container()->get( 'plugin_I18n' )->loadPluginTextDomain();
-        // $this->enqueueAssets();
-        // $this->enqueueAdminAssets();
+        $this->container->get('constants')->define();
+        $this->container->get('compatibility')->check();
+        $this->container->get('plugin_I18n')->loadPluginTextDomain();
+        $this->container->get('enqueue_controller')->enqueueAssets();
+        $this->container->get('enqueue_controller')->enqueueAdminAssets();
+        $this->container->get('admin_controller')->load();
 
         $this->loaded = true;
 
         return $this;
-    }
-
-    /**
-     * Run the tasks necessary for the plugin to perform its objective(s).
-     *
-     * @since  0.1.0
-     * @return null
-     */
-    public function run()
-    {
-        // Tasks to perform here
-        return;
-    }
-
-    /**
-     * Enqueue front end stylesheets and scripts into Wordpress via the enqueue manager.
-     *
-     * Recommend adding stylesheets and scripts via the enqueue config file.
-     *
-     * The alternative way to add stylesheets and scripts
-     *
-     * For stylesheets pass the file name, any dependecies (optional) and media type (optional) to enqueueStyles()
-     * $enqueue_manager->enqueueStyles( $file, array $dependencies = array(), $media = 'all' );
-     *
-     * For scripts pass the file name, any dependecies (optional) and whether it should be placed in the head or footer (optional) to enqueueScripts()
-     * $enqueue_manager->enqueueScripts( $file, array $dependencies = array(), $in_footer = false );
-     *
-     * @since  0.1.0
-     * @return
-     */
-    protected function enqueueAssets()
-    {
-        $enqueue_manager = container()->get( 'enqueue_manager' );
-        $enqueue_manager->enqueueConfig();
-                        // ->enqueueStyles( 'another-name', array(), 'all' )
-                        // ->enqueueScripts( 'another-name', array(), true );
-        EventManager::addAction( 'wp_enqueue_scripts', array( $enqueue_manager, 'enqueue' ) );
-    }
-
-    /**
-     * Enqueue admin stylesheets and scripts into Wordpress via the enqueue manager.
-     *
-     * Recommend adding stylesheets and scripts via the admin-enqueue config file.
-     *
-     * The alternative way to add stylesheets and scripts
-     *
-     * For stylesheets pass the file name, any dependecies (optional) and media type (optional) to enqueueStyles()
-     * $admin_enqueue_manager->enqueueStyles( $file, array $dependencies = array(), $media = 'all' );
-     *
-     * For scripts pass the file name, any dependecies (optional) and whether it should be placed in the head or footer (optional) to enqueueScripts()
-     * $admin_enqueue_manager->enqueueScripts( $file, array $dependencies = array(), $in_footer = false );
-     *
-     * @since  0.2.0
-     * @return
-     */
-    protected function enqueueAdminAssets()
-    {
-        $admin_enqueue_manager = container()->get( 'admin_enqueue_manager' );
-        $admin_enqueue_manager->enqueueConfig();
-                            //   ->enqueueStyles( 'another-name-admin', array(), 'all' )
-                            //   ->enqueueScripts( 'another-name-admin', array(), true );
-        EventManager::addAction( 'admin_enqueue_scripts', array( $admin_enqueue_manager, 'enqueue' ) );
-    }
-
-    protected function registerSettings()
-    {
-        $settings = container()->get( 'settings' );
-        EventManager::addFilter( 'plugin_action_link_' . PLUGIN_BASENAME, array( $settings, 'settingsLink' ) );
     }
 }

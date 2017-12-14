@@ -18,53 +18,54 @@ namespace Vendor\Plugin\Events;
 
 use NetRivet\WordPress\EventEmitterInterface;
 
-class EventManager {
+class EventManager
+{
 
-	/**
-	 * Add an action to an event hook through the WordPress Plugin API
-	 *
-	 * @since 0.2.0
-	 * @param string $event           The event hook
-	 * @param        $function_to_add The function to add to the event hook
-	 * @param int    $priority        Used to specify the order in which the functions associated with a particular action are executed.
-	 * @param int    $acceptedArgs    The number of arguments the function accepts.
-	 *
-	 * @return EventEmitterInterface
-	 */
-	public static function addAction( string $event, $function_to_add, int $priority = 10, int $acceptedArgs = 1 ) : EventEmitterInterface
-	{
-		return self::getEventManager()->on( $event, $function_to_add, $priority, $acceptedArgs );
-	}
+    /**
+     * Add an action to an event hook through the WordPress Plugin API
+     *
+     * @since 0.2.0
+     * @param string $event           The event hook
+     * @param        $function_to_add The function to add to the event hook
+     * @param int    $priority        Used to specify the order in which the functions associated with a particular action are executed.
+     * @param int    $acceptedArgs    The number of arguments the function accepts.
+     *
+     * @return EventEmitterInterface
+     */
+    public static function addAction(string $event, $function_to_add, int $priority = 10, int $acceptedArgs = 1) : EventEmitterInterface
+    {
+        return self::getEventManager()->on($event, $function_to_add, $priority, $acceptedArgs);
+    }
 
-	/**
-	 * Add a filter through the WordPress Plugin API
-	 *
-	 * @since 0.2.0
-	 * @param string $name            The name of the filter
-	 * @param        $function_to_add The callback function to be run when the filter is applied.
-	 * @param int    $priority        Used to specify the order in which the functions associated with a particular action are executed.
-	 * @param int    $acceptedArgs    The number of arguments the function accepts.
-	 * @return EventEmitterInterface
-	 */
-	public static function addFilter( string $name, $function_to_add, int $priority = 10, int $acceptedArgs = 1 ) : EventEmitterInterface
-	{
-		return self::getEventManager()->filter( $name, $function_to_add, $priority, $acceptedArgs );
-	}
+    /**
+     * Add a filter through the WordPress Plugin API
+     *
+     * @since 0.2.0
+     * @param string $name            The name of the filter
+     * @param        $function_to_add The callback function to be run when the filter is applied.
+     * @param int    $priority        Used to specify the order in which the functions associated with a particular action are executed.
+     * @param int    $acceptedArgs    The number of arguments the function accepts.
+     * @return EventEmitterInterface
+     */
+    public static function addFilter(string $name, $function_to_add, int $priority = 10, int $acceptedArgs = 1) : EventEmitterInterface
+    {
+        return self::getEventManager()->filter($name, $function_to_add, $priority, $acceptedArgs);
+    }
 
-	/**
-	 * Remove an action from an event hook already registered through the WordPress Plugin API
-	 *
-	 * @since  0.2.0
-	 * @param string $event           The event hook
-	 * @param        $function_to_add The function to add to the event hook
-	 * @param int    $priority        Used to specify the order in which the functions associated with a particular action are executed.
-	 * @param int    $acceptedArgs    The number of arguments the function accepts.
-	 * @return EventEmitterInterface
-	 */
-	public static function removeAction( string $event, $function_to_remove, $priority = 10 ) : EventEmitterInterface
-	{
-		return self::getEventManager()->off( $event, $function_to_remove, $priority );
-	}
+    /**
+     * Remove an action from an event hook already registered through the WordPress Plugin API
+     *
+     * @since  0.2.0
+     * @param string $event           The event hook
+     * @param        $function_to_add The function to add to the event hook
+     * @param int    $priority        Used to specify the order in which the functions associated with a particular action are executed.
+     * @param int    $acceptedArgs    The number of arguments the function accepts.
+     * @return EventEmitterInterface
+     */
+    public static function removeAction(string $event, $function_to_remove, $priority = 10) : EventEmitterInterface
+    {
+        return self::getEventManager()->off($event, $function_to_remove, $priority);
+    }
 
     /**
      * Get an instance of the Event Emitter class
@@ -75,7 +76,6 @@ class EventManager {
      */
     public static function getEventManager() : EventEmitterInterface
     {
-        return container()->get( 'events' );
+        return container()->get('events');
     }
-
 }

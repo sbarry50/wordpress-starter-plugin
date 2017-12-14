@@ -56,7 +56,7 @@ class EnqueueManager implements EnqueueManagerInterface
      * @since 0.2.0
      * @param ConfigInterface $config
      */
-    public function setConfig( ConfigInterface $config )
+    public function setConfig(ConfigInterface $config)
     {
         $this->config = $config;
     }
@@ -69,11 +69,11 @@ class EnqueueManager implements EnqueueManagerInterface
      */
     public function enqueue()
     {
-        if ( ! empty($this->stylesheets) ) {
-            foreach( $this->stylesheets as $stylesheet ) {
+        if (! empty($this->stylesheets)) {
+            foreach ($this->stylesheets as $stylesheet) {
                 \wp_enqueue_style(
                     "{$stylesheet['file_name']}",
-                    URLs::getDistURL() . "css/{$stylesheet['file_name']}.css",
+                    URLs::dist() . "css/{$stylesheet['file_name']}.css",
                     $stylesheet['dependencies'],
                     PLUGIN_VERSION,
                     $stylesheet['media']
@@ -81,11 +81,11 @@ class EnqueueManager implements EnqueueManagerInterface
             }
         }
 
-        if ( ! empty($this->scripts) ) {
-            foreach( $this->scripts as $script ) {
+        if (! empty($this->scripts)) {
+            foreach ($this->scripts as $script) {
                 \wp_enqueue_script(
                     "{$script['file_name']}",
-                    URLs::getDistURL() . "js/{$script['file_name']}.js",
+                    URLs::dist() . "js/{$script['file_name']}.js",
                     $script['dependencies'],
                     PLUGIN_VERSION,
                     $script['in_footer']
@@ -102,21 +102,19 @@ class EnqueueManager implements EnqueueManagerInterface
      */
     public function enqueueConfig()
     {
-        if( $this->config->has( 'stylesheets' ) ) {
-            $stylesheets = $this->config->get( 'stylesheets' );
+        if ($this->config->has('stylesheets')) {
+            $stylesheets = $this->config->get('stylesheets');
 
-            foreach( $stylesheets as $stylesheet )
-            {
-                $this->enqueueStyles( $stylesheet[ 'file_name' ], $stylesheet[ 'dependencies' ], $stylesheet[ 'media' ] );
+            foreach ($stylesheets as $stylesheet) {
+                $this->enqueueStyles($stylesheet[ 'file_name' ], $stylesheet[ 'dependencies' ], $stylesheet[ 'media' ]);
             }
         }
 
-        if( $this->config->has( 'scripts' ) ) {
-            $scripts = $this->config->get( 'scripts' );
+        if ($this->config->has('scripts')) {
+            $scripts = $this->config->get('scripts');
 
-            foreach( $scripts as $script )
-            {
-                $this->enqueueScripts( $script[ 'file_name' ], $script[ 'dependencies' ], $script[ 'in_footer' ] );
+            foreach ($scripts as $script) {
+                $this->enqueueScripts($script[ 'file_name' ], $script[ 'dependencies' ], $script[ 'in_footer' ]);
             }
         }
 
@@ -132,8 +130,9 @@ class EnqueueManager implements EnqueueManagerInterface
      * @param  string    $media        (Optional) The media for which this stylesheet has been defined. Accepts media types like 'all', 'print' and 'screen'
      * @return null
      */
-    public function enqueueStyles( $file, array $dependencies = array(), $media = 'all' ) {
-        $this->stylesheets = $this->addStylesheet( $this->stylesheets, $file, $dependencies, $media );
+    public function enqueueStyles($file, array $dependencies = array(), $media = 'all')
+    {
+        $this->stylesheets = $this->addStylesheet($this->stylesheets, $file, $dependencies, $media);
 
         return $this;
     }
@@ -147,8 +146,9 @@ class EnqueueManager implements EnqueueManagerInterface
      * @param  bool      $in_footer    (Optional) Whether to enqueue the script in the head or the footer
      * @return null
      */
-    public function enqueueScripts( $file, array $dependencies = array(), $in_footer = false ) {
-        $this->scripts = $this->addScript( $this->scripts, $file, $dependencies, $in_footer );
+    public function enqueueScripts($file, array $dependencies = array(), $in_footer = false)
+    {
+        $this->scripts = $this->addScript($this->scripts, $file, $dependencies, $in_footer);
 
         return $this;
     }
@@ -162,7 +162,7 @@ class EnqueueManager implements EnqueueManagerInterface
      * @param  array     $dependencies Array of registered stylesheet handles this stylesheet depends on
      * @param  string    $media        The media for which this stylesheet has been defined. Accepts media types like 'all', 'print' and 'screen'
      */
-    protected function addStylesheet( $stylesheets, $file, array $dependencies = array(), $media = 'all' )
+    protected function addStylesheet($stylesheets, $file, array $dependencies = array(), $media = 'all')
     {
         $stylesheets[] = array(
             'file_name'    => $file,
@@ -182,7 +182,7 @@ class EnqueueManager implements EnqueueManagerInterface
      * @param  array     $dependencies Array of registered script handles this script depends on
      * @param  bool      $in_footer    Whether to enqueue the script in the head or the footer
      */
-    protected function addScript( $scripts, $file, $dependencies, $in_footer )
+    protected function addScript($scripts, $file, $dependencies, $in_footer)
     {
         $scripts[] = array(
             'file_name'    => $file,
@@ -192,5 +192,4 @@ class EnqueueManager implements EnqueueManagerInterface
 
         return $scripts;
     }
-
 }

@@ -37,7 +37,8 @@
         "netrivet/wp-event-emitter": "^5.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "*@stable"
+        "phpunit/phpunit": "*@stable",
+        "squizlabs/php_codesniffer": "^3.1"
     },
     "suggest": {}
 }

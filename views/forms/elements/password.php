@@ -1,0 +1,1 @@
+<input id="<?=$args['id'];?>" class="regular-text strong" pattern=".{8,12}" title="Password must contain 8 to 12 characters" name="<?=$args['id'];?>" type="password" value="<?=$args['value'];?>" placeholder="<?=$args['placeholder'];?>" <?php echo ($args['required']) ? 'required' : ''; ?> />

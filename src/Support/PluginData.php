@@ -11,17 +11,20 @@
 
 namespace Vendor\Plugin\Support;
 
+use Vendor\Plugin\Container\Container;
+
 class PluginData
 {
+    
     /**
      * Get the plugin's root directory Paths
      *
      * @since 0.2.0
      * @return string
      */
-    public static function getPluginRootFile()
+    public static function root()
     {
-        return container()->get( 'plugin' )->plugin_root_file;
+        return Container::instance('plugin')->plugin_root_file;
     }
 
     /**
@@ -30,9 +33,9 @@ class PluginData
      * @since 0.2.0
      * @return string
      */
-    public static function getPluginTopLevelNamespace()
+    public static function topLevelNamespace()
     {
-        return container()->get( 'plugin' )->namespace;
+        return Container::instance('plugin')->namespace;
     }
 
     /**
@@ -41,11 +44,10 @@ class PluginData
      * @since  0.2.0
      * @return string
      */
-    public static function getPluginBasename()
+    public static function basename()
     {
-        return \plugin_basename( self::getPluginRootFile() );
+        return \plugin_basename(self::root());
     }
-
 
     /**
      * Get plugin data from the plugin's bootstrap file header comment using WP core's get_plugin_data function
@@ -54,9 +56,9 @@ class PluginData
      * @param  string    $id    Plugin header data unique id
      * @return array            Array of plugin data from the bootstrap file header comment
      */
-    public static function getPluginHeaderData( string $id )
+    public static function headerData(string $id)
     {
-        return \get_plugin_data( self::getPluginRootFile() )[ $id ];
+        return \get_plugin_data(self::root())[ $id ];
     }
 
 }

@@ -30,22 +30,22 @@ use Vendor\Plugin\Container\Container;
 use Vendor\Plugin\Config\Config;
 use Vendor\Plugin\Setup\Activation;
 
- // If this file is called directly, abort.
- if ( ! defined( 'ABSPATH' ) ) {
- 	die;
- }
-
-$autoloader = __DIR__ . '/vendor/autoload.php';
-if ( file_exists( $autoloader ) ) {
-	include_once $autoloader;
+// If this file is called directly, abort.
+if (!defined('ABSPATH')) {
+     die;
 }
 
-Activation::register( __FILE__ );
+$autoloader = __DIR__ . '/vendor/autoload.php';
+if (file_exists($autoloader)) {
+    include_once $autoloader;
+}
 
-add_action( 'plugins_loaded', function () {
+Activation::register(__FILE__);
+
+add_action('plugins_loaded', function () {
     $container = container();
-    $container->set( 'plugin', new Plugin( __FILE__ ) );
-    $container->get( 'plugin' )->registerServices( $container )->load();
+    $container->set('plugin', new Plugin($container, __FILE__));
+    $container->get('plugin')->registerServices()->init();
 });
 
 /**
@@ -56,9 +56,9 @@ add_action( 'plugins_loaded', function () {
  */
 function container() : Container
 {
-	static $container;
-	if( ! $container ){
-		$container = new Container();
-	}
-	return $container;
+    static $container;
+    if (! $container) {
+        $container = new Container();
+    }
+    return $container;
 }

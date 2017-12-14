@@ -28,7 +28,7 @@ class Constants implements ConstantsInterface
      *
      * @since  0.1.0
      */
-    public function __construct( ConfigInterface $constants_config )
+    public function __construct(ConfigInterface $constants_config)
     {
         $this->constants_config = $constants_config;
     }
@@ -40,9 +40,9 @@ class Constants implements ConstantsInterface
      */
     public function define()
     {
-        foreach ( $this->constants_config as $constant => $value ) {
-            if ( ! defined( PluginData::getPluginTopLevelNamespace() . "\\{$constant}" ) ) {
-                define( PluginData::getPluginTopLevelNamespace() . "\\{$constant}", $value );
+        foreach ($this->constants_config as $constant => $value) {
+            if (! defined(PluginData::topLevelNamespace() . "\\{$constant}")) {
+                define(PluginData::topLevelNamespace() . "\\{$constant}", $value);
             }
         }
     }
@@ -53,9 +53,9 @@ class Constants implements ConstantsInterface
      * @since 0.1.0
      * @return array    $this->constants_config    The plugin constants
      */
-    public function add( array $constants )
+    public function add(array $constants)
     {
-        $this->constants_config = array_merge( $this->constants_config, $constants );
+        $this->constants_config = array_merge($this->constants_config, $constants);
 
         return $this;
     }
@@ -69,5 +69,4 @@ class Constants implements ConstantsInterface
     {
         return $this->constants_config;
     }
-
 }

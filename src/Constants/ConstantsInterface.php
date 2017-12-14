@@ -28,5 +28,5 @@ interface ConstantsInterface
      * @since 0.1.0
      * @return array    $this->constants    The plugin constants
      */
-    public function add( array $constants );
+    public function add(array $constants);
 }

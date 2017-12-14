@@ -21,11 +21,11 @@ class URLs
      * @since 0.2.0
      * @return string
      */
-    public static function getPluginDirURL()
+    public static function dirURL()
     {
-        $plugin_dir_url = \plugin_dir_url( PluginData::getPluginRootFile() );
-        if ( is_ssl() ) {
-            $plugin_dir_url = str_replace( 'http://', 'https://', $plugin_dir_url );
+        $plugin_dir_url = \plugin_dir_url(PluginData::root());
+        if (is_ssl()) {
+            $plugin_dir_url = str_replace('http://', 'https://', $plugin_dir_url);
         }
 
         return $plugin_dir_url;
@@ -37,9 +37,9 @@ class URLs
      * @since 0.2.0
      * @return string
      */
-    public static function getAssetsURL()
+    public static function assets()
     {
-        return self::getPluginDirURL() . 'assets/';
+        return self::dirURL() . 'assets/';
     }
 
     /**
@@ -48,9 +48,9 @@ class URLs
      * @since 0.2.0
      * @return string
      */
-    public static function getConfigURL()
+    public static function config()
     {
-        return self::getPluginDirURL() . 'config/';
+        return self::dirURL() . 'config/';
     }
 
     /**
@@ -59,9 +59,9 @@ class URLs
      * @since 0.2.0
      * @return string
      */
-    public static function getDistURL()
+    public static function dist()
     {
-        return self::getPluginDirURL() . 'dist/';
+        return self::dirURL() . 'dist/';
     }
     /**
      * Get lang folder url
@@ -69,9 +69,9 @@ class URLs
      * @since 0.2.0
      * @return string
      */
-    public static function getLangURL()
+    public static function lang()
     {
-        return self::getPluginDirURL() . 'lang/';
+        return self::dirURL() . 'lang/';
     }
 
     /**
@@ -80,9 +80,9 @@ class URLs
      * @since 0.2.0
      * @return string
      */
-    public static function getSrcURL()
+    public static function src()
     {
-        return self::getPluginDirURL() . 'src/';
+        return self::dirURL() . 'src/';
     }
 
     /**
@@ -91,9 +91,9 @@ class URLs
      * @since 0.2.0
      * @return string
      */
-    public static function getTestURL()
+    public static function test()
     {
-        return self::getPluginDirURL() . 'test/';
+        return self::dirURL() . 'test/';
     }
 
     /**
@@ -102,9 +102,8 @@ class URLs
      * @since 0.2.0
      * @return string
      */
-    public static function getViewsURL()
+    public static function views()
     {
-        return self::getPluginDirURL() . 'views/';
+        return self::dirURL() . 'views/';
     }
-
 }

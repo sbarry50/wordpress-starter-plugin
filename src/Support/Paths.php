@@ -22,13 +22,13 @@ class Paths
      * @since 0.2.0
      * @return string
      */
-    public static function getPluginDirPath()
+    public static function pluginDir()
     {
-        if ( ! function_exists( 'plugin_dir_path' ) ) {
+        if (! function_exists('plugin_dir_path')) {
             require_once ABSPATH . '/wp-admin/includes/plugin.php';
         }
 
-        return \plugin_dir_path( PluginData::getPluginRootFile() );
+        return \plugin_dir_path(PluginData::root());
     }
 
     /**
@@ -37,9 +37,9 @@ class Paths
      * @since 0.2.0
      * @return string
      */
-    public static function getAssetsPath()
+    public static function assets()
     {
-        return self::getPluginDirPath() . 'assets/';
+        return self::pluginDir() . 'assets/';
     }
 
     /**
@@ -48,9 +48,9 @@ class Paths
      * @since 0.2.0
      * @return string
      */
-    public static function getConfigPath()
+    public static function config()
     {
-        return self::getPluginDirPath() . 'config/';
+        return self::pluginDir() . 'config/';
     }
 
     /**
@@ -59,9 +59,9 @@ class Paths
      * @since 0.2.0
      * @return string
      */
-    public static function getDistPath()
+    public static function dist()
     {
-        return self::getPluginDirPath() . 'dist/';
+        return self::pluginDir() . 'dist/';
     }
     /**
      * Get lang folder path
@@ -69,9 +69,9 @@ class Paths
      * @since 0.2.0
      * @return string
      */
-    public static function getLangPath()
+    public static function lang()
     {
-        return self::getPluginDirPath() . 'lang/';
+        return self::pluginDir() . 'lang/';
     }
 
     /**
@@ -80,9 +80,9 @@ class Paths
      * @since 0.2.0
      * @return string
      */
-    public static function getSrcPath()
+    public static function src()
     {
-        return self::getPluginDirPath() . 'src/';
+        return self::pluginDir() . 'src/';
     }
 
     /**
@@ -91,9 +91,9 @@ class Paths
      * @since 0.2.0
      * @return string
      */
-    public static function getTestPath()
+    public static function test()
     {
-        return self::getPluginDirPath() . 'test/';
+        return self::pluginDir() . 'test/';
     }
 
     /**
@@ -102,9 +102,8 @@ class Paths
      * @since 0.2.0
      * @return string
      */
-    public static function getViewsPath()
+    public static function views()
     {
-        return self::getPluginDirPath() . 'views/';
+        return self::pluginDir() . 'views/';
     }
-    
 }

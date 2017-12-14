@@ -11,34 +11,23 @@
 
 namespace Vendor\Plugin\File;
 
-use Vendor\Plugin\Setup\Compatibility;
 use Exception;
+use Vendor\Plugin\Support\PluginData;
+use Vendor\Plugin\Setup\Compatibility;
 
 class Loader implements LoaderInterface
 {
 
     /**
-     * Set Compatibility dependency
-     *
-     * @since 0.2.0
-     * @param Compatibility $compatibility
-     */
-    public function setCompatibility( Compatibility $compatibility )
-    {
-        $this->compatibility = $compatibility;
-    }
-    
-    /**
      * Loads a file
      *
      * @since  0.2.0
      * @param  string    $file     The direct path and filename of the file to be loaded
-     * @return                     The contents of the file
+     * @return string              The contents of the file
      */
-    public function loadFile( $file )
+    public function loadFile($file)
     {
-        if( self::isFileValid( $file ) )
-        {
+        if (self::isFileValid($file)) {
             return include $file;
         }
     }
@@ -48,12 +37,12 @@ class Loader implements LoaderInterface
      *
      * @since  0.2.0
      * @param  string    $file     The direct path and filename of the file to be loaded
+     * @param  mixed     $args     (Opt) Arguments to pass to the file
      * @return string              The contents of the file
      */
-    public function loadOutputFile( $file )
+    public function loadOutputFile($file, $args = array())
     {
-        if( self::isFileValid( $file ) )
-        {
+        if (self::isFileValid($file)) {
             ob_start();
 
             include $file;
@@ -71,17 +60,16 @@ class Loader implements LoaderInterface
      * @throws InvalidArgumentException
      * @throws RuntimeException
      */
-    public static function isFileValid( $file )
+    public static function isFileValid($file)
     {
-        if ( ! file_exists( $file ) ) {
-            throw new Exception( sprintf( '%s %s', __( 'The file does not exist.', 'plugin-name' ), $file ) );
+        if (! file_exists($file)) {
+            throw new Exception(sprintf('%s %s', __('The file does not exist.', PluginData::headerData('TextDomain')), $file));
         }
 
-        if ( ! is_readable( $file ) ) {
-            throw new Exception( sprintf( '%s %s', __( 'The file is not readable', 'plugin-name' ), $file ) );
+        if (! is_readable($file)) {
+            throw new Exception(sprintf('%s %s', __('The file is not readable', PluginData::headerData('TextDomain')), $file));
         }
 
         return true;
     }
-
 }

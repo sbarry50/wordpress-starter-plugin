@@ -23,7 +23,7 @@ interface EnqueueManagerInterface
      * @since 0.2.0
      * @param ConfigInterface $config
      */
-    public function setConfig( ConfigInterface $config );
+    public function setConfig(ConfigInterface $config);
 
     /**
      * Enqueue the collection of stylesheets and scripts into WordPress. Callback function to hook into 'wp_enqueue_scripts' and 'admin_enqueue_scripts'.
@@ -50,7 +50,7 @@ interface EnqueueManagerInterface
      * @param  string    $media        (Optional) The media for which this stylesheet has been defined. Accepts media types like 'all', 'print' and 'screen'
      * @return EnqueueManager
      */
-    public function enqueueStyles( $file_name, array $dependencies = array(), $media = 'all' );
+    public function enqueueStyles($file_name, array $dependencies = array(), $media = 'all');
 
     /**
      * Add a new script into the collection of scripts to enqueue
@@ -61,5 +61,5 @@ interface EnqueueManagerInterface
      * @param  bool      $in_footer    (Optional) Whether to enqueue the script in the head or the footer
      * @return EnqueueManager
      */
-    public function enqueueScripts( $file_name, array $dependencies = array(), $in_footer = false );
+    public function enqueueScripts($file_name, array $dependencies = array(), $in_footer = false);
 }

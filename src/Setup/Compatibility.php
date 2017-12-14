@@ -11,11 +11,13 @@
 
 namespace Vendor\Plugin\Setup;
 
-use Vendor\Plugin\Config\ConfigInterface;
-use Vendor\Plugin\Events\EventManager;
 use Vendor\Plugin\File\Loader;
 use Vendor\Plugin\Support\Paths;
+use Vendor\Plugin\Container\Container;
+use Vendor\Plugin\Events\EventManager;
+use Vendor\Plugin\File\LoaderInterface;
 use const Vendor\Plugin\PLUGIN_BASENAME;
+use Vendor\Plugin\Config\ConfigInterface;
 
 class Compatibility
 {
@@ -25,76 +27,36 @@ class Compatibility
      *
      * @var string
      */
-    private $wp_version;
+    public $wp_version;
 
     /**
      * Minimum version of WordPress required to run plugin
      *
      * @var string
      */
-    private $min_wp_version;
+    public $min_wp_version;
 
     /**
      * Current version of PHP
      *
      * @var string
      */
-    private $php_version;
+    public $php_version;
 
     /**
      * Minimum version of PHP required to run plugin
      *
      * @var string
      */
-    private $min_php_version;
+    public $min_php_version;
 
-    public function __construct( ConfigInterface $config )
+    public function __construct(ConfigInterface $config, LoaderInterface $loader)
     {
-        $this->config = $config;
-    }
-
-    /**
-     * Get the current version of WordPress
-     *
-     * @since  0.2.0
-     * @return string
-     */
-    public function currentWPVersion()
-    {
-        return get_bloginfo( 'version' );
-    }
-
-    /**
-     * Get the minimum version of WordPress required to run this plugin
-     *
-     * @since  0.2.0
-     * @return string
-     */
-    public function minWPVersion()
-    {
-        return $this->config['min_wp_version'];
-    }
-
-    /**
-     * Get the current version of PHP
-     *
-     * @since  0.2.0
-     * @return string
-     */
-    public function currentPHPVersion()
-    {
-        return phpversion();
-    }
-
-    /**
-     * Get the minimum version of PHP required to run this plugin
-     *
-     * @since  0.2.0
-     * @return string
-     */
-    public function minPHPVersion()
-    {
-        return $this->config['min_php_version'];
+        $this->wp_version = get_bloginfo('version');
+        $this->min_wp_version = $config['min_wp_version'];
+        $this->php_version = phpversion();
+        $this->min_php_version = $config['min_php_version'];
+        $this->loader = $loader;
     }
 
     /**
@@ -105,7 +67,7 @@ class Compatibility
      */
     public function check()
     {
-        if ( $this->allCompatible() ) {
+        if ($this->allCompatible()) {
             return;
         } else {
             $this->addAdminEvents();
@@ -120,8 +82,8 @@ class Compatibility
      */
     public function allCompatible()
     {
-        return $this->isCompatible( $this->currentWPVersion(), $this->minWPVersion() ) &&
-               $this->isCompatible( $this->currentPHPVersion(), $this->minPHPVersion() );
+        return $this->isCompatible($this->wp_version, $this->min_wp_version) &&
+               $this->isCompatible($this->php_version, $this->min_php_version);
     }
 
     /**
@@ -132,9 +94,9 @@ class Compatibility
      * @param  string    $minimum Minimum required version
      * @return bool
      */
-    public function isCompatible( $current, $minimum )
+    public function isCompatible($current, $minimum)
     {
-        return version_compare( $current, $minimum, '>=' );
+        return version_compare($current, $minimum, '>=');
     }
 
     /**
@@ -145,12 +107,12 @@ class Compatibility
      */
     public function disablePlugin()
     {
-        if ( current_user_can( 'activate_plugins' ) && is_plugin_active( PLUGIN_BASENAME ) ) {
-            deactivate_plugins( PLUGIN_BASENAME );
+        if (current_user_can('activate_plugins') && is_plugin_active(PLUGIN_BASENAME)) {
+            deactivate_plugins(PLUGIN_BASENAME);
 
             // Hide the default "Plugin activated" notice
-            if ( isset( $_GET[ 'activate' ] ) ) {
-                unset( $_GET[ 'activate' ] );
+            if (isset($_GET[ 'activate' ])) {
+                unset($_GET[ 'activate' ]);
             }
         }
     }
@@ -163,10 +125,8 @@ class Compatibility
      */
     public function renderNotice()
     {
-        $compatibility_notice_loader = container()->get( 'loader' );
-        $compatibility_notice_loader->setCompatibility( $this );
-        $notice = Paths::getViewsPath() . 'errors/compatibility-notice.php';
-        printf( $compatibility_notice_loader->loadOutputFile( $notice ) );
+        $notice = Paths::views() . 'errors/compatibility-notice.php';
+        printf($this->loader->loadOutputFile($notice, $this));
     }
 
     /**
@@ -177,9 +137,9 @@ class Compatibility
      * @param  string    $minimum Minimum required version
      * @return null
      */
-    public function renderDashicon( $current, $minimum )
+    public function renderDashicon($current, $minimum)
     {
-        $this->isCompatible( $current, $minimum ) ? ($dashicon = 'yes' AND $color = '#46b450') : ($dashicon = 'no' AND $color = '#dc3232');
+        $this->isCompatible($current, $minimum) ? ($dashicon = 'yes' and $color = '#46b450') : ($dashicon = 'no' and $color = '#dc3232');
 
         printf('<span class="dashicons dashicons-%s" style="color:%s"></span>', $dashicon, $color);
     }
@@ -191,8 +151,7 @@ class Compatibility
      */
     private function addAdminEvents()
     {
-        EventManager::addAction( 'admin_init', array( $this, 'disablePlugin' ) );
-        EventManager::addAction( 'admin_notices', array( $this, 'renderNotice' ) );
+        EventManager::addAction('admin_init', array($this, 'disablePlugin'));
+        EventManager::addAction('admin_notices', array($this, 'renderNotice'));
     }
-
 }

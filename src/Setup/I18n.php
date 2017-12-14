@@ -19,27 +19,26 @@ use const Vendor\Plugin\PLUGIN_TEXT_DOMAIN;
 
 class I18n
 {
-	/**
-	 * The domain specified for this plugin.
-	 *
-	 * @since    0.1.0
-	 * @access   private
-	 * @var      string    $domain    The domain identifier for this plugin.
-	 */
-	private $domain;
+    /**
+     * The domain specified for this plugin.
+     *
+     * @since    0.1.0
+     * @access   private
+     * @var      string    $domain    The domain identifier for this plugin.
+     */
+    private $domain;
 
-	/**
-	 * Load the plugin text domain for translation.
-	 *
-	 * @since    0.1.0
-	 */
-	public function loadPluginTextDomain()
-	{
-		\load_plugin_textdomain(
-			PLUGIN_TEXT_DOMAIN,
-			false,
-			Paths::getLangPath()
-		);
-	}
-
+    /**
+     * Load the plugin text domain for translation.
+     *
+     * @since    0.1.0
+     */
+    public function loadPluginTextDomain()
+    {
+        \load_plugin_textdomain(
+            PLUGIN_TEXT_DOMAIN,
+            false,
+            Paths::lang()
+        );
+    }
 }

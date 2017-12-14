@@ -18,25 +18,11 @@ return array(
  *    $unique_id => $value
  ********************************************************/
 
-    'PLUGIN_ROOT'            => (function () {
-        return Vendor\Plugin\Support\PluginData::getPluginRootFile();
-    })(),
-    'PLUGIN_NAME'            => (function () {
-        return Vendor\Plugin\Support\PluginData::getPluginHeaderData( 'Name' );
-    })(),
-    'PLUGIN_BASENAME'        => (function () {
-        return Vendor\Plugin\Support\PluginData::getPluginBasename();
-    })(),
-    'PLUGIN_DIR_PATH'        => (function () {
-        return Vendor\Plugin\Support\Paths::getPluginDirPath();
-    })(),
-    'PLUGIN_DIR_URL'         => (function () {
-        return Vendor\Plugin\Support\URLs::getPluginDirURL();
-    })(),
-    'PLUGIN_TEXT_DOMAIN'     => (function () {
-        return Vendor\Plugin\Support\PluginData::getPluginHeaderData( 'TextDomain' );
-    })(),
-    'PLUGIN_VERSION'         => (function () {
-        return Vendor\Plugin\Support\PluginData::getPluginHeaderData( 'Version' );
-    })(),
+    'PLUGIN_ROOT'        => Vendor\Plugin\Support\PluginData::root(),
+    'PLUGIN_NAME'        => Vendor\Plugin\Support\PluginData::headerData('Name'),
+    'PLUGIN_BASENAME'    => Vendor\Plugin\Support\PluginData::basename(),
+    'PLUGIN_DIR_PATH'    => Vendor\Plugin\Support\Paths::pluginDir(),
+    'PLUGIN_DIR_URL'     => Vendor\Plugin\Support\URLs::dirURL(),
+    'PLUGIN_TEXT_DOMAIN' => Vendor\Plugin\Support\PluginData::headerData('TextDomain'),
+    'PLUGIN_VERSION'     => Vendor\Plugin\Support\PluginData::headerData('Version'),
 );

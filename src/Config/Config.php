@@ -17,10 +17,11 @@
 namespace Vendor\Plugin\Config;
 
 use ArrayObject;
-use InvalidArgumentException;
 use RuntimeException;
+use InvalidArgumentException;
 use Vendor\Plugin\Support\Paths;
-use Vendor\Plugin\Support\Arr as Arr_Helpers;
+use Vendor\Plugin\Container\Container;
+use Vendor\Plugin\Support\Arr;
 
 class Config extends ArrayObject implements ConfigInterface
 {
@@ -35,15 +36,15 @@ class Config extends ArrayObject implements ConfigInterface
      * Accept the configuration file or array and create a new configuration repository.
      *
      * @since 0.1.0
-     * @param string|array   $filename    Either the path and filename to the configuration array or an actual config array
+     * @param string|array   $config      Either the path and filename to the configuration array or an actual config array
      * @param string|array   $default     Optional defaults filename or config array to be merged into the initial config array
      */
-    public function __construct( $config, $defaults = '' )
+    public function __construct($config, $defaults = '')
     {
-        $this->config = $this->getParameters( $config );
-        $this->initDefaults( $defaults );
+        $this->config = $this->getParameters($config);
+        $this->initDefaults($defaults);
 
-        parent::__construct( $this->config, ArrayObject::ARRAY_AS_PROPS );
+        parent::__construct($this->config, ArrayObject::ARRAY_AS_PROPS);
     }
 
     /**
@@ -64,9 +65,9 @@ class Config extends ArrayObject implements ConfigInterface
      * @param  mixed   $default
      * @return mixed                    The specified configuration value
      */
-    public function get( $parameter_key, $default = null )
+    public function get($parameter_key, $default = null)
     {
-        return Arr_Helpers::get( $this->config, $parameter_key, $default );
+        return Arr::get($this->config, $parameter_key, $default);
     }
 
     /**
@@ -75,9 +76,9 @@ class Config extends ArrayObject implements ConfigInterface
      * @param  string  $parameter_key
      * @return bool
      */
-    public function has( $parameter_key )
+    public function has($parameter_key)
     {
-        return Arr_Helpers::has( $this->config, $parameter_key );
+        return Arr::has($this->config, $parameter_key);
     }
 
     /**
@@ -89,10 +90,23 @@ class Config extends ArrayObject implements ConfigInterface
      * @param  mixed     $value            Value to be assigned to the parameter key
      * @return null
      */
-    public function push( $parameter_key, $value )
+    public function push($parameter_key, $value)
     {
         $this->config[ $parameter_key ] = $value;
-        $this->offsetSet( $paramerter_key, $value );
+        $this->offsetSet($parameter_key, $value);
+    }
+
+    /**
+     * Initialize the configuration array with the defaults
+     *
+     * @since  0.1.0
+     * @param  array   $defaults    The default configuration array
+     * @param  array   $config      The configuration array
+     * @return null
+     */
+    public function mergeDefaults(array $defaults, $config)
+    {
+        return array_replace_recursive($defaults, $config);
     }
 
     /**
@@ -102,13 +116,13 @@ class Config extends ArrayObject implements ConfigInterface
      * @param  string|array   $file_or_array    Either the path and filename to the configuration array or an actual config array
      * @return array                            The configuration array
      */
-    protected function getParameters( $file_or_array )
+    protected function getParameters($file_or_array)
     {
-        if( is_array( $file_or_array ) ) {
+        if (is_array($file_or_array)) {
             return $file_or_array;
         }
 
-        return $this->loadFile( $file_or_array );
+        return $this->loadFile($file_or_array);
     }
 
     /**
@@ -118,26 +132,14 @@ class Config extends ArrayObject implements ConfigInterface
      * @param  string|array   $default    Defaults filename or config array to be merged into the initial config array
      * @return null
      */
-    protected function initDefaults( $defaults )
+    protected function initDefaults($defaults)
     {
-        if( ! $defaults ) {
+        if (! $defaults) {
             return;
         }
 
-        $defaults = $this->getParameters( $defaults );
-        $this->mergeDefaults( $defaults );
-    }
-
-    /**
-     * Initialize the configuration array with the defaults
-     *
-     * @since  0.1.0
-     * @param  array   $defaults    The defaults configuration array
-     * @return null
-     */
-    protected function mergeDefaults( array $defaults )
-    {
-        $this->config = array_replace_recursive( $defaults, $this->config );
+        $defaults = $this->getParameters($defaults);
+        $this->config = $this->mergeDefaults($defaults, $this->config);
     }
 
     /**
@@ -147,9 +149,9 @@ class Config extends ArrayObject implements ConfigInterface
      * @param  string    $config_file    The path and filename which contains the configuration array
      * @return string
      */
-    protected function loadFile( $config_file )
+    protected function loadFile($config_file)
     {
-        return container()->get( 'loader' )->loadFile( $config_file );
+        return Container::instance('loader')->loadFile($config_file);
     }
 
     /**
@@ -164,8 +166,8 @@ class Config extends ArrayObject implements ConfigInterface
      * @param bool $valid_if_not_empty
      * @return bool
      */
-    public function isArray( $parameter_key, $valid_if_not_empty = true )
+    public function isArray($parameter_key, $valid_if_not_empty = true)
     {
-        return Arr_Helpers::isArray( $this->config, $parameter_key, $valid_if_not_empty );
+        return Arr::isArray($this->config, $parameter_key, $valid_if_not_empty);
     }
 }
