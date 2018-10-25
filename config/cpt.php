@@ -3,7 +3,7 @@
  * Custom Post Type configurations.
  *
  * @package    Vendor\Plugin
- * @since      0.3.0
+ * @since      0.4.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+

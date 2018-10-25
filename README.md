@@ -18,6 +18,7 @@ An object-oriented foundation with a modern file architecture, standards and bui
 * Composer autoloader
 * Follows PSR-4 coding standards
 * Includes Laravel Mix for simple webpack implementation
+* Custom post type functionality - configured via config file
 
 ## Requirements
 

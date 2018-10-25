@@ -1,4 +1,8 @@
 # Change Log
+## October 25, 2018 - 0.4.0
+* Custom post type functionality added - configured with `cpt.php` config file
+* Autoload all base config files
+* Objects autoloaded based on `service-providers.php` config file
 
 ## November 10, 2017 - 0.3.0
 * Controller classes added

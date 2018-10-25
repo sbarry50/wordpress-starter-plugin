@@ -4,7 +4,7 @@
  *
  *
  * @package    Vendor\Plugin\Controller
- * @since      0.3.0
+ * @since      0.4.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
@@ -22,7 +22,7 @@ class CPTController extends Controller
     /**
      * Constructor
      *
-     * @since    0.3.0
+     * @since    0.4.0
      * @param    ContainerInterface    $container
      */
     public function __construct(ContainerInterface $container)
@@ -33,7 +33,7 @@ class CPTController extends Controller
     /**
      * Add the custom post types
      *
-     * @since 0.3.0
+     * @since 0.4.0
      * @return void
      */
     public function addCustomPostTypes()

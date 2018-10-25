@@ -3,7 +3,7 @@
  * Class for registering WordPress custom post types
  *
  * @package    Vendor\Plugin\CPT
- * @since      0.3.0
+ * @since      0.4.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
@@ -16,7 +16,7 @@ class CPT
     /**
      * Register the custom post types
      *
-     * @since 0.3.0
+     * @since 0.4.0
      * @return void
      */
     public static function register()
