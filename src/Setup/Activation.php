@@ -15,6 +15,7 @@
 
 namespace Vendor\Plugin\Setup;
 
+use Vendor\Plugin\CPT\CPT;
 use Vendor\Plugin\Setup\Compatibility;
 use const Vendor\Plugin\PLUGIN_ROOT;
 
@@ -70,10 +71,8 @@ class Activation
         $plugin = isset($_REQUEST['plugin']) ? $_REQUEST['plugin'] : '';
         check_admin_referer("activate-plugin_{$plugin}");
 
-
-
-        // register_custom_post_types();
-        // flush_rewrite_rules();
+        CPT::register();
+        flush_rewrite_rules();
 
         // Uncomment the following line to see the function in action
         // exit(var_dump($_GET));
@@ -99,7 +98,7 @@ class Activation
 
         // @link https://knowthecode.io/labs/custom-post-type-basics/episode-8
         // flush_rewrite_rules() results in weird behavior. Use this instead...
-        // delete_option('rewrite_rules');
+        delete_option('rewrite_rules');
 
         // Uncomment the following line to see the function in action
         // exit(var_dump($_GET));

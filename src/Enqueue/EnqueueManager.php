@@ -44,21 +44,11 @@ class EnqueueManager implements EnqueueManagerInterface
      *
      * @since 0.1.0
      */
-    public function __construct()
-    {
-        $this->stylesheets = array();
-        $this->scripts = array();
-    }
-
-    /**
-     * Config dependency injection
-     *
-     * @since 0.2.0
-     * @param ConfigInterface $config
-     */
-    public function setConfig(ConfigInterface $config)
+    public function __construct(ConfigInterface $config)
     {
         $this->config = $config;
+        $this->stylesheets = array();
+        $this->scripts = array();
     }
 
     /**

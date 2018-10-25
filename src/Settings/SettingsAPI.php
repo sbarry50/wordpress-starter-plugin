@@ -20,45 +20,50 @@ use Vendor\Plugin\Config\ConfigInterface;
 class SettingsAPI extends Settings
 {
 
-    /**
-     * Admin sections
-     *
-     * @var array
-     */
-    public $sections = array();
+    // /**
+    //  * Admin sections
+    //  *
+    //  * @var array
+    //  */
+    // public $sections = array();
 
-    /**
-     * Admin settings
-     *
-     * @var array
-     */
-    public $settings = array();
+    // /**
+    //  * Admin settings
+    //  *
+    //  * @var array
+    //  */
+    // public $settings = array();
 
-    /**
-     * Set the sections configuration to the sections property
-     *
-     * @since 0.3.0
-     * @param array $sections
-     */
-    public function setSections(array $sections)
-    {
-        $this->sections = $this->defaults->merge($sections, 'section');
+    // /**
+    //  * Set the sections configuration to the sections property
+    //  *
+    //  * @since 0.3.0
+    //  * @param array $sections
+    //  */
+    // public function setSections(array $sections)
+    // {
+    //     $this->sections = $this->defaults->merge($sections, 'section');
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    /**
-     * Set the settings configuration to the settings property
-     *
-     * @since 0.3.0
-     * @param array $settings
-     */
-    public function setSettings(array $settings)
-    {
-        $this->settings = $this->defaults->merge($settings, 'setting');
+    // /**
+    //  * Set the settings configuration to the settings property
+    //  *
+    //  * @since 0.3.0
+    //  * @param array $settings
+    //  */
+    // public function setSettings(array $settings)
+    // {
+    //     $this->settings = $this->defaults->merge($settings, 'setting');
 
-        return $this;
-    }
+    //     return $this;
+    // }
+
+    // public function __construct(SettingsCallbacks $callbacks)
+    // {
+    //     $this->callbacks = $callbacks;
+    // }
 
     /**
      * Register Admin sections and settings
@@ -68,15 +73,13 @@ class SettingsAPI extends Settings
      */
     public function registerSettings()
     {
-        $settings_pages = Container::instance('settings_pages');
-
         if (! empty($this->sections)) {
             foreach ($this->sections as $section) {
                 add_settings_section(
                     $section['id'],
                     $section['title'],
                     function () use ($section) {
-                        return $this->callbacks->section($section['template']);
+                        return $this->settings_callbacks->section($section['template']);
                     },
                     $section['page']
                 );
@@ -85,41 +88,41 @@ class SettingsAPI extends Settings
 
         if (! empty($this->settings)) {
             foreach ($this->settings as $setting) {
-                if (! $settings_pages->inCustomPage($setting)) {
+                if (! $this->inCustomPage($setting)) {
                     register_setting(
                         $setting['page'],
                         $setting['id'],
-                        $setting['register_setting_args']
+                        $setting['register_settings_args']
                     );
                 }
-
+                // ddd($setting['options']);
                 add_settings_field(
                     $setting['id'],
                     $setting['title'],
-                    array($this->callbacks, 'setting'),
+                    ('custom' == $setting['type']) ? array($this->settings_callbacks, 'custom') : array($this->settings_callbacks, 'setting'),
                     $setting['page'],
                     $setting['section'],
-                    $setting
+                    $setting['options']
                 );
             }
         }
 
-        if (! empty($settings_pages->pages)) {
-            foreach ($settings_pages->pages as $page) {
+        if (! empty($this->pages)) {
+            foreach ($this->pages as $page) {
                 register_setting(
                     $page['menu_slug'],
                     $page['menu_slug'] . '-settings',
-                    $page['args']
+                    $page['register_settings_args']
                 );
             }
         }
 
-        if (! empty($settings_pages->subpages)) {
-            foreach ($settings_pages->subpages as $subpage) {
+        if (! empty($this->subpages)) {
+            foreach ($this->subpages as $subpage) {
                 register_setting(
                     $subpage['menu_slug'],
                     $subpage['menu_slug'] . '-settings',
-                    $subpage['args']
+                    $subpage['register_settings_args']
                 );
             }
         }

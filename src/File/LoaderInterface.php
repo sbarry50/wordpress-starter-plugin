@@ -23,7 +23,7 @@ interface LoaderInterface
      * @param  string    $file     The direct path and filename of the file to be loaded
      * @return                     The contents of the file
      */
-    public function loadFile($file);
+    public static function loadFile($file);
 
     /**
      * Load a view file or asset that requires output buffering
@@ -32,6 +32,6 @@ interface LoaderInterface
      * @param  string    $file     The direct path and filename of the file to be loaded
      * @return string              The contents of the file
      */
-    public function loadOutputFile($file);
+    public static function loadOutputFile($file);
 
 }

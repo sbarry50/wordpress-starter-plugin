@@ -49,7 +49,7 @@ class Options
                 $html .= ' selected';
             }
 
-            $html .= '>' . $option['label'] . '</option>/n';
+            $html .= '>' . $option['label'] . '</option>';
         }
 
         return $html;

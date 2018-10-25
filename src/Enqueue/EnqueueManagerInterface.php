@@ -18,14 +18,6 @@ use Vendor\Plugin\Config\ConfigInterface;
 interface EnqueueManagerInterface
 {
     /**
-     * Config dependency injection
-     *
-     * @since 0.2.0
-     * @param ConfigInterface $config
-     */
-    public function setConfig(ConfigInterface $config);
-
-    /**
      * Enqueue the collection of stylesheets and scripts into WordPress. Callback function to hook into 'wp_enqueue_scripts' and 'admin_enqueue_scripts'.
      *
      * @since  0.1.0

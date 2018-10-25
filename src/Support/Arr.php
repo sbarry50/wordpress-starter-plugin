@@ -229,7 +229,7 @@ class Arr
      *
      * @return bool
      */
-    public static function isMultiArray(array $array)
+    public static function isMultiDimensional(array $array)
     {
         rsort($array);
         return isset($array[0]) && is_array($array[0]);

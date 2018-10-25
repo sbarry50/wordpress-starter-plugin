@@ -1,7 +1,8 @@
 <?php
 /**
  * Class handler for the plugin's configuration files.
- * Loads a specified configuration file or array and provides several public methods to access and modify the configuration array.
+ * Loads a specified configuration file or array and provides several
+ * public methods to access and modify the configuration array.
  *
  * @package    Vendor\Plugin\Settings
  * @since      0.1.0
@@ -17,13 +18,6 @@ use Vendor\Plugin\Config\Config;
 
 class SettingsConfig extends Config
 {
-
-    // public function __construct($config, $defaults = '')
-    // {
-    //     $defaults = $this->loadFile($defaults);
-    //     $this->config = $this->mergeDefaults($defaults, $this->getParameters($config));
-    // }
-
     /**
      * Merge the default parameters with the configuration parameters
      *
@@ -36,113 +30,34 @@ class SettingsConfig extends Config
     {
         $merged = array();
         $slugs = $this->getPageSlugs($config);
-        
-        // foreach ($config as $key => $value) {
-        //     $keys[] = $key;
-        // }
-        // d($keys);
-
-        // foreach ($keys as $key) {
-        //     ${"params_$key"} = $config[$key];
-        // }
-        // d($params_settings);
-        
-        // foreach ($defaults as $default_key => $default_value) {
-        //     $default_keys[] = $default_key;
-        // }
-        // d($default_keys);
-
-        // foreach ($default_keys as $default_key) {
-        //     ${"defaults_$default_key"} = $defaults[$default_key];
-        // }
-        // ddd($defaults_settings);
-
-
-
-        // $page_merged = array();
-        // $subpage_merged = array();
-        // $section_merged = array();
-        // $setting_merged = array();
-
-        // $page_params = $params['page'];
-        // $subpage_params = $params['subpage'];
-        // $section_params = $params['section'];
-        // $setting_params = $params['setting'];
-
-        // $page_defaults = $this->defaults()['page'];
-        // $subpage_defaults = $this->defaults()['subpage'];
-        // $section_defaults = $this->defaults()['section'];
-        // $setting_defaults = $this->defaults()['setting'];
 
         foreach ($config as $key => $value) {
-            // d($param);
-            $param = $this->mergeDefault($defaults, $key, $value, $slugs);
-            // d($param);
-            array_push($merged, $param);
+            $merged[$key] = $this->mergeDefault($defaults, $key, $value, $slugs);
         }
-
-        // ddd('done');
-
-        // foreach ($merged['settings'] as $setting) {
-        //     foreach ($setting['options'] as $option) {
-        //         if (in_array($option['page'], $this->getPageSlugs($merged['pages'])) || in_array($option['page'], $this->getPageSlugs($merged['subpages']))) {
-        //             $option['register_setting_args'] = $this->registerSettingArgs();
-        //         }
-        //     }
-        // }
-
-        // foreach ($page_params as $page_param) {
-        //     $page_param = array_replace_recursive($page_defaults, $page_param);
-        //     array_push($page_merged, $page_param);
-        // }
-
-        // foreach ($subpage_params as $subpage_param) {
-        //     $subpage_param = array_replace_recursive($subpage_defaults, $subpage_param);
-        //     array_push($subpage_merged, $subpage_param);
-        // }
-
-        // foreach ($section_params as $section_param) {
-        //     $section_param = array_replace_recursive($section_defaults, $section_param);
-        //     array_push($section_merged, $section_param);
-        // }
-
-        // foreach ($setting_params as $setting_param) {
-        //     $setting_param = array_replace_recursive($setting_defaults, $setting_param);
-
-        //     if (in_array($param['type'], array('checkbox', 'radio', 'select', 'multiselect')) && isset($param['args'])) {
-        //         $count = 1;
-        //         foreach ($param['args'] as $key => $default_) {
-        //             $param['args'][$key] = array_replace_recursive($this->options(), $value);
-        //             $count++;
-        //         }
-        //     }
-
-        //     if ($settings_pages->inCustomPage($param)) {
-        //         $param['register_settings_args'] = $this->registerSettingsArgs();
-        //     }
-
-        //     array_push($setting_merged, $setting_param);
-        // }
-
-        // array_push($merged, $page_merged, $subpage_merged, $section_merged, $setting_merged);
-        
-        ddd($merged);
 
         return $merged;
     }
 
     protected function mergeDefault(array $defaults, $key, $value, array $slugs)
     {
-        if (! is_array($value)) {
-            return;
-        }
-
+        
         $merged = array();
+
+        if (! is_array($value) && ! empty($value)) {
+            return $value;
+        } elseif (! is_array($value)) {
+            return $defaults[$key];
+        }
 
         foreach ($value as $param) {
             $param = array_replace_recursive($defaults[$key], $param);
 
+            if ('pages' == $key || 'subpages' == $key) {
+                $param['option_name'] = str_replace('-', '_', $param['menu_slug']) . '_settings';
+            }
+
             if ('settings' ==  $key) {
+                $param['option_name'] = str_replace('-', '_', $param['page']) . '_settings';
                 $param['options'] = $this->mergeDefaultOptions($param);
                 
                 if (! in_array($param['page'], $slugs)) {
@@ -152,28 +67,31 @@ class SettingsConfig extends Config
 
             array_push($merged, $param);
         }
-
+        
         return $merged;
     }
 
     protected function mergeDefaultOptions(array $parameter)
     {
         $merged = array();
-        d($parameter['options']);
-        if (! Arr::isMultiArray($parameter['options'])) {
-            $parameter['options'] = array_replace_recursive($this->getDefaultOptions($parameter), $parameter['options']);
-            array_push($merged, $parameter['options']);
+
+        if (in_array($parameter['type'], array('checkbox', 'radio', 'multiselect', 'select'))) {
+            if (! Arr::isMultiDimensional($parameter['options'])) {
+                $parameter['options'][] =  Arr::pull($parameter, 'options');
+            }
+
+            $count = 1;
+
+            foreach ($parameter['options'] as $option) {
+                $option = array_replace_recursive($this->getDefaultOptions($parameter, $option, $count), $option);
+                $count++;
+                array_push($merged, $option);
+            }
+    
             return $merged;
         }
 
-        $count = 1;
-        foreach ($parameter['options'] as $option) {
-            $option = array_replace_recursive($this->getDefaultOptions($parameter, $count), $option);
-            $count++;
-            array_push($merged, $option);
-        }
-
-        return $merged;
+        return array_replace_recursive($this->getDefaultOptions($parameter), $parameter['options']);
     }
 
     /**
@@ -183,8 +101,13 @@ class SettingsConfig extends Config
      * @param    array    $parameter
      * @return   array
      */
-    protected function getDefaultOptions(array $parameter, int $count = null)
+    protected function getDefaultOptions(array $parameter, $option = null, int $count = null)
     {
+        $option_name = str_replace('-', '_', $parameter['page']) . '_settings';
+        $name = $option_name . '[' . $parameter['id'] . ']';
+        $checkbox_id = $parameter['id'] . '_' . $count;
+        $formatted_label = str_replace(' ', '_', strtolower($option['label']));
+
         switch ($parameter['type']) {
             case 'tel':
             case 'text':
@@ -194,7 +117,7 @@ class SettingsConfig extends Config
                 return array(
                     'id' => $parameter['id'],
                     'class' => 'regular-text',
-                    'name' => $parameter['id'],
+                    'name' => $name,
                     'type' => $parameter['type'],
                     'placeholder' => '',
                     'value' => null,
@@ -210,7 +133,7 @@ class SettingsConfig extends Config
                 return array(
                     'id' => $parameter['id'],
                     'class' => 'regular-text',
-                    'name' => $parameter['id'],
+                    'name' => $name,
                     'type' => $parameter['type'],
                     'placeholder' => '',
                     'min' => null,
@@ -223,38 +146,49 @@ class SettingsConfig extends Config
                 return array(
                     'id' => $parameter['id'],
                     'class' => 'regular-text',
-                    'name' => $parameter['id'],
+                    'name' => $name,
                     'type' => $parameter['type'],
                     'placeholder' => '',
                     'rows' => 7,
                     'cols' => 50,
+                    'value' => null,
                     'required' => false,
                 );
             case 'checkbox':
                 return array(
                     'label' => '',
-                    'id' => $parameter['id'] . '-' . $count,
-                    // 'name' => 'checkbox-' . str_replace(' ', '-', strtolower($parameter['options']['label'])),
+                    'id' => $checkbox_id,
+                    'name' => $name . '[' . $checkbox_id . ']',
                     'type' => $parameter['type'],
-                    'value' => null,
+                    'value' => 1,
                     'checked' => false,
                     'required' => false,
                 );
             case 'radio':
                 return array(
                     'label' => '',
-                    'id' => $parameter['id'] . '-' . $count,
-                    'name' => $parameter['id'],
+                    'id' => $parameter['id'] . '_' . $count,
+                    'name' => $name,
                     'type' => $parameter['type'],
-                    // 'value' => str_replace(' ', '-', strtolower($parameter['options']['label'])) . '-' . $count,
+                    'value' => $parameter['id'] . '_' . $count,
                     'checked' => false,
                     'required' => false,
                 );
             case 'select':
+                return array(
+                    'label' => '',
+                    'id' => $parameter['id'],
+                    'name' => $name,
+                    'value' => $parameter['id'] . '_' . $count,
+                    'selected' => false,
+                    'required' => false,
+                );
             case 'multiselect':
                 return array(
                     'label' => '',
-                    // 'value' => str_replace(' ', '-', strtolower($parameter['options']['label'])),
+                    'id' => $parameter['id'] . '_' . $count,
+                    'name' => $name . '[]',
+                    'value' => $parameter['id'] . '_' . $count,
                     'selected' => false,
                     'required' => false,
                 );
@@ -286,11 +220,34 @@ class SettingsConfig extends Config
         );
     }
 
-    protected function getPageSlugs(array $config)
+    protected function inCustomPage(array $setting)
     {
-        $page_slugs = array_column($config['pages'], 'menu_slug');
-        $subpage_slugs = array_column($config['subpages'], 'menu_slug');
+        return in_array($setting['page'], $this->getPageSlugs());
+    }
+
+    protected function getPageSlugs()
+    {
+        $page_slugs = array_column($this->config['pages'], 'menu_slug');
+        $subpage_slugs = array_column($this->config['subpages'], 'menu_slug');
 
         return array_merge($page_slugs, $subpage_slugs);
+    }
+
+    protected function getValue($parameter, $option_name, $formatted_label = null)
+    {
+        $values = get_option($option_name);
+        d($option_name);
+        ddd($values);
+        if ('checkbox' == $parameter['type']) {
+            $key = $parameter['id'] . '[' . $formatted_label . ']';
+        } else {
+            $key = $parameter['id'];
+        }
+
+        if ($this->inCustomPage($parameter)) {
+            return array_key_exists($key, $values) ? esc_attr($values[$key]) : null;
+        } else {
+            return get_option($key) ? esc_attr(get_option($key)) : null;
+        }
     }
 }

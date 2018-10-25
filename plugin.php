@@ -45,7 +45,7 @@ Activation::register(__FILE__);
 add_action('plugins_loaded', function () {
     $container = container();
     $container->set('plugin', new Plugin($container, __FILE__));
-    $container->get('plugin')->registerServices()->init();
+    $container->get('plugin')->init();
 });
 
 /**

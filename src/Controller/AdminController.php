@@ -12,32 +12,26 @@
 
 namespace Vendor\Plugin\Controller;
 
-use Vendor\Plugin\Config\Config;
+use Vendor\Plugin\Settings\Settings;
 use Vendor\Plugin\Events\EventManager;
 use Vendor\Plugin\Controller\Controller;
-use Vendor\Plugin\Config\ConfigInterface;
+use Vendor\Plugin\Container\ContainerInterface;
 
 use const Vendor\Plugin\PLUGIN_BASENAME;
 
 class AdminController extends Controller
 {
     /**
-     * Admin settings configuration parameters
+     * Constructor
      *
-     * @var ConfigInterface
+     * @since    0.3.0
+     * @param    ContainerInterface    $container
+     * @param    Settings              $settings
      */
-    public $config;
-
-    /**
-     * Set the configuration object and parse the admin configuration into their respective arrays for pages, subpages, settings, sections and fields.
-     *
-     * @since  0.3.0
-     * @param  ConfigInterface    $config
-     * @return
-     */
-    public function setConfig(ConfigInterface $config)
+    public function __construct(ContainerInterface $container, Settings $settings)
     {
-        $this->config = $config;
+        parent::__construct($container);
+        $this->settings = $settings;
     }
 
     /**
@@ -60,21 +54,14 @@ class AdminController extends Controller
      */
     protected function addAdminSettings()
     {
-        $settings_pages = $this->container->get('settings_pages');
-        $settings_pages->setPages($this->config['pages'])
-                       ->withSubPage('Dashboard')
-                       ->setSubPages($this->config['subpages']);
+        $this->settings->withSubPage('Dashboard');
 
-        if (! empty($settings_pages->pages) || ! empty($settings_pages->subpages)) {
-            EventManager::addAction('admin_menu', array($settings_pages, 'createAdminPages'));
+        if (! empty($this->settings->pages) || ! empty($this->settings->subpages)) {
+            EventManager::addAction('admin_menu', array($this->settings, 'createAdminPages'));
         }
 
-        $settings_api = $this->container->get('settings_api');
-        $settings_api->setSections($this->config['sections'])
-                     ->setSettings($this->config['settings']);
-
-        if (! empty($settings_api->settings)) {
-            EventManager::addAction('admin_init', array($settings_api, 'registerSettings'));
+        if (! empty($this->settings->settings)) {
+            EventManager::addAction('admin_init', array($this->settings, 'registerSettings'));
         }
     }
 
@@ -86,8 +73,8 @@ class AdminController extends Controller
      */
     protected function registerSettingsLink()
     {
-        $settings_link = $this->container->get('settings_link');
-        $settings_link->setSettingsURL($this->config['settings_url']);
-        EventManager::addFilter('plugin_action_links_' . PLUGIN_BASENAME, array($settings_link, 'createSettingsLink'));
+        // $settings_link = $this->container->get('settings_link');
+        // $settings_link->setSettingsURL($this->config['settings_url']);
+        // EventManager::addFilter('plugin_action_links_' . PLUGIN_BASENAME, array($settings_link, 'createSettingsLink'));
     }
 }

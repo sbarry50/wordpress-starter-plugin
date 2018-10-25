@@ -20,7 +20,7 @@ use ArrayObject;
 use RuntimeException;
 use InvalidArgumentException;
 use Vendor\Plugin\Support\Paths;
-use Vendor\Plugin\Container\Container;
+use Vendor\Plugin\File\Loader;
 use Vendor\Plugin\Support\Arr;
 
 class Config extends ArrayObject implements ConfigInterface
@@ -30,7 +30,7 @@ class Config extends ArrayObject implements ConfigInterface
      *
      * @var array    $config    Runtime configuration parameters
      */
-    protected $config = array();
+    // protected $config = array();
 
     /**
      * Accept the configuration file or array and create a new configuration repository.
@@ -151,7 +151,7 @@ class Config extends ArrayObject implements ConfigInterface
      */
     protected function loadFile($config_file)
     {
-        return Container::instance('loader')->loadFile($config_file);
+        return Loader::loadFile($config_file);
     }
 
     /**

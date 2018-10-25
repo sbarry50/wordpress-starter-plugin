@@ -11,6 +11,7 @@
 
 namespace Vendor\Plugin\Forms;
 
+use Vendor\Plugin\Support\Arr;
 use Vendor\Plugin\Support\Paths;
 use Vendor\Plugin\Forms\Options;
 use Vendor\Plugin\Forms\Attributes;
@@ -60,80 +61,111 @@ class Forms
         $this->options = $options;
     }
 
-    // public function Args(array $args)
-    // {
-    //     $this->args = $args;
-
-    //     return $this;
-    // }
-
-    public function getElement(array $args)
+    public function getElement(array $options, string $type)
     {
-        ddd($args);
-        if (in_array($args['type'], array('checkbox', 'radio', 'select', 'multiselect')) && isset($args['options'])) {
-            $args['options'] = $this->options->compile($args);
-        } else {
-            $args['attributes'] = $this->attributes->compile($args);
+        if ('multiselect' == $type) {
+            return $this->select($options, true);
         }
 
-        if ('checkbox' == $args['type'] || 'radio' == $args['type']) {
+        if ('checkbox' == $type || 'radio' == $type) {
             $element = 'multiple';
-        } elseif ('multiselect' == $args['type'] || 'select' == $args['type']) {
+        } elseif ('select' == $type) {
             $element = 'select';
-        } elseif ('textarea' == $args['type']) {
+        } elseif ('textarea' == $type) {
             $element = 'textarea';
         } else {
             $element = 'input';
         }
 
-        return $this->$element($args);
+        return $this->$element($options);
     }
 
-    protected function input(array $args)
+    protected function input(array $options)
     {
-        if (array_key_exists('attributes', $args)) {
-            $attributes = $args['attributes'];
-        } else {
-            $attributes = $args;
-        }
-
         $html = '<input ';
-        $html .= $this->attributes->print($attributes);
+        $html .= $this->attributes->print($options);
+        $html .= isset($options['checked']) ? checked($options['checked'], true, false) : '';
         $html .= '>';
 
         return $html;
     }
 
-    protected function multiple(array $args)
+    protected function options(array $options)
     {
         $html = '';
 
-        foreach ($args['options'] as $option) {
+        foreach ($options as $option) {
+            $html .= '<option ';
+
+            if (isset($option['value']) || ! empty($option['value'])) {
+                $html .= 'value="' . $option['value'] . '"';
+            }
+
+            $html .= isset($option['selected']) ? selected($option['selected'], true, false) : '';
+
+            $html .= '>' . $option['label'] . '</option>';
+        }
+
+        return $html;
+    }
+
+    protected function multiple(array $options)
+    {
+        $html = '<fieldset>';
+
+        foreach ($options as $option) {
+            $hidden_options = array(
+                'name' =>$option['name'],
+                'type' => 'hidden',
+                'value' => 0,
+            );
+    
             $html .= '<label for="' . $option['id'] . '">';
+            $html .= ($option['type'] == 'checkbox') ? $this->input($hidden_options) : '';
             $html .= $this->input($option);
             $html .= ' ' . $option['label'] . '</label><br>';
         }
 
+        $html .= '</fieldset>';
+
         return $html;
     }
 
-    protected function select(array $args)
+    protected function select(array $options, $multi = false)
     {
-        $html = '<select ';
-        $html .= $this->attributes->print($args['attributes']);
+        // d($options);
+        $select_tag_attributes = array(
+            'id' => $options[0]['id'],
+            'name' => $options[0]['name'],
+        );
+
+        $hidden_attributes = array(
+            'id' => $options[0]['id'],
+            'name' => $options[0]['name'],
+            'type' => 'hidden',
+            'value' => 'none_selected',
+        );
+
+        $html = '';
+        $html .= $multi ? $this->input($hidden_attributes) : '';
+        $html .= '<select';
+        $html .= $this->attributes->print($select_tag_attributes);
+        $html .= $multi ? ' multiple' : '';
         $html .= '>';
-        $html .= $this->options->print($args['options']);
+        $html .= $this->options($options);
         $html .= '</select>';
 
         return $html;
     }
 
-    protected function textarea(array $args)
+    protected function textarea(array $options)
     {
+        $value = Arr::pull($options, 'value');
+
         $html = '<textarea ';
-        $html .= $this->attributes->print($args['attributes']);
+        $html .= $this->attributes->print($options);
         $html .= '>';
-        $html .= get_option($args['id']) ? esc_attr(get_option($args['id'])) : '';
+        $html .= $value;
         $html .= '</textarea>';
 
         return $html;

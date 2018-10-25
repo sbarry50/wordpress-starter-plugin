@@ -81,3 +81,19 @@ return array(
         'autofocus' => false,
     ),
 );
+
+function sandbox_toggle_header_callback($args) {
+     
+    // First, we read the options collection
+    $options = get_option('sandbox_theme_display_options');
+     
+    // Next, we update the name attribute to access this element's ID in the context of the display options array
+    // We also access the show_header element of the options collection in the call to the checked() helper function
+    $html = '<input type="checkbox" id="show_header" name="sandbox_theme_display_options[show_header]" value="1" ' . checked(1, $options['show_header'], false) . '/>'; 
+     
+    // Here, we'll take the first argument of the array and add it to a label next to the checkbox
+    $html .= '<label for="show_header"> '  . $args[0] . '</label>'; 
+     
+    echo $html;
+     
+} // end sandbox_toggle_header_callback

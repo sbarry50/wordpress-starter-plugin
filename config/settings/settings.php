@@ -134,6 +134,18 @@ return array(
     ********************************************************/
 
     'settings' => array(
+        array(
+            'id'          => 'user_bio',
+            'title'       => 'User Biography',
+            'page'        => 'starter-plugin',
+            'section'     => 'user_profile',
+            'description' => 'The user should describe themselves here',
+            'helper'      => 'This is the helper.',
+            'type'        => 'textarea',
+            'options'     => array(
+                'placeholder' => 'Last name',
+            ),
+        ),
 
         array(
             'id'          => 'first_name',
@@ -150,7 +162,19 @@ return array(
         ),
 
         array(
-            'id'         => 'favorite-color',
+            'id'         => 'favorite_movie',
+            'title'      => 'Favorite Movie',
+            'page'       => 'starter-plugin',
+            'section'    => 'user_profile',
+            'type'       => 'checkbox',
+            'options' => array(
+                'label'   => 'The Dark Knight',
+                'checked' => true,
+            ),
+        ),
+
+        array(
+            'id'         => 'favorite_color',
             'title'      => 'Favorite Color',
             'page'       => 'starter-plugin',
             'section'    => 'user_profile',
@@ -173,27 +197,22 @@ return array(
         ),
 
         array(
-            'id'         => 'user_password',
-            'title'      => 'Password',
+            'id'         => 'favorite_foods',
+            'title'      => 'Favorite Foods',
             'page'       => 'starter-plugin',
             'section'    => 'user_profile',
-            'type'       => 'password',
+            'type'       => 'select',
             'options' => array(
-                'placeholder' => 'Must contain 8-12 characters',
-                'required'    => true,
-            ),
-        ),
-
-        array(
-            'id'          => 'user_bio',
-            'title'       => 'User Biography',
-            'page'        => 'starter-plugin',
-            'section'     => 'user_profile',
-            'description' => 'The user should describe themselves here',
-            'helper'      => 'This is the helper.',
-            'type'        => 'textarea',
-            'options'     => array(
-                'placeholder' => 'Last name',
+                'option_1' => array(
+                    'label'     => 'Pizza',
+                ),
+                'option_2' => array(
+                    'label'     => 'Cheeseburgers',
+                    'selected' => true,
+                ),
+                'option_3' => array(
+                    'label'     => 'French Fries',
+                ),
             ),
         ),
 
@@ -216,6 +235,57 @@ return array(
                 ),
             ),
         ),
+        
+        array(
+            'id'         => 'user_password',
+            'title'      => 'Password',
+            'page'       => 'starter-plugin',
+            'section'    => 'user_profile',
+            'type'       => 'password',
+            'options' => array(
+                'placeholder' => 'Must contain 8-12 characters',
+                'required'    => true,
+            ),
+        ),
+
+        array(
+            'id'         => 'favorite_sports',
+            'title'      => 'Favorite Sports',
+            'page'       => 'starter-plugin',
+            'section'    => 'user_profile',
+            'type'       => 'multiselect',
+            'options' => array(
+                'option_1' => array(
+                    'label'     => 'Football',
+                ),
+                'option_2' => array(
+                    'label'     => 'Baseball',
+                    'selected' => true,
+                ),
+                'option_3' => array(
+                    'label'     => 'Basketball',
+                ),
+            ),
+        ),
+
+        array(
+            'id'         => 'favorite_city',
+            'title'      => 'Favorite City',
+            'page'       => 'starter-plugin',
+            'section'    => 'user_profile',
+            'type'       => 'select',
+            'options' => array(
+                'option_1' => array(
+                    'label'     => 'New York',
+                ),
+                'option_2' => array(
+                    'label'     => 'Boston',
+                ),
+                'option_3' => array(
+                    'label'     => 'Los Angeles',
+                ),
+            ),
+        ),
 
         array(
             'id'         => 'custom_option',
@@ -225,7 +295,7 @@ return array(
             'type'       => 'custom',
             'options' => array(
                 'file_name' => 'custom.php',
-                'callback' => array( 'custom', 'custom'),
+                'callback' => '',
             ),
         ),
     ),
@@ -243,6 +313,6 @@ return array(
     *
     ********************************************************/
 
-   'settings_url' => '',
+   'settings_link' => 'options.php',
 
 );

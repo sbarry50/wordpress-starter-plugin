@@ -27,9 +27,9 @@ class Attributes
      * Boolean attributes
      *
      * @since    0.3.0
-     * @var      array    $boolean_atts
+     * @var      array    BOOLEAN_ATTS
      */
-    protected $boolean_atts = array('autofocus', 'checked', 'disabled', 'hidden', 'multiple', 'readonly', 'required', 'selected');
+    const BOOLEAN_ATTS = array('autofocus', 'checked', 'disabled', 'hidden', 'multiple', 'readonly', 'required', 'selected');
 
     /**
      * Set the attributes property
@@ -55,20 +55,22 @@ class Attributes
     public function print(array $attributes)
     {
         $html = '';
-
+        // d($attributes);
         foreach ($attributes as $key => $value) {
-            if ('label' == $key) {
+            if (in_array($key, array('label', 'checked', 'selected'))) {
                 continue;
             }
 
-            if (in_array($key, $this->boolean_atts) && $attributes[$key]) {
+            if (in_array($key, self::BOOLEAN_ATTS) && $attributes[$key]) {
                 $html .= ' ' . $key;
                 continue;
-            } elseif (in_array($key, $this->boolean_atts)) {
+            } elseif (in_array($key, self::BOOLEAN_ATTS)) {
                 continue;
             }
 
-            if (isset($attributes[$key]) && ! empty($attributes[$key])) {
+            if (isset($attributes[$key]) && ! empty($attributes[$key]) || $attributes[$key] === 0) {
+                // d($key);
+                // ddd($value);
                 $html .= ' ' . $key . '="' . $value . '"';
             }
         }
@@ -123,7 +125,7 @@ class Attributes
         $attributes = array_replace($order, $attributes);
 
         foreach ($attributes as $key => $value) {
-            if (in_array($key, $this->boolean_atts)) {
+            if (in_array($key, self::BOOLEAN_ATTS)) {
                 $attributes = Arr::moveToEnd($attributes, $key);
             }
         }

@@ -46,11 +46,11 @@ class PluginData
      */
     public static function basename()
     {
-        return \plugin_basename(self::root());
+        return plugin_basename(self::root());
     }
 
     /**
-     * Get plugin data from the plugin's bootstrap file header comment using WP core's get_plugin_data function
+     * Get plugin data from the plugin's bootstrap file header comment using WP core's get_file_data function
      *
      * @since  0.2.0
      * @param  string    $id    Plugin header data unique id
@@ -58,7 +58,20 @@ class PluginData
      */
     public static function headerData(string $id)
     {
-        return \get_plugin_data(self::root())[ $id ];
-    }
+        $default_headers = array(
+            'Name' => 'Plugin Name',
+            'PluginURI' => 'Plugin URI',
+            'Version' => 'Version',
+            'Description' => 'Description',
+            'Author' => 'Author',
+            'AuthorURI' => 'Author URI',
+            'TextDomain' => 'Text Domain',
+            'DomainPath' => 'Domain Path',
+            'Network' => 'Network',
+            // Site Wide Only is deprecated in favor of Network.
+            '_sitewide' => 'Site Wide Only',
+        );
 
+        return get_file_data(self::root(), $default_headers)[$id];
+    }
 }

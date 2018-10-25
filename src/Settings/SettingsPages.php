@@ -19,55 +19,60 @@ use Vendor\Plugin\Config\ConfigInterface;
 class SettingsPages extends Settings
 {
 
-    /**
-     * Admin pages
-     *
-     * @var array
-     */
-    public $pages = array();
+    // /**
+    //  * Admin pages
+    //  *
+    //  * @var array
+    //  */
+    // public $pages = array();
 
-    /**
-     * Admin subpages
-     *
-     * @var array
-     */
-    public $subpages = array();
+    // /**
+    //  * Admin subpages
+    //  *
+    //  * @var array
+    //  */
+    // public $subpages = array();
 
-    /**
-     * Set the Admin configuration to the pages property
-     *
-     * @since 0.3.0
-     * @param array $pages
-     */
-    public function setPages(array $pages)
-    {
-        $this->pages = $this->defaults->merge($pages, 'page');
+    // /**
+    //  * Set the Admin configuration to the pages property
+    //  *
+    //  * @since 0.3.0
+    //  * @param array $pages
+    //  */
+    // public function setPages(array $pages)
+    // {
+    //     $this->pages = $this->defaults->merge($pages, 'page');
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function getPages()
-    {
-        return $this->pages;
-    }
+    // public function getPages()
+    // {
+    //     return $this->pages;
+    // }
 
-    /**
-     * Set the Admin configuration to the subpages property
-     *
-     * @since 0.3.0
-     * @param array $subpages
-     */
-    public function setSubPages(array $subpages)
-    {
-        $this->subpages = $this->defaults->merge($subpages, 'subpage');
+    // /**
+    //  * Set the Admin configuration to the subpages property
+    //  *
+    //  * @since 0.3.0
+    //  * @param array $subpages
+    //  */
+    // public function setSubPages(array $subpages)
+    // {
+    //     $this->subpages = $this->defaults->merge($subpages, 'subpage');
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function getSubPages()
-    {
-        return $this->subpages;
-    }
+    // public function getSubPages()
+    // {
+    //     return $this->subpages;
+    // }
+
+    // public function __construct(SettingsCallbacks $callbacks)
+    // {
+    //     $this->callbacks = $callbacks;
+    // }
 
     /**
      * Add a primary subpage (ie. "Dashboard") to the parent Admin page.
@@ -114,7 +119,7 @@ class SettingsPages extends Settings
                     $page['capability'],
                     $page['menu_slug'],
                     ! empty($page['template']) ? function () use ($page) {
-                        return $this->callbacks->page($page['template']);
+                        return $this->settings_callbacks->page($page['template']);
                     } : '',
                     $page['icon_url'],
                     $page['position']
@@ -172,7 +177,7 @@ class SettingsPages extends Settings
                         $subpage['capability'],
                         $subpage['menu_slug'],
                         ! empty($subpage['template']) ? function () use ($subpage) {
-                            return $this->callbacks->page($subpage['template']);
+                            return $this->settings_callbacks->page($subpage['template']);
                         } : ''
                     );
                 } else {
@@ -182,7 +187,7 @@ class SettingsPages extends Settings
                         $subpage['capability'],
                         $subpage['menu_slug'],
                         ! empty($subpage['template']) ? function () use ($subpage) {
-                            return $this->callbacks->page($subpage['template']);
+                            return $this->settings_callbacks->page($subpage['template']);
                         } : ''
                     );
                 }
@@ -192,10 +197,5 @@ class SettingsPages extends Settings
                 }
             }
         }
-    }
-
-    public function inCustomPage($setting)
-    {
-        return in_array($setting['page'], $this->pages) || in_array($setting['page'], $this->pages);
     }
 }

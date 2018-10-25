@@ -25,7 +25,7 @@ class Loader implements LoaderInterface
      * @param  string    $file     The direct path and filename of the file to be loaded
      * @return string              The contents of the file
      */
-    public function loadFile($file)
+    public static function loadFile($file)
     {
         if (self::isFileValid($file)) {
             return include $file;
@@ -40,7 +40,7 @@ class Loader implements LoaderInterface
      * @param  mixed     $args     (Opt) Arguments to pass to the file
      * @return string              The contents of the file
      */
-    public function loadOutputFile($file, $args = array())
+    public static function loadOutputFile($file, $args = array())
     {
         if (self::isFileValid($file)) {
             ob_start();
