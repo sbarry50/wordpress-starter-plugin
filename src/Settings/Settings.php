@@ -2,18 +2,18 @@
 /**
  * WordPress Settings API class handler
  *
- * @package    Vendor\Plugin\Settings
+ * @package    SB2Media\Hub\Settings
  * @since      0.3.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
  */
 
-namespace Vendor\Plugin\Settings;
+namespace SB2Media\Hub\Settings;
 
-use Vendor\Plugin\Config\ConfigInterface;
-use Vendor\Plugin\Settings\SettingsCallbacks;
-use Vendor\Plugin\Settings\SettingsDefaults;
+use SB2Media\Hub\Config\ConfigInterface;
+use SB2Media\Hub\Settings\SettingsCallbacks;
+use SB2Media\Hub\Settings\SettingsDefaults;
 
 class Settings
 {

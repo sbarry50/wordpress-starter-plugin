@@ -2,31 +2,23 @@
 /**
  * Class handler for forms and elements
  *
- * @package    Vendor\Plugin\Forms
+ * @package    SB2Media\Hub\Forms
  * @since      0.3.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
  */
 
-namespace Vendor\Plugin\Forms;
+namespace SB2Media\Hub\Forms;
 
-use Vendor\Plugin\Support\Arr;
-use Vendor\Plugin\Support\Paths;
-use Vendor\Plugin\Forms\Options;
-use Vendor\Plugin\Forms\Attributes;
-use Vendor\Plugin\Container\Container;
-use Vendor\Plugin\File\LoaderInterface;
+use SB2Media\Hub\Support\Arr;
+use SB2Media\Hub\Support\Paths;
+use SB2Media\Hub\Forms\Options;
+use SB2Media\Hub\Forms\Attributes;
+use SB2Media\Hub\Container\Container;
 
 class Forms
 {
-    /**
-     * Instance of Loader class
-     *
-     * @var LoaderInterface
-     */
-    public $loader;
-
     /**
      * Instance of Attributes class
      *
@@ -51,12 +43,11 @@ class Forms
     /**
      * Constructor
      *
-     * @param LoaderInterface $loader
      * @param Attributes $attributes
+     * @param Options    $options
      */
-    public function __construct(LoaderInterface $loader, Attributes $attributes, Options $options)
-    {
-        $this->loader = $loader;
+    public function __construct(Attributes $attributes, Options $options)
+    {;
         $this->attributes = $attributes;
         $this->options = $options;
     }

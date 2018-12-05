@@ -2,7 +2,7 @@
 /**
  * CSS and Javascript files to enqueue with WordPress.
  *
- * @package    Vendor\Plugin
+ * @package    SB2Media\Hub
  * @since      0.2.0
  * @author     sbarry
  * @link       http://example.com

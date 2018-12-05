@@ -2,16 +2,16 @@
 /**
  * Helper class for retrieving plugin directory URL's
  *
- * @package    Vendor\Plugin\Support
+ * @package    SB2Media\Hub\Support
  * @since      0.2.0
  * @author     sbarry
  * @link       http://sb2media.com
  * @license    GNU General Public License 2.0+
  */
 
-namespace Vendor\Plugin\Support;
+namespace SB2Media\Hub\Support;
 
-use Vendor\Plugin\Support\PluginData;
+use SB2Media\Hub\Support\PluginData;
 
 class URLs
 {

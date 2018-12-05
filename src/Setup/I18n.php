@@ -5,17 +5,17 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @package    Vendor\Plugin\Setup
+ * @package    SB2Media\Hub\Setup
  * @since      0.1.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
  */
 
-namespace Vendor\Plugin\Setup;
+namespace SB2Media\Hub\Setup;
 
-use Vendor\Plugin\Support\Paths;
-use const Vendor\Plugin\PLUGIN_TEXT_DOMAIN;
+use SB2Media\Hub\Support\Paths;
+use const SB2Media\Hub\PLUGIN_TEXT_DOMAIN;
 
 class I18n
 {
@@ -29,6 +29,17 @@ class I18n
     private $domain;
 
     /**
+     * Constructor
+     *
+     * @since 0.5.0
+     * @param PluginData $plugin_data
+     */
+    public function __construct(PluginData $plugin_data)
+    {
+        $this->plugin_data = $plugin_data;
+    }
+
+    /**
      * Load the plugin text domain for translation.
      *
      * @since    0.1.0
@@ -36,9 +47,9 @@ class I18n
     public function loadPluginTextDomain()
     {
         \load_plugin_textdomain(
-            PLUGIN_TEXT_DOMAIN,
+            $this->plugin_data->headerData('text-domain'),
             false,
-            Paths::lang()
+            $this->plugin_data->path('lang')
         );
     }
 }

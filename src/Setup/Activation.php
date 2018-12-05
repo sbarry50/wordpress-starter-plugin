@@ -2,7 +2,7 @@
 /**
  * Class that defines plugin activation/deactivation/uninstall callbacks.
  *
- * @package    Vendor\Plugin\Setup
+ * @package    SB2Media\Hub\Setup
  * @since      0.1.0
  * @author     sbarry
  * @link       http://example.com
@@ -13,11 +13,9 @@
  * @link   https://wordpress.stackexchange.com/questions/25910/uninstall-activate-deactivate-a-plugin-typical-features-how-to/25979#25979
  */
 
-namespace Vendor\Plugin\Setup;
+namespace SB2Media\Hub\Setup;
 
-use Vendor\Plugin\CPT\CPT;
-use Vendor\Plugin\Setup\Compatibility;
-use const Vendor\Plugin\PLUGIN_ROOT;
+use function SB2Media\Hub\container;
 
 class Activation
 {
@@ -71,7 +69,6 @@ class Activation
         $plugin = isset($_REQUEST['plugin']) ? $_REQUEST['plugin'] : '';
         check_admin_referer("activate-plugin_{$plugin}");
 
-        CPT::register();
         flush_rewrite_rules();
 
         // Uncomment the following line to see the function in action

@@ -4,16 +4,16 @@
  *
  * CSS and Javascript files can either be enqueued via a configuration file, with the enqueueStyles() and enqueueScripts() methods or both.
  *
- * @package    Vendor\Plugin\Enqueue
+ * @package    SB2Media\Hub\Enqueue
  * @since      0.1.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
  */
 
-namespace Vendor\Plugin\Enqueue;
+namespace SB2Media\Hub\Enqueue;
 
-use Vendor\Plugin\Config\ConfigInterface;
+use SB2Media\Hub\Config\ConfigInterface;
 
 interface EnqueueManagerInterface
 {

@@ -3,7 +3,7 @@
  * Class handler for the plugin's configuration files.
  * Loads a specified configuration file or array and provides several public methods to access and modify the configuration array.
  *
- * @package    Vendor\Plugin\Config
+ * @package    SB2Media\Hub\Config
  * @since      0.1.0
  * @author     sbarry
  * @link       http://example.com
@@ -14,14 +14,13 @@
   * This class has been adapted from Tonya Mork's Fulcrum plugin which has a GPL v2 license.
   */
 
-namespace Vendor\Plugin\Config;
+namespace SB2Media\Hub\Config;
 
 use ArrayObject;
 use RuntimeException;
 use InvalidArgumentException;
-use Vendor\Plugin\Support\Paths;
-use Vendor\Plugin\File\Loader;
-use Vendor\Plugin\Support\Arr;
+use SB2Media\Hub\File\Loader;
+use SB2Media\Hub\Support\Arr;
 
 class Config extends ArrayObject implements ConfigInterface
 {

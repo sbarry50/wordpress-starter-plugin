@@ -3,16 +3,16 @@
  * Base controller class
  *
  *
- * @package    Vendor\Plugin\Controller
+ * @package    SB2Media\Hub\Controller
  * @since      0.3.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
  */
 
-namespace Vendor\Plugin\Controller;
+namespace SB2Media\Hub\Controller;
 
-use Vendor\Plugin\Container\ContainerInterface;
+use function SB2Media\Hub\container;
 
 class Controller
 {
@@ -26,10 +26,9 @@ class Controller
      * Constructor
      *
      * @since 0.3.0
-     * @param ContainerInterface    $container
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct()
     {
-        $this->container = $container;
+        $this->container = container();
     }
 }

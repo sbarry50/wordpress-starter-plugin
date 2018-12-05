@@ -2,7 +2,7 @@
 /**
  * The WordPress event manager wrapper for NetRivet's Wordpress EventEmitter Interface.
  *
- * @package    Vendor\Plugin\Events
+ * @package    SB2Media\Hub\Events
  * @since      0.2.0
  * @author     sbarry
  * @link       http://sb2media.com
@@ -14,9 +14,9 @@
   * @link https://torquemag.io/2017/10/using-pimple-service-container-wordpress-development/
   */
 
-namespace Vendor\Plugin\Events;
+namespace SB2Media\Hub\Events;
 
-use NetRivet\WordPress\EventEmitterInterface;
+use DownShift\WordPress\EventEmitterInterface;
 
 class EventManager
 {
@@ -76,6 +76,6 @@ class EventManager
      */
     public static function getEventManager() : EventEmitterInterface
     {
-        return container()->get('events');
+        return \SB2Media\Hub\container()->get('hub-events');
     }
 }

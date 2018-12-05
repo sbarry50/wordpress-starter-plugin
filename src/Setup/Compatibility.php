@@ -2,22 +2,22 @@
 /**
  * Class that checks if all system requirements are met to run this plugin.
  *
- * @package    Vendor\Plugin\Setup
+ * @package    SB2Media\Hub\Setup
  * @since      0.1.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
  */
 
-namespace Vendor\Plugin\Setup;
+namespace SB2Media\Hub\Setup;
 
-use Vendor\Plugin\File\Loader;
-use Vendor\Plugin\Support\Paths;
-use Vendor\Plugin\Container\Container;
-use Vendor\Plugin\Events\EventManager;
-use Vendor\Plugin\File\LoaderInterface;
-use const Vendor\Plugin\PLUGIN_BASENAME;
-use Vendor\Plugin\Config\ConfigInterface;
+use SB2Media\Hub\File\Loader;
+use SB2Media\Hub\Support\Paths;
+use SB2Media\Hub\Container\Container;
+use SB2Media\Hub\Events\EventManager;
+use SB2Media\Hub\File\LoaderInterface;
+use const SB2Media\Hub\PLUGIN_BASENAME;
+use SB2Media\Hub\Config\ConfigInterface;
 
 class Compatibility
 {
@@ -34,7 +34,7 @@ class Compatibility
      *
      * @var string
      */
-    public $min_wp_version;
+    public $min_wp_version = '4.7';
 
     /**
      * Current version of PHP
@@ -48,15 +48,18 @@ class Compatibility
      *
      * @var string
      */
-    public $min_php_version;
+    public $min_php_version = '7.0';
 
-    public function __construct(ConfigInterface $config, LoaderInterface $loader)
+    /**
+     * Constructor
+     *
+     * @since 0.5.0
+     */
+    public function __construct(PluginData $plugin_data)
     {
         $this->wp_version = get_bloginfo('version');
-        $this->min_wp_version = $config['min_wp_version'];
         $this->php_version = phpversion();
-        $this->min_php_version = $config['min_php_version'];
-        $this->loader = $loader;
+        $this->plugin_data = $plugin_data;
     }
 
     /**
@@ -107,8 +110,8 @@ class Compatibility
      */
     public function disablePlugin()
     {
-        if (current_user_can('activate_plugins') && is_plugin_active(PLUGIN_BASENAME)) {
-            deactivate_plugins(PLUGIN_BASENAME);
+        if (current_user_can('activate_plugins') && is_plugin_active($this->plugin_data->basename())) {
+            deactivate_plugins($this->plugin_data->basename());
 
             // Hide the default "Plugin activated" notice
             if (isset($_GET[ 'activate' ])) {
@@ -125,8 +128,8 @@ class Compatibility
      */
     public function renderNotice()
     {
-        $notice = Paths::views() . 'errors/compatibility-notice.php';
-        printf($this->loader->loadOutputFile($notice, $this));
+        $notice = HUB_DIR_PATH . 'views/errors/compatibility-notice.php';
+        printf(Loader::loadOutputFile($notice, $this->plugin_data));
     }
 
     /**

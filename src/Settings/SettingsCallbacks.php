@@ -2,42 +2,48 @@
 /**
  * Collection of callback methods for the Settings class
  *
- * @package    Vendor\Plugin\Settings
+ * @package    SB2Media\Hub\Settings
  * @since      0.3.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
  */
 
-namespace Vendor\Plugin\Settings;
+namespace SB2Media\Hub\Settings;
 
 use Exception;
-use Vendor\Plugin\Support\Arr;
-use Vendor\Plugin\Forms\Forms;
-use Vendor\Plugin\Support\Paths;
-use Vendor\Plugin\Settings\Settings;
-use Vendor\Plugin\Container\Container;
-use Vendor\Plugin\File\LoaderInterface;
-use const Vendor\Plugin\PLUGIN_TEXT_DOMAIN;
+use SB2Media\Hub\Forms\Forms;
+use SB2Media\Hub\Support\Arr;
+use SB2Media\Hub\Setup\PluginData;
+use SB2Media\Hub\Settings\Settings;
+use SB2Media\Hub\Container\Container;
+use const SB2Media\Hub\PLUGIN_TEXT_DOMAIN;
 
 class SettingsCallbacks
 {
     /**
-     * Instance of Loader class
-     * @var Loader
+     * Instance of Forms class
+     * @var Forms
      */
-    public $loader;
+    public $forms;
+
+    /**
+     * Instance of PluginData class
+     * @var PluginData
+     */
+    public $plugin_data;
 
     /**
      * Constructor
      *
      * @since 0.3.0
-     * @param LoaderInterface $loader
+     * @param Forms $forms
+     * @param PluginData $plugin_data
      */
-    public function __construct(LoaderInterface $loader, Forms $forms)
+    public function __construct(Forms $forms, PluginData $plugin_data)
     {
-        $this->loader = $loader;
         $this->forms = $forms;
+        $this->plugin_data = $plugin_data;
     }
 
     // /**
@@ -69,10 +75,10 @@ class SettingsCallbacks
      */
     public function page(string $file_name)
     {
-        $file = Paths::views() . "admin/pages/{$file_name}.php";
+        $file = $this->plugin_data->path('views') . "admin/pages/{$file_name}.php";
         // ddd($this->loader->loadOutputFile($file));
         // d($file);
-        printf($this->loader->loadOutputFile($file));
+        printf(Loader::loadOutputFile($file));
     }
 
     /**
@@ -84,7 +90,7 @@ class SettingsCallbacks
      */
     public function section(string $file_name)
     {
-        $file = Paths::views() . "admin/sections/{$file_name}.php";
+        $file = $this->plugin_data->path('views') . "admin/sections/{$file_name}.php";
         printf($this->loader->loadOutputFile($file));
     }
 

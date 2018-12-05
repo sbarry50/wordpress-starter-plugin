@@ -2,7 +2,7 @@
 /**
  * Configuration Contract
  *
- * @package    Vendor\Plugin\Config
+ * @package    SB2Media\Hub\Config
  * @since      0.1.0
  * @author     sbarry
  * @link       http://example.com
@@ -13,7 +13,7 @@
   * This interface has been adapted from Tonya Mork's Fulcrum plugin which has a GPL v2 license.
   */
 
-namespace Vendor\Plugin\Config;
+namespace SB2Media\Hub\Config;
 
 interface ConfigInterface
 {

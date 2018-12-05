@@ -1,12 +1,6 @@
-<?php
-namespace Vendor\Plugin;
-
-use const Vendor\Plugin\PLUGIN_NAME;
-?>
-
 <div class="error">
     <p>
-        <strong>Your current system environment does not meet the minimum requirements to run <?php echo PLUGIN_NAME ?>:</strong></br>
+        <strong>Your current system environment does not meet the minimum requirements to run <?php echo $args->plugin_name ?>:</strong></br>
         <table style="text-align: center;">
             <thead>
                 <tr>
@@ -32,9 +26,9 @@ use const Vendor\Plugin\PLUGIN_NAME;
         </table>
     </p>
     <p>
-        <strong><?php echo PLUGIN_NAME ?> has been deactivated.</strong>
+        <strong><?php echo $args->plugin_name ?> has been deactivated.</strong>
     </p>
     <p>
-        <strong>Please update your environment to activate <?php echo PLUGIN_NAME ?>.</strong>
+        <strong>Please update your environment to activate <?php echo $args->plugin_name ?>.</strong>
     </p>
 </div>

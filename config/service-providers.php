@@ -2,7 +2,7 @@
 /**
  * Service Providers
  *
- * @package    Vendor\Plugin
+ * @package    SB2Media\Hub
  * @since      0.3.0
  * @author     sbarry
  * @link       http://example.com
@@ -10,118 +10,87 @@
  */
 
 return [
-    'loader' => [
-        'class' => Vendor\Plugin\File\Loader::class,
-    ],
-    'constants' => [
-        'class' => Vendor\Plugin\Constants\Constants::class,
-        'dependencies' => [
-            'constants-config',
-        ],
-    ],
     'controller' => [
-        'class' => Vendor\Plugin\Controller\Controller::class,
-        'dependencies' => [
-            'container',
-        ],
+        'class' => SB2Media\Hub\Controller\Controller::class,
     ],
-    'enqueue_controller' => [
-        'class' => Vendor\Plugin\Controller\EnqueueController::class,
-        'dependencies' => [
-            'container',
-        ],
+    'enqueue-controller' => [
+        'class' => SB2Media\Hub\Controller\EnqueueController::class,
     ],
     'events' => [
-        'class' => NetRivet\WordPress\EventEmitter::class,
-    ],
-    'plugin_I18n' => [
-        'class' => Vendor\Plugin\Setup\I18n::class,
+        'class' => DownShift\WordPress\EventEmitter::class,
     ],
     'attributes' => [
-        'class' => Vendor\Plugin\Forms\Attributes::class,
+        'class' => SB2Media\Hub\Forms\Attributes::class,
     ],
     'options' => [
-        'class' => Vendor\Plugin\Forms\Options::class,
+        'class' => SB2Media\Hub\Forms\Options::class,
     ],
     'forms' => [
-        'class' => Vendor\Plugin\Forms\Forms::class,
+        'class' => SB2Media\Hub\Forms\Forms::class,
         'dependencies' => [
-            'loader',
             'attributes',
             'options',
         ],
     ],
-    'settings_config' => [
-        'class' => Vendor\Plugin\Settings\SettingsConfig::class,
+    'settings-config' => [
+        'class' => SB2Media\Hub\Settings\SettingsConfig::class,
         'params' => [
-            Vendor\Plugin\Support\Paths::config() . 'settings/settings.php',
-            Vendor\Plugin\Support\Paths::config() . 'settings/settings-defaults.php',
+            HUB_DIR_PATH . 'config/settings/settings.php',
+            HUB_DIR_PATH . 'config/settings/settings-defaults.php',
         ],
     ],
-    'settings_callbacks' => [
-        'class' => Vendor\Plugin\Settings\SettingsCallbacks::class,
+    'settings-callbacks' => [
+        'class' => SB2Media\Hub\Settings\SettingsCallbacks::class,
         'dependencies' => [
-            'loader',
             'forms',
+            'plugin-data',
         ],
     ],
     'settings' => [
-        'class' => Vendor\Plugin\Settings\Settings::class,
+        'class' => SB2Media\Hub\Settings\Settings::class,
         'dependencies' => [
-            'settings_config',
-            'settings_callbacks',
+            'settings-config',
+            'settings-callbacks',
         ],
     ],
-    'settings_api' => [
-        'class' => Vendor\Plugin\Settings\SettingsAPI::class,
+    'settings-api' => [
+        'class' => SB2Media\Hub\Settings\SettingsAPI::class,
         'dependencies' => [
-            'settings_config',
-            'settings_callbacks',
+            'settings-config',
+            'settings-callbacks',
         ],
     ],
-    'settings_pages' => [
-        'class' => Vendor\Plugin\Settings\SettingsPages::class,
+    'settings-pages' => [
+        'class' => SB2Media\Hub\Settings\SettingsPages::class,
         'dependencies' => [
-            'settings_config',
-            'settings_callbacks',
+            'settings-config',
+            'settings-callbacks',
         ],
     ],
-    'settings_link' => [
-        'class' => Vendor\Plugin\Settings\SettingsLink::class,
+    'settings-link' => [
+        'class' => SB2Media\Hub\Settings\SettingsLink::class,
     ],
-    'admin_controller' => [
-        'class' => Vendor\Plugin\Controller\AdminController::class,
+    'admin-controller' => [
+        'class' => SB2Media\Hub\Controller\AdminController::class,
         'dependencies' => [
-            'container',
             'settings',
         ],
     ],
-    'enqueue_manager' => [
-        'class' => Vendor\Plugin\Enqueue\EnqueueManager::class,
+    'enqueue-manager' => [
+        'class' => SB2Media\Hub\Enqueue\EnqueueManager::class,
         'dependencies' => [
             'enqueue-config',
+            'plugin-data',
         ],
     ],
-    'admin_enqueue_manager' => [
-        'class' => Vendor\Plugin\Enqueue\EnqueueManager::class,
+    'admin-enqueue-manager' => [
+        'class' => SB2Media\Hub\Enqueue\EnqueueManager::class,
         'dependencies' => [
             'admin-enqueue-config',
+            'plugin-data',
         ],
     ],
-    'compatibility' => [
-        'class' => Vendor\Plugin\Setup\Compatibility::class,
-        'dependencies' => [
-            'requirements-config',
-            'loader',
-        ],
-    ],
-    'cpt' => [
-        'class' => Vendor\Plugin\CPT\CPT::class,
-    ],
-    'cpt_controller' => [
-        'class' => Vendor\Plugin\Controller\CPTController::class,
-        'dependencies' => [
-            'container',
-        ],
+    'cpt-controller' => [
+        'class' => SB2Media\Hub\Controller\CPTController::class,
     ],
 ];

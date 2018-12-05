@@ -2,14 +2,14 @@
 /**
  * Container interface
  *
- * @package    Vendor\Plugin\Container
+ * @package    SB2Media\Hub\Container
  * @since      0.2.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
  */
 
-namespace Vendor\Plugin\Container;
+namespace SB2Media\Hub\Container;
 
 interface ContainerInterface
 {
@@ -20,7 +20,17 @@ interface ContainerInterface
      * @param  string  $id  The unique identifier for the parameter or object
      * @return Container
      */
-    public static function instance(string $id);
+    public static function getInstance(string $id);
+
+    /**
+     * Set instance of Container
+     *
+     * @since    0.5.0
+     * @param    string    $id    The unique identifier for the parameter or object
+     * @param    mixed     $value
+     * @return   void
+     */
+    public static function setInstance(string $id, $value);
 
     /**
      * Get item from container

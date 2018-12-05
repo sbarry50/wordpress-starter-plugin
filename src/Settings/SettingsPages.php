@@ -2,19 +2,19 @@
 /**
  * WordPress Settings API class handler for building settings pages and subpages
  *
- * @package    Vendor\Plugin\Settings
+ * @package    SB2Media\Hub\Settings
  * @since      0.3.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
  */
 
-namespace Vendor\Plugin\Settings;
+namespace SB2Media\Hub\Settings;
 
-use Vendor\Plugin\Config\Config;
-use Vendor\Plugin\Settings\Settings;
-use Vendor\Plugin\Container\Container;
-use Vendor\Plugin\Config\ConfigInterface;
+use SB2Media\Hub\Config\Config;
+use SB2Media\Hub\Settings\Settings;
+use SB2Media\Hub\Container\Container;
+use SB2Media\Hub\Config\ConfigInterface;
 
 class SettingsPages extends Settings
 {

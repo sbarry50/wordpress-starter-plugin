@@ -2,18 +2,18 @@
 /**
  * Dependency injection container class which extends Pimple
  *
- * @package    Vendor\Plugin\Container
+ * @package    SB2Media\Hub\Container
  * @since      0.2.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
  */
 
-namespace Vendor\Plugin\Container;
+namespace SB2Media\Hub\Container;
 
-use Vendor\Plugin\Config\Config;
-use Vendor\Plugin\File\Loader;
-use Vendor\Plugin\Support\Paths;
+use SB2Media\Hub\File\Loader;
+use SB2Media\Hub\Config\Config;
+use SB2Media\Hub\Support\Paths;
 use Pimple\Container as Pimple;
 
 class Container extends Pimple implements ContainerInterface
@@ -24,6 +24,14 @@ class Container extends Pimple implements ContainerInterface
      * @var Container
      */
     public static $instance;
+
+    /**
+     * Collection of config keys
+     *
+     * @since 0.5.0
+     * @var array
+     */
+    public $collection = [];
 
     /**
      * Contructor
@@ -39,19 +47,34 @@ class Container extends Pimple implements ContainerInterface
      * Get instance of Container
      *
      * @since    0.3.0
-     * @param    string    $id    The unique identifier for the parameter or object
+     * @param    string    $plugin_id   The unique identifier for the plugin
+     * @param    string    $id          The unique identifier for the parameter or object
      * @return   Container
      */
-    public static function instance(string $id)
+    public static function getInstance(string $id)
     {
         return self::$instance->get($id);
+    }
+
+    /**
+     * Set instance of Container
+     *
+     * @since    0.5.0
+     * @param    string    $plugin_id   The unique identifier for the plugin
+     * @param    string    $id          The unique identifier for the parameter or object
+     * @param    mixed     $value
+     */
+    public static function setInstance(string $id, $value)
+    {
+        return self::$instance->set($id, $value);
     }
 
     /**
      * Get item from container
      *
      * @since    0.3.0
-     * @param    string    $id    The unique identifier for the parameter or object
+     * @param    string    $plugin_id   The unique identifier for the plugin
+     * @param    string    $id          The unique identifier for the parameter or object
      * @return   mixed
      */
     public function get(string $id)
@@ -62,7 +85,8 @@ class Container extends Pimple implements ContainerInterface
     /**
      * Set item in container
      *
-     * @param string $id    The unique identifier for the parameter or object
+     * @param    string    $plugin_id   The unique identifier for the plugin
+     * @param    string    $id          The unique identifier for the parameter or object
      * @param mixed  $value
      */
     public function set(string $id, $value)
@@ -75,12 +99,71 @@ class Container extends Pimple implements ContainerInterface
      *
      * @since 0.1.0
      *
-     * @param  string $id    The unique identifier for the parameter or object
-     * @return bool
+     * @param    string    $plugin_id   The unique identifier for the plugin
+     * @param    string    $id          The unique identifier for the parameter or object
+     * @return   bool
      */
     public function has(string $id)
     {
         return $this->offsetExists($id);
+    }
+
+    /**
+     * Set the collection
+     *
+     * @since 0.5.0
+     * @param string $collection_key
+     * @param array $collection_id
+     * @return void
+     */
+    public function setCollection(string $collection_key, array $collection_id)
+    {
+        $this->collection[$collection_key] = $collection_id;
+    }
+
+    /**
+     * Get the config keys
+     *
+     * @since 0.5.0
+     * @param string $key
+     * @return void
+     */
+    public function getCollection(string $collection_key)
+    {
+        return $this->collection[$collection_key];
+    }
+
+    /**
+     * Build and return the full unique identifier for the parameter or object
+     *
+     * @since 0.5.0
+     * @param    string    $plugin_id   The unique identifier for the plugin
+     * @param    string    $id          The unique identifier for the parameter or object
+     * @return   string
+     */
+    public static function id(string $plugin_id, string $object_id = '', string $subdir = '', bool $config = false)
+    {
+        if (empty($plugin_id) && empty($id)) {
+            return;
+        }
+
+        if (!empty($plugin_id)) {
+            $id = $plugin_id;
+        }
+
+        if (!empty($object_id)) {
+            $id .= "-{$object_id}";
+        }
+
+        if (!empty($subdir)) {
+            $id .= "-{$subdir}";
+        }
+
+        if ($config) {
+            $id .= "-config";
+        }
+        
+        return $id;
     }
 
     /**

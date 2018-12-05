@@ -2,19 +2,20 @@
 /**
  * Abstract class that enqueues stylesheets and scripts.
  *
- * @package    Vendor\Plugin\Enqueue
+ * @package    SB2Media\Hub\Enqueue
  * @since      0.1.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
  */
 
-namespace Vendor\Plugin\Enqueue;
+namespace SB2Media\Hub\Enqueue;
 
-use Vendor\Plugin\Config\ConfigInterface;
-use Vendor\Plugin\Events\EventManager;
-use Vendor\Plugin\Support\URLs;
-use const Vendor\Plugin\PLUGIN_VERSION;
+use SB2Media\Hub\Config\ConfigInterface;
+use SB2Media\Hub\Setup\PluginData;
+use SB2Media\Hub\Events\EventManager;
+use SB2Media\Hub\Support\URLs;
+use const SB2Media\Hub\PLUGIN_VERSION;
 
 class EnqueueManager implements EnqueueManagerInterface
 {
@@ -24,6 +25,13 @@ class EnqueueManager implements EnqueueManagerInterface
      * @var ConfigInterface
      */
     public $config;
+
+    /**
+     * Plugin Data
+     *
+     * @var PluginData
+     */
+    public $plugin_data;
 
     /**
      * Collection of stylesheets
@@ -44,9 +52,10 @@ class EnqueueManager implements EnqueueManagerInterface
      *
      * @since 0.1.0
      */
-    public function __construct(ConfigInterface $config)
+    public function __construct(ConfigInterface $config, PluginData $plugin_data)
     {
         $this->config = $config;
+        $this->plugin_data = $plugin_data;
         $this->stylesheets = array();
         $this->scripts = array();
     }
@@ -63,9 +72,9 @@ class EnqueueManager implements EnqueueManagerInterface
             foreach ($this->stylesheets as $stylesheet) {
                 \wp_enqueue_style(
                     "{$stylesheet['file_name']}",
-                    URLs::dist() . "css/{$stylesheet['file_name']}.css",
+                    $this->plugin_data->url('dist') . "css/{$stylesheet['file_name']}.css",
                     $stylesheet['dependencies'],
-                    PLUGIN_VERSION,
+                    $this->plugin_data->plugin_version,
                     $stylesheet['media']
                 );
             }
@@ -75,9 +84,9 @@ class EnqueueManager implements EnqueueManagerInterface
             foreach ($this->scripts as $script) {
                 \wp_enqueue_script(
                     "{$script['file_name']}",
-                    URLs::dist() . "js/{$script['file_name']}.js",
+                    $this->plugin_data->url('dist') . "js/{$script['file_name']}.js",
                     $script['dependencies'],
-                    PLUGIN_VERSION,
+                    $this->plugin_data->plugin_version,
                     $script['in_footer']
                 );
             }

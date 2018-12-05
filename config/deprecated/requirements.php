@@ -2,7 +2,7 @@
 /**
  * Plugin requirements parameters.
  *
- * @package    Vendor\Plugin
+ * @package    SB2Media\Hub
  * @since      0.1.0
  * @author     sbarry
  * @link       http://example.com

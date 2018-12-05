@@ -2,20 +2,20 @@
 /**
  * Custom WordPress administration pages and settings configuration parameters
  *
- * @package    Vendor\Plugin
+ * @package    SB2Media\Hub
  * @since      0.3.0
  * @author     sbarry
  * @link       http: //example.com
  * @license    GNU General Public License 2.0+
  */
 
-return array(
+return [
 
     /*********************************************************
     * Top level custom admin pages
     *
     * Format:
-    *   array(
+    *   [
     * 'page_title' => $page_title,
     * 'menu_title' => $menu_title,
     * 'capability' => $capability,
@@ -23,11 +23,11 @@ return array(
     * 'callback'   => $callback,
     * 'icon_url'   => $icon_url,
     * 'position'   => $position,
-    *   ),
+    *   ],
     ********************************************************/
 
-    'pages' => array(
-        array(
+    'pages' => [
+        [
             'page_title' => 'Starter Plugin',
             'menu_title' => 'Starter Plugin',
             'capability' => 'manage_options',
@@ -35,23 +35,23 @@ return array(
             'template'   => 'starter-plugin',
             'icon_url'   => 'dashicons-external',
             'position'   => 110,
-        ),
-    ),
+        ],
+    ],
 
     /*********************************************************
     * Custom admin subpages
     *
     * Format:
-    *   array(
+    *   [
     * 'parent_slug' => $parent_slug,
     * 'page_title'  => $page_title,
     * 'menu_title'  => $menu_title,
     * 'capability'  => $capability,
     * 'menu_slug'   => $menu_slug,
     * 'callback'    => $callback,
-    *   ),
+    *   ],
     *
-    * The following 'parent_slug' values (case sensitive) may be used to add subpages to the default top-level WordPress settings pages:
+    * The following 'parent_slug' values (case sensitive] may be used to add subpages to the default top-level WordPress settings pages:
     *
     * Dashboard : 'parent_slug' => 'Dashboard',
     * Posts     : 'parent_slug' => 'Posts',
@@ -65,76 +65,76 @@ return array(
     * Settings  : 'parent_slug' => 'Settings',
     *
     ********************************************************/
-    'subpages' => array(
-        array(
+    'subpages' => [
+        [
             'parent_slug' => 'starter-plugin',
             'page_title'  => 'CPT Options',
             'menu_title'  => 'CPT',
             'capability'  => 'manage_options',
             'menu_slug'   => 'starter-plugin-cpt',
             'template'    => 'starter-plugin-cpt',
-        ),
-        array(
+        ],
+        [
             'parent_slug' => 'starter-plugin',
             'page_title'  => 'Taxonomy Options',
             'menu_title'  => 'Taxonomy',
             'capability'  => 'manage_options',
             'menu_slug'   => 'starter-plugin-taxonomy',
             'template'    => 'starter-plugin-taxonomy',
-        ),
-        array(
+        ],
+        [
             'parent_slug' => 'starter-plugin',
             'page_title'  => 'Other Options',
             'menu_title'  => 'Other',
             'capability'  => 'manage_options',
             'menu_slug'   => 'starter-plugin-other',
             'template'    => 'starter-plugin-other',
-        ),
-    ),
+        ],
+    ],
 
     /*********************************************************
     * Admin custom sections
     *
     * Format:
-    *   array(
+    *   [
     * 'id'       => $id,
     * 'title'    => $title,
     * 'callback' => $callback,
     * 'page'     => $page,
-    *   ),
+    *   ],
     ********************************************************/
 
-    'sections' => array(
-        array(
+    'sections' => [
+        [
             'id'       => 'user_profile',
             'title'    => 'User Profile',
             'template' => 'user-profile',
             'page'     => 'starter-plugin',
-        ),
-        array(
+        ],
+        [
             'id'       => 'user_interests',
             'title'    => 'User Interests',
             'template' => 'user-interests',
             'page'     => 'starter-plugin',
-        ),
-    ),
+        ],
+    ],
 
     /*********************************************************
     * Admin custom fields
     *
     * Format:
-    *   array(
+    *   [
     * 'id'         => $id,
     * 'title'      => $title,
     * 'callback'   => $callback,
     * 'page'       => $page,
     * 'section'    => $section,
     * 'attributes' => $args,
-    *   ),
+    *   ],
     ********************************************************/
 
-    'settings' => array(
-        array(
+    'settings' => [
+        [
             'id'          => 'user_bio',
             'title'       => 'User Biography',
             'page'        => 'starter-plugin',
@@ -142,12 +142,12 @@ return array(
             'description' => 'The user should describe themselves here',
             'helper'      => 'This is the helper.',
             'type'        => 'textarea',
-            'options'     => array(
+            'options'     => [
                 'placeholder' => 'Last name',
-            ),
-        ),
+            ],
+        ],
 
-        array(
+        [
             'id'          => 'first_name',
             'title'       => 'First Name',
             'page'        => 'starter-plugin',
@@ -155,150 +155,150 @@ return array(
             'description' => '',
             'helper'      => '',
             'type'        => 'text',
-            'options'     => array(
+            'options'     => [
                 'placeholder' => 'First name',
                 'required'    => true,
-            ),
-        ),
+            ],
+        ],
 
-        array(
+        [
             'id'         => 'favorite_movie',
             'title'      => 'Favorite Movie',
             'page'       => 'starter-plugin',
             'section'    => 'user_profile',
             'type'       => 'checkbox',
-            'options' => array(
+            'options' => [
                 'label'   => 'The Dark Knight',
                 'checked' => true,
-            ),
-        ),
+            ],
+        ],
 
-        array(
+        [
             'id'         => 'favorite_color',
             'title'      => 'Favorite Color',
             'page'       => 'starter-plugin',
             'section'    => 'user_profile',
             'type'       => 'checkbox',
-            'options' => array(
-                array(
+            'options' => [
+                [
                     'label'   => 'Blue sky',
                     'checked' => true,
-                ),
-                array(
+                ],
+                [
                     'label'     => 'Red sun',
-                ),
-                array(
+                ],
+                [
                     'label'     => 'Green grass',
-                ),
-                array(
+                ],
+                [
                     'label'     => 'White sand',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
 
-        array(
+        [
             'id'         => 'favorite_foods',
             'title'      => 'Favorite Foods',
             'page'       => 'starter-plugin',
             'section'    => 'user_profile',
             'type'       => 'select',
-            'options' => array(
-                'option_1' => array(
+            'options' => [
+                'option_1' => [
                     'label'     => 'Pizza',
-                ),
-                'option_2' => array(
+                ],
+                'option_2' => [
                     'label'     => 'Cheeseburgers',
                     'selected' => true,
-                ),
-                'option_3' => array(
+                ],
+                'option_3' => [
                     'label'     => 'French Fries',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
 
-        array(
+        [
             'id'         => 'favorite_car',
             'title'      => 'Favorite Car',
             'page'       => 'starter-plugin',
             'section'    => 'user_profile',
             'type'       => 'radio',
-            'options' => array(
-                'option_1' => array(
+            'options' => [
+                'option_1' => [
                     'label'     => 'Ford',
-                ),
-                'option_2' => array(
+                ],
+                'option_2' => [
                     'label'     => 'Chevy',
                     'checked' => true,
-                ),
-                'option_3' => array(
+                ],
+                'option_3' => [
                     'label'     => 'Toyota',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
         
-        array(
+        [
             'id'         => 'user_password',
             'title'      => 'Password',
             'page'       => 'starter-plugin',
             'section'    => 'user_profile',
             'type'       => 'password',
-            'options' => array(
+            'options' => [
                 'placeholder' => 'Must contain 8-12 characters',
                 'required'    => true,
-            ),
-        ),
+            ],
+        ],
 
-        array(
+        [
             'id'         => 'favorite_sports',
             'title'      => 'Favorite Sports',
             'page'       => 'starter-plugin',
             'section'    => 'user_profile',
             'type'       => 'multiselect',
-            'options' => array(
-                'option_1' => array(
+            'options' => [
+                'option_1' => [
                     'label'     => 'Football',
-                ),
-                'option_2' => array(
+                ],
+                'option_2' => [
                     'label'     => 'Baseball',
                     'selected' => true,
-                ),
-                'option_3' => array(
+                ],
+                'option_3' => [
                     'label'     => 'Basketball',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
 
-        array(
+        [
             'id'         => 'favorite_city',
             'title'      => 'Favorite City',
             'page'       => 'starter-plugin',
             'section'    => 'user_profile',
             'type'       => 'select',
-            'options' => array(
-                'option_1' => array(
+            'options' => [
+                'option_1' => [
                     'label'     => 'New York',
-                ),
-                'option_2' => array(
+                ],
+                'option_2' => [
                     'label'     => 'Boston',
-                ),
-                'option_3' => array(
+                ],
+                'option_3' => [
                     'label'     => 'Los Angeles',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
 
-        array(
+        [
             'id'         => 'custom_option',
             'title'      => 'Custom Option',
             'page'       => 'starter-plugin',
             'section'    => 'user_profile',
             'type'       => 'custom',
-            'options' => array(
+            'options' => [
                 'file_name' => 'custom.php',
                 'callback' => '',
-            ),
-        ),
-    ),
+            ],
+        ],
+    ],
 
     /*********************************************************
     * The URL for the plugin's "Settings" link on the WordPress plugins activation page.
@@ -313,6 +313,68 @@ return array(
     *
     ********************************************************/
 
-   'settings_link' => 'options.php',
+    'settings_link' => 'options.php',
 
-);
+    /*********************************************************
+    *
+    * The default settings configuration.
+    *
+    ********************************************************/
+    // 'defaults' => [
+    //     'pages' => [
+    //         'page_title'   => '',
+    //         'menu_title'   => '',
+    //         'capability'   => 'manage_options',
+    //         'menu_slug'    => '',
+    //         'option_name'  => '',
+    //         'template'     => '',
+    //         'icon_url'     => '',
+    //         'position'     => 110,
+    //         'register_settings_args' => [
+    //             'type'              => '',
+    //             'description'       => '',
+    //             'sanitize_callback' => null,
+    //             'show_in_rest'      => false,
+    //             'default'           => [],
+    //         ],
+    //     ],
+    
+    //     'subpages' => [
+    //         'parent_slug'  => '',
+    //         'page_title'   => '',
+    //         'menu_title'   => '',
+    //         'capability'   => 'manage_options',
+    //         'menu_slug'    => '',
+    //         'option_name'  => '',
+    //         'template'     => '',
+    //         'register_settings_args' => [
+    //             'type'              => '',
+    //             'description'       => '',
+    //             'sanitize_callback' => null,
+    //             'show_in_rest'      => false,
+    //             'default'           => [],
+    //         ],
+    //     ],
+    
+    //     'sections' => [
+    //         'id'       => '',
+    //         'title'    => '',
+    //         'template' => '',
+    //         'page'     => '',
+    //     ],
+    
+    //     'settings' => [
+    //         'id'          => '',
+    //         'title'       => '',
+    //         'page'        => '',
+    //         'option_name' => '',
+    //         'section'     => 'default',
+    //         'description' => '',
+    //         'helper'      => '',
+    //         'type'        => '',
+    //         'options'     => [],
+    //     ],
+    
+    //     'settings_link' => '',
+    // ],
+];

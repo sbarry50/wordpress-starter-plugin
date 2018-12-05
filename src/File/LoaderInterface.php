@@ -2,14 +2,14 @@
 /**
  * Interface for loading files, assets and views.
  *
- * @package    Vendor\Plugin\File
+ * @package    SB2Media\Hub\File
  * @since      0.1.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
  */
 
-namespace Vendor\Plugin\File;
+namespace SB2Media\Hub\File;
 
 use Exception;
 

@@ -3,17 +3,17 @@
  * Enqueue manager controller
  *
  *
- * @package    Vendor\Plugin\Controller
+ * @package    SB2Media\Hub\Controller
  * @since      0.3.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
  */
 
-namespace Vendor\Plugin\Controller;
+namespace SB2Media\Hub\Controller;
 
-use Vendor\Plugin\Controller\Controller;
-use Vendor\Plugin\Events\EventManager;
+use SB2Media\Hub\Events\EventManager;
+use SB2Media\Hub\Controller\Controller;
 
 class EnqueueController extends Controller
 {
@@ -36,7 +36,7 @@ class EnqueueController extends Controller
      */
     public function enqueueAssets()
     {
-        $enqueue_manager = $this->container->get('enqueue_manager');
+        $enqueue_manager = $this->container->get('hub-enqueue-manager');
         $enqueue_manager->enqueueConfig();
                         // ->enqueueStyles('another-name', array(), 'all')
                         // ->enqueueScripts('another-name', array(), true);
@@ -61,7 +61,7 @@ class EnqueueController extends Controller
      */
     public function enqueueAdminAssets()
     {
-        $admin_enqueue_manager = $this->container->get('admin_enqueue_manager');
+        $admin_enqueue_manager = $this->container->get('hub-admin-enqueue-manager');
         $admin_enqueue_manager->enqueueConfig();
                             //   ->enqueueStyles('another-name-admin', array(), 'all')
                             //   ->enqueueScripts('another-name-admin', array(), true);

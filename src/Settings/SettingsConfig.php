@@ -4,17 +4,17 @@
  * Loads a specified configuration file or array and provides several
  * public methods to access and modify the configuration array.
  *
- * @package    Vendor\Plugin\Settings
+ * @package    SB2Media\Hub\Settings
  * @since      0.1.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
  */
 
-namespace Vendor\Plugin\Settings;
+namespace SB2Media\Hub\Settings;
 
-use Vendor\Plugin\Support\Arr;
-use Vendor\Plugin\Config\Config;
+use SB2Media\Hub\Support\Arr;
+use SB2Media\Hub\Config\Config;
 
 class SettingsConfig extends Config
 {
@@ -40,7 +40,6 @@ class SettingsConfig extends Config
 
     protected function mergeDefault(array $defaults, $key, $value, array $slugs)
     {
-        
         $merged = array();
 
         if (! is_array($value) && ! empty($value)) {

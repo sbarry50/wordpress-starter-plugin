@@ -2,13 +2,13 @@
 /**
  * Helpers.
  *
- * @package    Vendor\Plugin\Support
+ * @package    SB2Media\Hub\Support
  * @since      0.1.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
  */
-namespace Vendor\Plugin\Support;
+namespace SB2Media\Hub\Support;
 
 class Helpers
 {

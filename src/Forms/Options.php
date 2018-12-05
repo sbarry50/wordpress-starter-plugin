@@ -2,14 +2,14 @@
 /**
  * Class for handling options
  *
- * @package    Vendor\Plugin\Forms
+ * @package    SB2Media\Hub\Forms
  * @since      0.3.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
  */
 
-namespace Vendor\Plugin\Forms;
+namespace SB2Media\Hub\Forms;
 
 class Options
 {

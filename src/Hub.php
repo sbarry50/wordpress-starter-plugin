@@ -2,22 +2,20 @@
 /**
  * The core plugin class.
  *
- * @package    Vendor\Plugin
+ * @package    SB2Media\Hub
  * @since      0.1.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
  */
 
-namespace Vendor\Plugin;
+namespace SB2Media\Hub;
 
-use Vendor\Plugin\Config\Config;
-use Vendor\Plugin\Container\Container;
+use SB2Media\Hub\Setup\PluginData;
+use SB2Media\Hub\Container\Container;
+use SB2Media\Hub\Config\ConfigFactory;
 
-use const Vendor\Plugin\PLUGIN_ROOT;
-use const Vendor\Plugin\PLUGIN_BASENAME;
-
-final class Plugin
+class Hub
 {
 
     /**
@@ -27,25 +25,18 @@ final class Plugin
     public $container;
 
     /**
-     * The plugin root file
+     * The plugin data
      *
-     * @var string
+     * @var PluginData
      */
-    public $plugin_root_file;
-
-    /**
-     * The plugin top level namespace
-     *
-     * @var string
-     */
-    public $namespace;
+    public $plugin_data;
 
     /**
      * Flag to track if the plugin is loaded.
      *
      * @var bool
      */
-    private $loaded = false;
+    public $loaded = false;
 
     /**
      * Constructor.
@@ -53,11 +44,10 @@ final class Plugin
      * @since 0.1.0
      * @param string    plugin_root_folder    Root folder of the plugin
      */
-    public function __construct(Container $container, $plugin_root_file)
+    public function __construct(Container $container, PluginData $plugin_data)
     {
         $this->container = $container;
-        $this->plugin_root_file = $plugin_root_file;
-        $this->namespace = __NAMESPACE__;
+        $this->plugin_data = $plugin_data;
     }
 
     /**
@@ -67,13 +57,15 @@ final class Plugin
      */
     public function registerServices()
     {
-        $service_providers = $this->container->get('service-providers-config')->config;
+        $service_providers = $this->container->get(Container::id($this->plugin_data->plugin_id, 'service-providers', '', true))->config;
+        $keys = [];
 
         foreach ($service_providers as $key => $value) {
             $args = [];
+            $key = Container::id($this->plugin_data->plugin_id, $key, '');
 
             if (array_key_exists('dependencies', $value)) {
-                $args = $this->filterDependencies($value['dependencies']);
+                $args = $this->resolveDependencies($value['dependencies']);
             }
 
             if (array_key_exists('params', $value)) {
@@ -85,7 +77,13 @@ final class Plugin
             } else {
                 $this->container->set($key, new $value['class']());
             }
+
+            array_push($keys, $key);
         }
+
+        $this->container->setCollection("{$this->plugin_data->plugin_id}-services", $keys);
+
+        return $this;
 
         // $this->container->set('loader', new Loader());
         // $this->container->setWithConfig('constants', __NAMESPACE__ . '\Constants\Constants', 'constants');
@@ -110,19 +108,19 @@ final class Plugin
         // $this->container->setWithConfig('enqueue_manager', __NAMESPACE__ . '\Enqueue\EnqueueManager', 'enqueue', true);
         // $this->container->setWithConfig('admin_enqueue_manager', __NAMESPACE__ . '\Enqueue\EnqueueManager', 'admin-enqueue', true);
         // $this->container->setWithConfig('compatibility', __NAMESPACE__ . '\Setup\Compatibility', 'requirements', false, array($this->container->get('loader')));
-
-
-        return $this;
     }
 
-    protected function filterDependencies(array $dependencies)
+    /**
+     * Resolve the dependencies from the configuration file
+     *
+     * @since 0.5.0
+     * @param array    $dependencies
+     * @return array
+     */
+    protected function resolveDependencies(array $dependencies)
     {
         foreach ($dependencies as $key => $value) {
-            if ($value == 'container') {
-                $dependencies[$key] = $this->container;
-                continue;
-            }
-            $dependencies[$key] = $this->container->get($value);
+            $dependencies[$key] = $this->container->get(Container::id($this->plugin_data->plugin_id, $value));
         }
 
         return $dependencies;
@@ -140,55 +138,14 @@ final class Plugin
             return;
         }
 
-        $this->registerConfigs();
+        ConfigFactory::initConfigs($this->plugin_data->plugin_id, $this->plugin_data->plugin_root_file);
         $this->registerServices();
-        $this->container->get('constants')->define();
-        $this->container->get('compatibility')->check();
-        $this->container->get('plugin_I18n')->loadPluginTextDomain();
-        $this->container->get('enqueue_controller')->enqueueAssets();
-        $this->container->get('enqueue_controller')->enqueueAdminAssets();
-        $this->container->get('admin_controller')->load();
-        $this->container->get('cpt_controller')->addCustomPostTypes();
+        $this->container->get("{$this->plugin_data->plugin_id}-enqueue-controller")->enqueueAssets();
+        $this->container->get("{$this->plugin_data->plugin_id}-enqueue-controller")->enqueueAdminAssets();
+        $this->container->get("{$this->plugin_data->plugin_id}-admin-controller")->load();
 
         $this->loaded = true;
 
         return $this;
-    }
-
-    /**
-     * Register and instantiate the plugin configuration objects
-     *
-     * @since 0.3.0
-     * @return void
-     */
-    protected function registerConfigs()
-    {
-        $config_dir_path = plugin_dir_path($this->plugin_root_file) . 'config/';
-        $config_dir = scandir($config_dir_path);
-
-        $config_files = $this->filterConfigDir($config_dir);
-
-        foreach ($config_files as $config_id => $config_file) {
-            $config_file = $config_dir_path . $config_file;
-            $this->container->set($config_id . '-config', new Config($config_file));
-        }
-
-        return $this;
-    }
-
-    protected function filterConfigDir($config_dir)
-    {
-        foreach ($config_dir as $key => $value) {
-            if (in_array($value, array('.','..','index.php')) || strpos($value, '.php') == false) {
-                unset($config_dir[$key]);
-            }
-        }
-
-        foreach ($config_dir as $config_file) {
-            $config_id = str_replace('.php', '', $config_file);
-            $config[$config_id] = $config_file;
-        }
-
-        return $config;
     }
 }

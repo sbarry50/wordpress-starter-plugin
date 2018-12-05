@@ -2,18 +2,19 @@
 /**
  * Class that loads views, files and assets.
  *
- * @package    Vendor\Plugin\File
+ * @package    SB2Media\Hub\File
  * @since      0.1.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
  */
 
-namespace Vendor\Plugin\File;
+namespace SB2Media\Hub\File;
 
 use Exception;
-use Vendor\Plugin\Support\PluginData;
-use Vendor\Plugin\Setup\Compatibility;
+use SB2Media\Hub\Setup\PluginData;
+use SB2Media\Hub\Setup\Compatibility;
+use function SB2Media\Hub\getPluginData;
 
 class Loader implements LoaderInterface
 {
@@ -63,11 +64,11 @@ class Loader implements LoaderInterface
     public static function isFileValid($file)
     {
         if (! file_exists($file)) {
-            throw new Exception(sprintf('%s %s', __('The file does not exist.', PluginData::headerData('TextDomain')), $file));
+            throw new Exception(sprintf('%s %s', __('The file does not exist.', HUB_TEXT_DOMAIN), $file));
         }
 
         if (! is_readable($file)) {
-            throw new Exception(sprintf('%s %s', __('The file is not readable', PluginData::headerData('TextDomain')), $file));
+            throw new Exception(sprintf('%s %s', __('The file is not readable', HUB_TEXT_DOMAIN), $file));
         }
 
         return true;

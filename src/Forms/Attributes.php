@@ -2,16 +2,16 @@
 /**
  * Class for handling attributes
  *
- * @package    Vendor\Plugin\Forms
+ * @package    SB2Media\Hub\Forms
  * @since      0.3.0
  * @author     sbarry
  * @link       http://example.com
  * @license    GNU General Public License 2.0+
  */
 
-namespace Vendor\Plugin\Forms;
+namespace SB2Media\Hub\Forms;
 
-use Vendor\Plugin\Support\Arr;
+use SB2Media\Hub\Support\Arr;
 
 class Attributes
 {

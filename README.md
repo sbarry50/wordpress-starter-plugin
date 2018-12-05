@@ -1,6 +1,8 @@
-# WordPress Starter Plugin
+# Hub
 
-An object-oriented foundation with a modern file architecture, standards and build tools for crafting high-quality WordPress Plugins.
+** In development. Not ready for production.
+
+Central repository for crafting plugins to extend and customize WordPress
 
 ## Features
 
@@ -31,7 +33,7 @@ Make sure all dependencies have been installed before moving on:
 
 ## Installation
 
-1. From the command line navigate to your WordPress `plugins` directory.
+1. From the command line navigate to your WordPress `mu-plugins` directory.
 2. Run this command: `composer create-project sb2-media/wordpress-starter-plugin`.
 3. Rename the `wordpress-starter-plugin` directory to `your-plugin-name`.
 3. Change into the plugin directory: `cd your-plugin-name`.
@@ -39,7 +41,7 @@ Make sure all dependencies have been installed before moving on:
 5. Update the main plugin header in `plugin.php` with your plugin info.
 6. Run `npm install`.
 7. Run `npm run dev`.
-8. Global search and replace `Vendor\Plugin` namespaces with `YourCompanyName\YourPluginName`.
+8. Global search and replace `SB2Media\Hub` namespaces with `YourCompanyName\YourPluginName`.
 9. Update `composer.json` with relevant information including the namespaces defined in the `autoload` section. They must match the namespaces used in the previous step.
 10. Run `composer dump-autoload -o`.
 11. In the WordPress dashboard, navigate to the *Plugins* page and locate the menu item that reads “Your Plugin Name.”

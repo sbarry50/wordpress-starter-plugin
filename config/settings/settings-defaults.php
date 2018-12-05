@@ -2,16 +2,16 @@
 /**
  * Custom WordPress administration pages and settings configuration parameters
  *
- * @package    Vendor\Plugin
+ * @package    SB2Media\Hub
  * @since      0.3.0
  * @author     sbarry
  * @link       http: //example.com
  * @license    GNU General Public License 2.0+
  */
 
-return array(
+return [
 
-    'pages' => array(
+    'pages' => [
         'page_title'   => '',
         'menu_title'   => '',
         'capability'   => 'manage_options',
@@ -20,16 +20,16 @@ return array(
         'template'     => '',
         'icon_url'     => '',
         'position'     => 110,
-        'register_settings_args' => array(
+        'register_settings_args' => [
             'type'              => '',
             'description'       => '',
             'sanitize_callback' => null,
             'show_in_rest'      => false,
-            'default'           => array(),
-        ),
-    ),
+            'default'           => [],
+        ],
+    ],
 
-    'subpages' => array(
+    'subpages' => [
         'parent_slug'  => '',
         'page_title'   => '',
         'menu_title'   => '',
@@ -37,23 +37,23 @@ return array(
         'menu_slug'    => '',
         'option_name'  => '',
         'template'     => '',
-        'register_settings_args' => array(
+        'register_settings_args' => [
             'type'              => '',
             'description'       => '',
             'sanitize_callback' => null,
             'show_in_rest'      => false,
-            'default'           => array(),
-        ),
-    ),
+            'default'           => [],
+        ],
+    ],
 
-    'sections' => array(
+    'sections' => [
         'id'       => '',
         'title'    => '',
         'template' => '',
         'page'     => '',
-    ),
+    ],
 
-    'settings' => array(
+    'settings' => [
         'id'          => '',
         'title'       => '',
         'page'        => '',
@@ -62,8 +62,8 @@ return array(
         'description' => '',
         'helper'      => '',
         'type'        => '',
-        'options'     => array(),
-    ),
+        'options'     => [],
+    ],
 
     'settings_link' => '',
-);
+];

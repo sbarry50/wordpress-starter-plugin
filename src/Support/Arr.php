@@ -3,7 +3,7 @@
 /**
  * Array Helpers - Static Collection of Helpers for Data Type Array
  *
- * @package     Vendor\Plugin\Support
+ * @package     SB2Media\Hub\Support
  * @since       0.1.0
  * @author      sbarry
  * @link        http://example.com
@@ -18,7 +18,7 @@
  * additional functionality. It has been modified further for this plugin.
  */
 
-namespace Vendor\Plugin\Support;
+namespace SB2Media\Hub\Support;
 
 class Arr
 {

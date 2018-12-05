@@ -1,4 +1,10 @@
 # Change Log
+
+## December 5, 2018 - 0.5.0
+* Rename project to Hub
+* Move plugin to `mu-plugins` directory to act as central repository to craft plugins from
+* Major changes to plugin setup and bootstrapping
+
 ## October 25, 2018 - 0.4.0
 * Custom post type functionality added - configured with `cpt.php` config file
 * Autoload all base config files
@@ -20,7 +26,7 @@
 * Major rewrites to many other classes
 * Added Config file support for enqueuing stylesheets and scripts in the WordPress front and back-ends. This is default behavior.
 * Defined plugin constants moved to config file.
-* Constants now defined in the main `Vendor\Plugin` namespace.
+* Constants now defined in the main `SB2Media\Hub` namespace.
 * Added utility classes -- `PluginData`, `Paths` and `URLs` -- to simplify retrieving data, file and folder paths and URLs within the plugin.
 
 ## August 15, 2017 - 0.1.2
